@@ -1,0 +1,33 @@
+rules:
+  - id: swe-108
+    patterns:
+      - pattern-not-inside: |
+          function $F() {
+            ...
+          }
+      - pattern-not-inside: |
+          struct $S {
+            ...
+          }
+      - pattern-either:
+          - pattern: $TYPE $VAR;
+          - pattern: $TYPE $VAR = $VAL;
+      - pattern-not-regex: bool\s+((public)|(private)|(internal))+
+      - pattern-not-regex: u*int[0-9]*\s+((public)|(private)|(internal))+
+      - pattern-not-regex: address(\s+payable)*\s+((public)|(private)|(internal))+
+      - pattern-not-regex: bytes[0-9]*\s+((public)|(private)|(internal))+
+      - pattern-not-regex: string*\s+((public)|(private)|(internal))+
+      - pattern-not-regex: "[a-zA-Z0-9]+\\s+((public)|(private)|(internal))+"
+      - pattern-not-regex: "[a-zA-Z0-9]+(\\[\\])+\\s+((public)|(private)|(internal))+"
+      - pattern-not-regex: mapping.*\s+((public)|(private)|(internal))+
+    message: >
+      Labeling the visibility explicitly makes it easier to catch incorrect
+      assumptions about who can access the variable.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references:
+        - https://swcregistry.io/docs/SWC-108/
+        - https://docs.soliditylang.org/en/latest/types.html
+      cwe: "CWE 710: Improper Adherence to Coding Standards"

@@ -1,0 +1,19 @@
+rules:
+  - id: swe-100
+    patterns:
+      - pattern: function $F() { ... }
+      - pattern-not: function $F() public { ... }
+      - pattern-not: function $F() private { ... }
+      - pattern-not: function $F() external { ... }
+      - pattern-not: function $F() internal { ... }
+    message: |
+      Functions that do not have a function visibility type specified are public
+      by default. This can lead to a vulnerability if a developer forgot to set
+      the visibility and a malicious user is able to make unauthorized or
+      unintended state changes.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references: https://swcregistry.io/docs/SWC-100/
+      cwe: "CWE 710: Improper Adherence to Coding Standards"
