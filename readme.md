@@ -9,45 +9,11 @@ Directory structure:
 - `frontend`: web interface.
 - `requirements.txt`: dependencies management.
 
-## Setup
+## Run Semgrep
 
-Built with Python 3.11, use [pyenv-win](https://github.com/pyenv-win/pyenv-win) if want to manage multiple python versions.
-
-Initialize virtual environment:
+Run with Docker:
 
 ```powershell
-python -m venv .
+docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
+docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config ./core/rules/swe-100.yaml ./core/tests/swe-100.sol
 ```
-
-Activate virtual environment:
-
-```powershell
-source .\Scripts\activate
-```
-
-After activation:
-
-```powershell
-⮞  pip list
-Package    Version
----------- -------
-pip        24.0
-setuptools 65.5.0
-```
-
-To install dependencies:
-
-```powershell
-pip install -r requirements.txt
-```
-
-To export dependencies:
-
-```powershell
-pip freeze > requirements.txt
-```
-
-## Dependencies
-
-- [libsast](https://github.com/ajinabraham/libsast)
-- [slither](https://github.com/crytic/slither)

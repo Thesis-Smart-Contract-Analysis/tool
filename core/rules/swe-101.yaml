@@ -1,0 +1,71 @@
+rules:
+  - id: swe-101
+    pattern-either:
+      - patterns:
+          - pattern: $X + $Y
+          - pattern-not-inside: |
+              function $F(...) {
+                ...
+                require($Z >= $X);
+              }
+      - pattern: $X += $Y
+      - patterns:
+          - pattern: $X - $Y
+          - pattern-not-inside: |
+              function $F(...) {
+                require ($Y <= $X);
+                ...
+              }
+          - pattern-not-inside: |
+              function $F(...) {
+                require ($X >= $Y);
+                ...
+              }
+      - patterns:
+          - pattern: $X -= $Y
+          - pattern-not-inside: |
+              function $F(...) {
+                require ($Y <= $X);
+                ...
+              }
+          - pattern-not-inside: |
+              function $F(...) {
+                require ($X >= $Y);
+                ...
+              }
+      - patterns:
+          - pattern: $X * $Y
+          - pattern-not-inside: |
+              function $F(...) {
+                ...
+                require(<... $Z / $X == $Y ...>);
+              }
+      - pattern: $X *= $Y
+      # - pattern: $X / $Y
+      # - pattern: $X /= $Y
+      - pattern: $X % $Y
+      - pattern: $X %= $Y
+      - pattern: $X ** $Y
+      - patterns:
+          - pattern-either:
+              - pattern: $V++
+              - pattern: ++$V
+              - pattern: $V--
+              - pattern: --$V
+          - pattern-not-inside: |
+              for(...) {
+                ...
+              }
+    message: When an arithmetic operation tries to produce a numeric value that is
+      either higher than the maximum or lower than the lowest representable
+      value, it is known as an integer overflow or integer underflow.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references:
+        - https://swcregistry.io/docs/SWC-101/
+        - https://docs.soliditylang.org/en/latest/types.html
+        - https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity
+      cwe:
+        - "CWE-682: Incorrect Calculation"
