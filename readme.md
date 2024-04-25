@@ -5,6 +5,9 @@
 Cấu trúc thư mục:
 - `common`: các chức năng dùng chung chẳng hạn như utils, logger, ...
 - `core`: các chức năng cốt lõi.
+  - `rules`: chứa pattern.
+  - `tests`: chứa các smart contract dùng để test.
+  - `outputs`: chứa kết quả của việc test, dùng để đảm bảo tính đồng nhất giữa các lần test.
 - `services`: API.
 - `frontend`: giao diện web.
 - `requirements.txt`: quản lý phụ thuộc.
