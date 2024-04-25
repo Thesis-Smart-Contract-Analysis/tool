@@ -1,0 +1,53 @@
+rules:
+  - id: swe-104
+    patterns:
+      - pattern-either:
+          - pattern: $ADDRESS.$METHOD(...)
+          - pattern: $ADDRESS.$METHOD{value:$VAL}(...)
+          - pattern: $ADDRESS.$METHOD{value:$VAL,gas:$GAS}(...)
+      - metavariable-pattern:
+          metavariable: $METHOD
+          pattern-either:
+            - pattern: call
+            - pattern: delegatecall
+            - pattern: staticcall
+            - pattern: send
+      - pattern-not-inside: require(...)
+      - pattern-not-inside: assert(...)
+      - pattern-not-inside: if(...) { }
+      - pattern-not-inside: |
+          function $FUNC(...) {
+            $SUCCESS = ...;
+            ...
+            require($SUCESS, "...");
+          }
+      - pattern-not-inside: |
+          function $FUNC(...) {
+            $SUCCESS = ...;
+            ...
+            assert($SUCESS);
+          }
+      - pattern-not-inside: |
+          function $FUNC(...) {
+            $SUCCESS = ...;
+            ...
+            if($SUCESS) {
+              revert(...);
+              ...
+            }
+          }
+    message: The return value of a message call is not checked. Execution will
+      resume even if the called contract throws an exception. If the call fails
+      accidentally or an attacker forces the call to fail, this may cause
+      unexpected behaviour in the subsequent program logic.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      cwe: "CWE-252: Unchecked Return Value"
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-104/
+        - https://cwe.mitre.org/data/definitions/252.html
+        - https://github.com/crytic/not-so-smart-contracts/blob/master/unchecked_external_call/KotET_source_code/KingOfTheEtherThrone.sol
+        - https://github.com/ethereumbook/ethereumbook/blob/develop/09smart-contracts-security.asciidoc#real-world-example-etherpot-and-king-of-the-ether
