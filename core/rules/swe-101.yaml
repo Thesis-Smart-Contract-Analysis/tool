@@ -56,9 +56,9 @@ rules:
               for(...) {
                 ...
               }
-    message: When an arithmetic operation tries to produce a numeric value that is
-      either higher than the maximum or lower than the lowest representable
-      value, it is known as an integer overflow or integer underflow.
+    message: The product performs a calculation that generates incorrect or
+      unintended results that are later used in security-critical decisions or
+      resource management.
     languages:
       - solidity
     severity: WARNING
