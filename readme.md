@@ -3,15 +3,20 @@
 ## Description
 
 Directory structure:
-- `common`: common functions like utils, logger, etc.
-- `core`: core functionalities of the tool.
-- `services`: restful services.
-- `frontend`: web interface.
-- `requirements.txt`: dependencies management.
+- `common`: các chức năng dùng chung chẳng hạn như utils, logger, ...
+- `core`: các chức năng cốt lõi.
+- `services`: API.
+- `frontend`: giao diện web.
+- `requirements.txt`: quản lý phụ thuộc.
+
+## Rule's Convention
+
+- Dựa trên bài báo "Unveiling the Landscape of Smart Contract Vulnerabilities: A Detailed Examination and Codification of Vulnerabilities in Prominent Blockchains" để viết định danh (`id`) và mô tả (`message`). Nếu mô tả trong bài báo này hoặc ở SWC không hợp lý, chẳng hạn như SWC-101 nó đi giải thích thay vì đưa ra cảnh báo, thì có thể dùng mô tả của CWE tương ứng.
+- Tạm thời không cần quan tâm đến version của lỗ hổng. Sau này mình sẽ xây dựng một cơ chế để phát hiện lỗ hổng trong một khoảng version nhất định nào đó.
 
 ## Run Semgrep
 
-Run with Docker:
+Chạy với Docker:
 
 ```powershell
 docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
