@@ -1,0 +1,91 @@
+rules:
+  - id: swe-105
+    pattern-either:
+      # Unprotected ETH withdrawal
+      - patterns:
+          - pattern-inside: |
+              function $F(...) {
+                ...
+              }
+          - pattern-not-inside: |
+              function $F(...) onlyOwner {
+                ...
+              }
+          - pattern-not-inside: |
+              contract $C {
+              ...
+              $T $OWNER;
+              ...
+              function $F(...) {
+                  ...
+                  require($OWNER == msg.sender);
+                  ...
+                }
+              }
+          - pattern-either:
+              - pattern: $A.$M(this.balance)
+              - pattern: $A.$M{value:this.balance}(...)
+          - metavariable-pattern:
+              metavariable: $M
+              pattern-either:
+                - pattern: transfer
+                - pattern: send
+                - pattern: call
+      # Public named constructor/supposed to be contructor
+      - patterns:
+          - pattern-inside: |
+              contract $C {
+                ...
+                $TYPE $A;
+                ...
+              }
+          - pattern: |
+              function $F(...) {
+                ...
+                $A = msg.sender;
+                ...
+              }
+          - pattern-not: |
+              constructor(...) {
+                ...
+                $A = msg.sender;
+                ...
+              }
+          - focus-metavariable: $F
+      # Missing modifier when setting owners
+      - patterns:
+          - pattern-inside: |
+              contract $C {
+                ...
+                $TYPE $OWNERS;
+                ...
+                modifier $M() {
+                  require(<... $OWNERS ...>);
+                  _;
+                }
+                ...
+              }
+          - pattern: |
+              function $F(..., address $OWNER, ...) {
+                ...
+                $OWNERS[$OWNER] = msg.sender;
+                ...
+              }
+          - pattern-not: |
+              function $F(..., address $OWNER, ...) $M {
+                ...
+                $OWNERS[$OWNER] = msg.sender;
+                ...
+              }
+          - focus-metavariable: $F
+    message: Due to missing or insufficient access controls, malicious parties can withdraw some or all Ether from the contract account.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      cwe:
+        - "CWE 284: Improper Access Control"
+      references:
+        - https://swcregistry.io/docs/SWC-105/
+        - https://cwe.mitre.org/data/definitions/284.html
