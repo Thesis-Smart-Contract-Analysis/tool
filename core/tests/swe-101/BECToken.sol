@@ -1,306 +1,31 @@
-pragma solidity ^0.4.24;
-
-/*
- * @source: https://capturetheether.com/challenges/math/token-sale/
- * @author: Steve Marx
- */
-contract TokenSaleChallenge {
-    mapping(address => uint256) public balanceOf;
-    uint256 constant PRICE_PER_TOKEN = 1 ether;
-
-    function TokenSaleChallenge(address _player) public payable {
-        require(msg.value == 1 ether);
-    }
-
-    function isComplete() public view returns (bool) {
-        return address(this).balance < 1 ether;
-    }
-
-    function buy(uint256 numTokens) public payable {
-        //ruleid: swe-101
-        require(msg.value == numTokens * PRICE_PER_TOKEN);
-        //ruleid: swe-101
-        balanceOf[msg.sender] += numTokens;
-    }
-
-    function sell(uint256 numTokens) public {
-        require(balanceOf[msg.sender] >= numTokens);
-        //ok: swe-101
-        balanceOf[msg.sender] -= numTokens;
-        //ruleid: swe-101
-        msg.sender.transfer(numTokens * PRICE_PER_TOKEN);
-    }
-}
-
-//Single transaction overflow
-contract IntegerOverflowMappingSym1 {
-    mapping(uint256 => uint256) map;
-
-    function init(uint256 k, uint256 v) public {
-        //ruleid: swe-101
-        map[k] -= v;
-    }
-}
-
-//Single transaction overflow
-//Safe version
-contract IntegerOverflowMappingSym1_Fixed {
-    mapping(uint256 => uint256) map;
-
-    function init(uint256 k, uint256 v) public {
-        map[k] = sub(map[k], v);
-    }
-
-    //from SafeMath
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a); //SafeMath uses assert here
-        //ok: swe-101
-        return a - b;
-    }
-}
-
-//Single transaction overflow
-//Post-transaction effect: overflow escapes to publicly-readable storage
-contract IntegerOverflowMinimal {
-    uint public count = 1;
-
-    function run(uint256 input) public {
-        //ruleid: swe-101
-        count -= input;
-    }
-}
-
-//Single transaction overflow
-//Post-transaction effect: overflow escapes to publicly-readable storage
-//Safe version
-contract IntegerOverflowMinimal_Fixed {
-    uint public count = 1;
-
-    function run(uint256 input) public {
-        count = sub(count, input);
-    }
-
-    //from SafeMath
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a); //SafeMath uses assert here
-        //ok: swe-101
-        return a - b;
-    }
-}
-
-//Single transaction overflow
-//Post-transaction effect: overflow escapes to publicly-readable storage
-contract IntegerOverflowMul {
-    uint public count = 2;
-
-    function run(uint256 input) public {
-        //ruleid: swe-101
-        count *= input;
-    }
-}
-
-//Single transaction overflow
-//Post-transaction effect: overflow escapes to publicly-readable storage
-//Safe version
-contract IntegerOverflowMul_Fixed {
-    uint public count = 2;
-
-    function run(uint256 input) public {
-        count = mul(count, input);
-    }
-
-    //from SafeMath
-    function mul(uint256 a, uint256 b) internal pure returns (uint256) {
-        // Gas optimization: this is cheaper than requiring 'a' not being zero, but the
-        // benefit is lost if 'b' is also tested.
-        // See: https://github.com/OpenZeppelin/openzeppelin-solidity/pull/522
-        if (a == 0) {
-            return 0;
-        }
-
-        //ok: swe-101
-        uint256 c = a * b;
-        //ok: swe-101
-        require(c / a == b);
-
-        return c;
-    }
-}
-
-/*
- * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
- * @author: Suhabe Bugrara
- */
-//Multi-transactional, multi-function
-//Arithmetic instruction reachable
-contract IntegerOverflowMultiTxMultiFuncFeasible {
-    uint256 private initialized = 0;
-    uint256 public count = 1;
-
-    function init() public {
-        initialized = 1;
-    }
-
-    function run(uint256 input) {
-        if (initialized == 0) {
-            return;
-        }
-
-        //ruleid: swe-101
-        count -= input;
-    }
-}
-
-/*
- * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
- * @author: Suhabe Bugrara
- */
-//Multi-transactional, multi-function
-//Arithmetic instruction reachable (Safe)
-contract IntegerOverflowMultiTxMultiFuncFeasible_Fixed {
-    uint256 private initialized = 0;
-    uint256 public count = 1;
-
-    function init() public {
-        initialized = 1;
-    }
-
-    function run(uint256 input) {
-        if (initialized == 0) {
-            return;
-        }
-
-        count = sub(count, input);
-    }
-
-    //from SafeMath
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a); //SafeMath uses assert here
-        //ok: swe-101
-        return a - b;
-    }
-}
-
-/*
- * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
- * @author: Suhabe Bugrara
- */
-//Multi-transactional, single function
-//Arithmetic instruction reachable
-contract IntegerOverflowMultiTxOneFuncFeasible {
-    uint256 private initialized = 0;
-    uint256 public count = 1;
-
-    function run(uint256 input) public {
-        if (initialized == 0) {
-            initialized = 1;
-            return;
-        }
-
-        //ruleid: swe-101
-        count -= input;
-    }
-}
-
-/*
- * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
- * @author: Suhabe Bugrara
- */
-//Multi-transactional, single function
-//Arithmetic instruction reachable (Safe)
-contract IntegerOverflowMultiTxOneFuncFeasible_Fixed {
-    uint256 private initialized = 0;
-    uint256 public count = 1;
-
-    function run(uint256 input) public {
-        if (initialized == 0) {
-            initialized = 1;
-            return;
-        }
-
-        count = sub(count, input);
-    }
-
-    //from SafeMath
-    function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a); //SafeMath uses assert here
-        //ok: swe-101
-        return a - b;
-    }
-}
-
-/*
- * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
- * @author: Suhabe Bugrara
- */
-//Multi-transactional, single function
-//Overflow infeasible because arithmetic instruction not reachable
-contract IntegerOverflowMultiTxOneFuncInfeasible {
-    uint256 private initialized = 0;
-    uint256 public count = 1;
-
-    function run(uint256 input) public {
-        if (initialized == 0) {
-            return;
-        }
-
-        //todook: swe-101
-        count -= input;
-    }
-}
-
-contract Overflow_Add {
-    uint public balance = 1;
-
-    function add(uint256 deposit) public {
-        //ruleid: swe-101
-        balance += deposit;
-    }
-}
-
-contract Overflow_Add_Fixed {
-    uint public balance = 1;
-
-    function add(uint256 deposit) public {
-        balance = add(balance, deposit);
-    }
-
-    //from SafeMath
-    function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        //ok: swe-101
-        uint256 c = a + b;
-        require(c >= a);
-
-        return c;
-    }
-}
+pragma solidity ^0.4.16;
 
 /**
  * @title SafeMath
  * @dev Math operations with safety checks that throw on error
  */
 library SafeMath {
-    function mul(uint256 a, uint256 b) internal returns (uint256) {
+    function mul(uint256 a, uint256 b) internal constant returns (uint256) {
         //ok: swe-101
         uint256 c = a * b;
         require(a == 0 || c / a == b);
         return c;
     }
 
-    function div(uint256 a, uint256 b) internal returns (uint256) {
+    function div(uint256 a, uint256 b) internal constant returns (uint256) {
         // require(b > 0); // Solidity automatically throws when dividing by 0
         uint256 c = a / b;
         // require(a == b * c + a % b); // There is no case in which this doesn't hold
         return c;
     }
 
-    function sub(uint256 a, uint256 b) internal returns (uint256) {
+    function sub(uint256 a, uint256 b) internal constant returns (uint256) {
         require(b <= a);
         //ok: swe-101
         return a - b;
     }
 
-    function add(uint256 a, uint256 b) internal returns (uint256) {
+    function add(uint256 a, uint256 b) internal constant returns (uint256) {
         //ok: swe-101
         uint256 c = a + b;
         require(c >= a);
@@ -315,8 +40,11 @@ library SafeMath {
  */
 contract ERC20Basic {
     uint256 public totalSupply;
-    function balanceOf(address who) public returns (uint256);
+
+    function balanceOf(address who) public constant returns (uint256);
+
     function transfer(address to, uint256 value) public returns (bool);
+
     event Transfer(address indexed from, address indexed to, uint256 value);
 }
 
@@ -350,7 +78,9 @@ contract BasicToken is ERC20Basic {
      * @param _owner The address to query the the balance of.
      * @return An uint256 representing the amount owned by the passed address.
      */
-    function balanceOf(address _owner) public returns (uint256 balance) {
+    function balanceOf(
+        address _owner
+    ) public constant returns (uint256 balance) {
         return balances[_owner];
     }
 }
@@ -360,13 +90,19 @@ contract BasicToken is ERC20Basic {
  * @dev see https://github.com/ethereum/EIPs/issues/20
  */
 contract ERC20 is ERC20Basic {
-    function allowance(address owner, address spender) public returns (uint256);
+    function allowance(
+        address owner,
+        address spender
+    ) public constant returns (uint256);
+
     function transferFrom(
         address from,
         address to,
         uint256 value
     ) public returns (bool);
+
     function approve(address spender, uint256 value) public returns (bool);
+
     event Approval(
         address indexed owner,
         address indexed spender,
@@ -431,7 +167,7 @@ contract StandardToken is ERC20, BasicToken {
     function allowance(
         address _owner,
         address _spender
-    ) public returns (uint256 remaining) {
+    ) public constant returns (uint256 remaining) {
         return allowed[_owner][_spender];
     }
 }
