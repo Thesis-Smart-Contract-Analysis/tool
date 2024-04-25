@@ -26,11 +26,16 @@ Kích hoạt môi trường ảo:
 .\Scripts\activate
 ```
 
-## Rule's Convention
+## Convention
 
 Các quy ước khi viết rule:
 - Dựa trên bài báo "Unveiling the Landscape of Smart Contract Vulnerabilities: A Detailed Examination and Codification of Vulnerabilities in Prominent Blockchains" để viết định danh (`id`) và mô tả (`message`). Nếu mô tả trong bài báo này hoặc ở SWC không hợp lý, chẳng hạn như SWC-101 nó đi giải thích thay vì đưa ra cảnh báo, thì có thể dùng mô tả của CWE tương ứng.
 - Tạm thời không cần quan tâm đến version của lỗ hổng. Sau này mình sẽ xây dựng một cơ chế để phát hiện lỗ hổng trong một khoảng version nhất định nào đó.
+- Khi viết test bằng SemGrep, cần sử dụng những [comment sau](https://semgrep.dev/docs/writing-rules/testing-rules) để đánh dấu:
+  - `//ruleid: <id>`: cho biết dòng bên dưới cần được match.
+  - `//ok: <id>`: cho biết dòng bên dưới không được match.
+  - `//todook: <id>`: cho biết dòng bên dưới cần được match nhưng hiện tại không match được.
+  - `//todook: <id>`: cho biết dòng bên dưới không được match nhưng hiện tại vẫn match.
 
 ## Solidity in VSCode
 
