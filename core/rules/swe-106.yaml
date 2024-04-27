@@ -1,0 +1,122 @@
+rules:
+  - id: swe-106
+    patterns:
+      - pattern: $K($A);
+      - pattern-either:
+          - pattern-inside: |
+              function $F() {
+                ...
+              }
+          - pattern-inside: |
+              function $F(...) {
+                ...
+              }
+          - pattern-inside: |
+              function $F(..., $T $A, ...) {
+                ...
+              }
+          - pattern-inside: |
+              function $F(..., $T $A2, ...) {
+                $A = payable($A2);
+                ...
+              }
+      - metavariable-pattern:
+          metavariable: $K
+          pattern-either:
+            - pattern: suicide
+            - pattern: selfdestruct
+      - metavariable-regex:
+          metavariable: $A
+          regex: "[a-zA-Z0-9_]+"
+      # Negative: private/internal functions
+      - pattern-not-inside: |
+          function $F(...) private {
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...) internal {
+            ...
+          }
+      # Negative: onlyOwner modifier
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) onlyOwner {
+            ...
+          }
+      # Negative: has modifier on address
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) $MODIFIER($A) {
+            ...
+          }
+      # Negative: require with msg.sender
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            require(<... msg.sender ...>, ...);
+            ...
+          }
+      # Negative: require with _msgSender() from OpenZeppelin
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            require(<... _msgSender ...>, ...);
+            ...
+          }
+      # Negative: assert with msg.sender
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            assert(<... msg.sender ...>, ...);
+            ...
+          }
+      # Negative: assert with _msgSender() from OpenZeppelin
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            assert(<... _msgSender ...>, ...);
+            ...
+          }
+      # Negative: if statement with msg.sender
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            if(<... msg.sender ...>) {
+              ...
+            }
+            ...
+          }
+      # Negative: if statement with _msgSender() from OpenZeppelin
+      - pattern-not-inside: |
+          function $F(...,$T $A,...) {
+            ...
+            if(<... _msgSender ...>) {
+              ...
+            }
+            ...
+          }
+      # Negative: check function with msg.sender
+      - pattern-not-inside: |
+          function $F(..., $T $A, ...) {
+            ...
+            $CHECK(msg.sender);
+            ...
+          }
+      # Negative: check function with _msgSender() from OpenZeppelin
+      - pattern-not-inside: |
+          function $F(..., $T $A, ...) {
+            ...
+            $CHECK(_msgSender);
+            ...
+          }
+    message:
+      Due to missing or insufficient access controls, malicious parties can
+      self-destruct the contract.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      cwe:
+        - "CWE 284: Improper Access Control"
+      references:
+        - https://swcregistry.io/docs/SWC-106/#walletlibrarysol
+        - https://cwe.mitre.org/data/definitions/284.html
