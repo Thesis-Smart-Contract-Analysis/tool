@@ -1,0 +1,75 @@
+rules:
+  - id: swe-107
+    pattern-either:
+      - patterns:
+          - pattern-inside: |
+              contract $C {
+                ...
+                $STATE_VARIBLE_TYPE $STATE_VARIABLE;
+                ...
+              }
+          - pattern-either:
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M($V);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M.$M2($V);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M.$M2($V).$M3($G);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M{value:$V}(...);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M{value:$V,gas:$G}(...);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
+          - focus-metavariable: $M
+          - metavariable-pattern:
+              metavariable: $M
+              pattern-either:
+                - pattern: call
+                - pattern: delegatecall
+                - pattern: staticcall
+                - pattern: send
+                - pattern: transfer
+    message:
+      In the reentrancy attack (a.k.a. recursive call attack), a malicious
+      contract calls back into the calling contract before the first invocation
+      of the function is finished. This may cause the different invocations of
+      the function to interact in undesirable ways.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-107/
+        - https://cwe.mitre.org/data/definitions/841.html
+      cwe:
+        - "CWE 841: Improper Enforcement of Behavioral Workflow"
