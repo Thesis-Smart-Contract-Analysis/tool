@@ -1,6 +1,31 @@
 rules:
   - id: swe-107
     pattern-either:
+      # Modifier reentrancy
+      - patterns:
+          - pattern: |
+              function $F(...) $M1(...) $M2(...) public {
+                ...
+                <... $STATE_VARIABLE ...>;
+                ...
+              }
+          - pattern-inside: |
+              contract $C {
+                $STATE_VARIBLE_TYPE $STATE_VARIABLE;
+                $CONTRACT_TYPE $CONTRACT_INSTANCE;
+                constructor(...,address $CONTRACT_ADDRESS,...) {
+                  ...
+                  $CONTRACT_INSTANCE = $CONTRACT_TYPE($CONTRACT_ADDRESS);
+                  ...
+                }
+                modifier $M2(...) {
+                  ...
+                  <... $CONTRACT_INSTANCE.$M2 ...>;
+                  ...
+                }
+              }
+          - focus-metavariable: $M2
+      # Normal reentrancy
       - patterns:
           - pattern-inside: |
               contract $C {
