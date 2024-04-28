@@ -1,0 +1,203 @@
+rules:
+  - id: swe-110
+    pattern-either:
+      # assert with false
+      - patterns:
+          - pattern-either:
+              - pattern: |
+                  contract $C {
+                    function $C(...) {
+                      ...
+                      $ASSERT(false);
+                      ...
+                    }
+                  }
+              - pattern: |
+                  function $F(...) {
+                    ...
+                    $ASSERT(false);
+                    ...
+                  }
+              - pattern: |
+                  constructor(...) {
+                    ...
+                    $ASSERT(false);
+                    ...
+                  }
+          - focus-metavariable: $ASSERT
+          - metavariable-pattern:
+              metavariable: $ASSERT
+              pattern: assert
+      # assert on modifiable value
+      - patterns:
+          - pattern: |
+              function $F2(...) {
+                ...
+                $ASSERT(<... $VAR ...>);
+                ...
+              }
+          - pattern-either:
+              - pattern-inside: |
+                  contract $C {
+                    $VAR_TYPE $VAR;
+                    ...
+                    function $F1(...) {
+                      ...
+                      $VAR = $NEW_VAL;
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $VAR_TYPE $VAR = $VAL;
+                    ...
+                    function $F1(...) {
+                      ...
+                      $VAR = $NEW_VAL;
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $VAR_TYPE $VAR;
+                    ...
+                    function $F1(...) {
+                      ...
+                      $VAR[$IDX] = $NEW_VAL;
+                      ...
+                    }
+                  }
+          - pattern-not-inside: |
+              contract $C {
+                $VAR_TYPE $VAR;
+                ...
+                constructor(...,$VAR_TYPE $ARG,...) {
+                  ...
+                  require(<... $ARG ...>);
+                  $VAR = $ARG;
+                  ...
+                }
+              }
+          - pattern-not-inside: |
+              contract $C {
+                $VAR_TYPE $VAR;
+                ...
+                function $C(...,$VAR_TYPE $ARG,...) {
+                  ...
+                  require(<... $ARG ...>);
+                  $VAR = $ARG;
+                  ...
+                }
+              }
+          - focus-metavariable: $ASSERT
+          - metavariable-pattern:
+              metavariable: $ASSERT
+              pattern: assert
+      # assert on call to external function
+      - patterns:
+          - pattern-either:
+              - pattern: |
+                  function $F(...) {
+                    ...
+                    $ASSERT(<... $CONTRACT_INSTANCE.$METHOD ...>);
+                    ...
+                  }
+          - pattern-either:
+              - pattern-inside: |
+                  contract $C {
+                    ...
+                    $CONTRACT_TYPE $CONTRACT_INSTANCE = new $CONTRACT_TYPE(...);
+                    ...
+                  }
+              - pattern-inside: >
+                  contract $C {
+                    ...
+                    $CONTRACT_TYPE $CONTRACT_INSTANCE;
+                    ...
+                    constructor(...) {
+                      ...
+                      $CONTRACT_TYPE $CONTRACT_INSTANCE = new $CONTRACT_TYPE(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: >
+                  contract $C {
+                    ...
+                    $CONTRACT_TYPE $CONTRACT_INSTANCE;
+                    ...
+                    function $C(...) {
+                      ...
+                      $CONTRACT_TYPE $CONTRACT_INSTANCE = new $CONTRACT_TYPE(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  function $C(...) {
+                    ...
+                    $CONTRACT_TYPE $CONTRACT_INSTANCE = new $CONTRACT_TYPE(...);
+                    ...
+                  }
+          - focus-metavariable: $ASSERT
+          - metavariable-pattern:
+              metavariable: $ASSERT
+              pattern: assert
+      - patterns:
+          - pattern: |
+              function $F(...) {
+                ...
+                $ASSERT(<... $CONTRACT_TYPE($CONTRACT_INSTANCE).$METHOD ...>);
+                ...
+              }
+          - focus-metavariable: $ASSERT
+          - metavariable-pattern:
+              metavariable: $ASSERT
+              pattern: assert
+      # assert on gas difference
+      - patterns:
+          - pattern-inside: |
+              function $F(...) {
+                $T $X = gasleft();
+                ...
+                $T $Y = gasleft();
+                ...
+                
+                ...
+              }
+          - pattern-either:
+              - pattern: assert($Y > $X)
+              - pattern: assert($Y >= $X)
+              - pattern: assert($X < $Y)
+              - pattern: assert($X <= $Y)
+              - pattern: assert($X == $Y)
+              - pattern: assert($Y == $X)
+      # assert on index access
+      - patterns:
+          - pattern: <... $ARR[$IDX] ...>;
+          - pattern-either:
+              - pattern-inside: |
+                  contract $C {
+                    $T[] $ARR;
+                    ...
+                    function $F(...,$T $IDX,...) {
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $T[...] $ARR;
+                    ...
+                    function $F(...,$T $IDX,...) {
+                      ...
+                    }
+                  }
+    message: Properly functioning code should never reach a failing assert statement.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      cwe:
+        - "CWE 670: Always-Incorrect Control Flow Implementation"
+      references:
+        - https://swcregistry.io/docs/SWC-110/#assert_constructorsol
+        - https://cwe.mitre.org/data/definitions/670.html
