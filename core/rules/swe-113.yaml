@@ -1,0 +1,149 @@
+rules:
+  - id: swe-113
+    pattern-either:
+      # Case: external call in require, assert, if-with-revert or loop
+      # Case: external call before setting state variables (seem likes reentrancy)
+      - patterns:
+          - pattern: <... $ADDR.$METHOD(...) ...>
+          - pattern-either:
+              - pattern-inside: require(...)
+              - pattern-inside: assert(...)
+              - pattern-inside: |
+                  for(...) {
+                    ...
+                  }
+              - pattern-inside: |
+                  function $F(...) {
+                    $SUCCESS = ...;
+                    ...
+                    require(<... $SUCCESS ...>, ...);
+                  }
+              - pattern-inside: |
+                  function $F(...) {
+                    $SUCCESS = ...;
+                    ...
+                    assert(<... $SUCCESS ...>, ...);
+                  }
+              - pattern-inside: |
+                  function $F(...) {
+                    $SUCCESS = ...;
+                    ...
+                    if(<...$SUCESS...>) {
+                      ...
+                      revert(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $TYPE $VAR;
+                    ...
+                    function $F(...) {
+                      ...
+                      if($COND) {
+                        ...
+                      }
+                      ...
+                      $VAR = $VAL
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $TYPE $VAR;
+                    ...
+                    function $F(...) {
+                      ...
+                      $VAR = $VAL
+                    }
+                  }
+          - focus-metavariable: $METHOD
+          - metavariable-pattern:
+              metavariable: $METHOD
+              pattern-either:
+                - pattern: call
+                - pattern: delegatecall
+                - pattern: staticcall
+                - pattern: send
+                - pattern: transfer
+      # Case: looping through externally manipulated mappings or arrays
+      - patterns:
+          - pattern: $F2($COLLECTION[$IDX2], ...);
+          - pattern-either:
+              - pattern-inside: |
+                  contract $C {
+                    $ARR_TYPE[] $COLLECTION;
+                    ...
+                    function $F1(...) {
+                      ...
+                      $ARR.push(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $ARR_TYPE[] $COLLECTION;
+                    ...
+                    function $F1(...) external {
+                      ...
+                      $ARR.push(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    $ARR_TYPE[] $COLLECTION;
+                    ...
+                    function $F1(...) public {
+                      ...
+                      $ARR.push(...);
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    mapping($K => $V) $COLLECTION;
+                    ...
+                    function $F1(...) {
+                      ...
+                      $COLLECTION[$IDX1] = ...;
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    mapping($K => $V) $COLLECTION;
+                    ...
+                    function $F1(...) external {
+                      ...
+                      $COLLECTION[$IDX1] = ...;
+                      ...
+                    }
+                  }
+              - pattern-inside: |
+                  contract $C {
+                    mapping($K => $V) $COLLECTION;
+                    ...
+                    function $F1(...) public {
+                      ...
+                      $COLLECTION[$IDX1] = ...;
+                      ...
+                    }
+                  }
+          - pattern-inside: |
+              for(...;<... $COLLECTION ...>;...) {
+                ...
+              }
+          - focus-metavariable: $COLLECTION
+    message:
+      External calls can fail accidentally or deliberately, which can cause a
+      DoS condition in the contract.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-113/
+        - https://cwe.mitre.org/data/definitions/703.html
+      cwe:
+        - "CWE 703: Improper Check or Handling of Exceptional Conditions"
