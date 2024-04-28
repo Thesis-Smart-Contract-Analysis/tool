@@ -1,0 +1,45 @@
+rules:
+  - id: swe-115
+    patterns:
+      - pattern: <... tx.origin ...>;
+      - pattern-either:
+          - pattern-inside: require(...);
+          - pattern-inside: assert(...);
+          - pattern-inside: if(...) {...}
+          - pattern-inside: |
+              function $F(...) {
+                $BOOL = ...;
+                ...
+                require($BOOL, ...);
+              }
+          - pattern-inside: |
+              function $F(...) {
+                $BOOL = ...;
+                ...
+                assert($BOOL, ...);
+              }
+          - pattern-inside: |
+              function $F(...) {
+                $BOOL = ...;
+                ...
+                if(<... $BOOL ...>) {
+                  ...
+                  revert(...);
+                  ...
+                }
+              }
+    message:
+      tx.origin is a global variable in Solidity which returns the address of
+      the account that sent the transaction. Using the variable for
+      authorization could make a contract vulnerable if an authorized account
+      calls into a malicious contract.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-115/
+        - https://cwe.mitre.org/data/definitions/477.html
+      cwe:
+        - "CWE 477: Use of Obsolete Function"
