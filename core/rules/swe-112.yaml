@@ -1,0 +1,42 @@
+rules:
+  - id: swe-112
+    patterns:
+      - pattern-either:
+          - pattern-inside: >
+              function $F(..., address $ADDR, ..., bytes $DATA, ...)
+              external { ... }
+          - pattern-inside: >
+              function $F(..., address $ADDR, ..., bytes $DATA, ...)
+              public { ... }
+          - pattern-inside: >
+              function $F(..., address $ADDR, ..., bytes calldata $DATA, ...)
+              external { ... }
+          - pattern-inside: >
+              function $F(..., address $ADDR, ..., bytes calldata $DATA, ...)
+              public { ... }
+      - pattern-either:
+          - pattern: <... $ADDR.$FUNC($DATA) ...>
+          - pattern: <... $ADDR.$FUNC{$VALUE:...}($DATA) ...>
+          - pattern: <... $ADDR.$FUNC{$VALUE:...,$GAS:...}($DATA) ...>
+      # Negative: handling return value of low-level call
+      - pattern-not: <... !$ADDR.$FUNC($DATA) ...>
+      - metavariable-pattern:
+          metavariable: $FUNC
+          pattern-either:
+            - pattern: call
+            - pattern: delegatecall
+            - pattern: staticcall
+    message:
+      Calling into untrusted contracts is very dangerous, as the code at the
+      target address can change any storage values of the caller and has full
+      control over the caller's balance.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-112/
+        - https://cwe.mitre.org/data/definitions/829.html
+      cwe:
+        - "CWE 829: Inclusion of Functionality from Untrusted Control Sphere"
