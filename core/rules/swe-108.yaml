@@ -17,8 +17,8 @@ rules:
       - pattern-not-regex: address(\s+payable)*\s+((public)|(private)|(internal))+
       - pattern-not-regex: bytes[0-9]*\s+((public)|(private)|(internal))+
       - pattern-not-regex: string*\s+((public)|(private)|(internal))+
-      - pattern-not-regex: "[a-zA-Z0-9]+\\s+((public)|(private)|(internal))+"
-      - pattern-not-regex: "[a-zA-Z0-9]+(\\[\\])+\\s+((public)|(private)|(internal))+"
+      - pattern-not-regex: '[a-zA-Z0-9]+\s+((public)|(private)|(internal))+'
+      - pattern-not-regex: '[a-zA-Z0-9]+(\[\])+\s+((public)|(private)|(internal))+'
       - pattern-not-regex: mapping.*\s+((public)|(private)|(internal))+
     message: >
       Labeling the visibility explicitly makes it easier to catch incorrect
