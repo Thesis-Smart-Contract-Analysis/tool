@@ -1,0 +1,61 @@
+rules:
+  - id: swe-119
+    pattern-either:
+      # Case: shadowing with named return variables
+      - patterns:
+          - pattern: |
+              contract $C {
+                ...
+                $T $VAR = $VAL;
+                ...
+              }
+          # Semgrep can not capture named return variables so we use regex
+          - pattern-regex: function [a-zA-Z0-9_$].+returns\s*\(+.+(?P<NAMED_RETURN_VAR>[a-zA-Z0-9_$]+)\)+
+          - focus-metavariable: $NAMED_RETURN_VAR
+          - metavariable-comparison:
+              comparison: str($NAMED_RETURN_VAR) == str($VAR)
+              metavariable: $NAMED_RETURN_VAR
+      # Case: shadowing with local variables
+      - patterns:
+          - pattern-inside: |
+              contract $C {
+                ...
+                $T $VAR = $VAL;
+                ...
+              }
+          - pattern: |
+              function $F(...) {
+                ...
+                $T $VAR = $VAL2;
+                ...
+              }
+          - focus-metavariable: $VAR
+      # Case: shadowing with state variables in derived contract
+      - patterns:
+          - pattern: |
+              contract $C1 {
+                ...
+                $T $VAR1 = $VAL1;
+                ...
+              }
+              contract $C2 is $C1 {
+                ...
+                $T $VAR2 = $VAL2;
+                ...
+              }
+          - metavariable-comparison:
+              comparison: str($VAR2) == str($VAR1)
+              metavariable: $VAR2
+          - focus-metavariable: $VAR2
+    message: Solidity allows for ambiguous naming of state variables when
+      inheritance is used.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-119/
+        - https://cwe.mitre.org/data/definitions/710.html
+      cwe:
+        - "CWE 710: Improper Adherence to Coding Standards"
