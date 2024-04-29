@@ -1,0 +1,155 @@
+rules:
+  - id: swe-120
+    pattern-either:
+      - patterns:
+          - pattern-either:
+              - pattern: <... $PSEUDO_RANDOM_VAR ...> = $INSECURE_RANDOM_VAL
+          - metavariable-pattern:
+              metavariable: $INSECURE_RANDOM_VAL
+              pattern-either:
+                - pattern: <... block.number ...>
+                - pattern: <... block.timestamp ...>
+                - pattern: <... block.difficulty ...>
+                - pattern: <... blockhash ...>
+          - focus-metavariable: $PSEUDO_RANDOM_VAR
+          - pattern-inside: |
+              contract $C {
+                ...
+                $TYPE $PSEUDO_RANDOM_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  if(<... $PSEUDO_RANDOM_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+          - pattern-not-inside: |
+              contract $C {
+                ...
+                $TYPE $PSEUDO_RANDOM_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  require(<... <... $PSEUDO_RANDOM_VAR ...> + $VAL ...>);
+                  ...
+                  if(<... $PSEUDO_RANDOM_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+      - patterns:
+          - pattern: $TYPE $PSEUDO_RANDOM_VAR = $INSECURE_RANDOM_VAL
+          - metavariable-pattern:
+              metavariable: $INSECURE_RANDOM_VAL
+              pattern-either:
+                - pattern: <... block.number ...>
+                - pattern: <... block.timestamp ...>
+                - pattern: <... block.difficulty ...>
+                - pattern: <... blockhash ...>
+          - focus-metavariable: $INSECURE_RANDOM_VAL
+          - pattern-not-inside: |
+              contract $C {
+                ...
+                $TYPE2 $GUARD_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                  <... $GUARD_VAR ...> = <... block.number ...>;
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  require(<... <... $GUARD_VAR ...> + $VAL ...>);
+                  ...
+                  if(<... $GUARD_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+          - pattern-not-inside: |
+              contract $C {
+                ...
+                $TYPE2 $GUARD_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                  <... $GUARD_VAR ...> = <... block.timestamp ...>;
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  require(<... <... $GUARD_VAR ...> + $VAL ...>);
+                  ...
+                  if(<... $GUARD_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+          - pattern-not-inside: |
+              contract $C {
+                ...
+                $TYPE2 $GUARD_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                  <... $GUARD_VAR ...> = <... block.difficulty ...>;
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  require(<... <... $GUARD_VAR ...> + $VAL ...>);
+                  ...
+                  if(<... $GUARD_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+          - pattern-not-inside: |
+              contract $C {
+                ...
+                $TYPE2 $GUARD_VAR;
+                ...
+                function $F1(...) {
+                  ...
+                  <... $GUARD_VAR ...> = <... blockhash ...>;
+                  ...
+                }
+                ...
+                function $F2(...) {
+                  ...
+                  require(<... <... $GUARD_VAR ...> + $VAL ...>);
+                  ...
+                  if(<... $GUARD_VAR ...>) { 
+                    ...
+                  }
+                }
+              }
+    message: Use of block.timestamp is insecure, as a miner can choose to provide
+      any timestamp within a few seconds and still get his block accepted by
+      others. Use of `blockhash`, `block.difficulty` and other fields is also
+      insecure, as they're controlled by the miner. If the stakes are high, the
+      miner can mine lots of blocks in a short time by renting hardware, pick
+      the block that has required block hash for him to win, and drop all
+      others.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references:
+        - https://swcregistry.io/docs/SWC-120/
+        - https://cwe.mitre.org/data/definitions/330.html
+      category: security
+      cwe:
+        - "CWE 330: Use of Insufficiently Random Values"
