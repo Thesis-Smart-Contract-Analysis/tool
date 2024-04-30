@@ -1,0 +1,88 @@
+rules:
+  - id: swe-122
+    patterns:
+      - pattern: |
+          if(...) {
+            ...
+            $BOOL = $VAL;
+            ...
+            return $BOOL;
+          }
+      - pattern-inside: |
+          function $F1($BYTES $HASH, $ADDRESS_TYPE $ADDR, bytes $SIG) {
+            ...
+          }
+      - focus-metavariable: $BOOL
+      - metavariable-pattern:
+          metavariable: $VAL
+          patterns:
+            - pattern-not-regex: "false"
+      # Case: use ecrecover
+      - pattern-not: |
+          if(...) {
+            ...
+            <... $SIG ...>;
+            ...
+            $RECOVERED = ecrecover(<... $HASH ...>, ...);                
+            ...
+            $BOOL = <... $RECOVERED ...>;
+            ...
+            return $BOOL;
+          }
+      # Case: delegate the validation to an external function
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $F2(...). ... .$F3(..., $HASH,..., $SIG, ...);
+            ...
+            return $BOOL;
+          }
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $F2(...). ... .$F3(..., $HASH,..., $ADDR,..., $SIG, ...);
+            ...
+            return $BOOL;
+          }
+      # Case: use a pre-signed list
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $MAPPING[$HASH][$ADDR];
+            ...
+            return $BOOL;
+          }
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $MAPPING[$ADDR][$HASH];
+            ...
+            return $BOOL;
+          }
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $MAPPING[$HASH];
+            ...
+            return $BOOL;
+          }
+      - pattern-not: |
+          if(...) {
+            ...
+            $BOOL = $MAPPING[$ADDR];
+            ...
+            return $BOOL;
+          }
+    message:
+      The product does not sufficiently verify the origin or authenticity of
+      data, in a way that causes it to accept invalid data.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-122/
+        - https://cwe.mitre.org/data/definitions/345.html
+      cwe:
+        - "CWE 345: Insufficient Verification of Data Authenticity"
