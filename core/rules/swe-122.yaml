@@ -73,9 +73,7 @@ rules:
             ...
             return $BOOL;
           }
-    message:
-      The product does not sufficiently verify the origin or authenticity of
-      data, in a way that causes it to accept invalid data.
+    message: It is not recommended to use alternate verification schemes that do not require proper signature verification through `ecrecover()`.
     languages:
       - solidity
     severity: WARNING

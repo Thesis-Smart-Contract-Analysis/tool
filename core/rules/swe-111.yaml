@@ -1,14 +1,5 @@
 rules:
   - id: swe-111
-    message: Several functions and operators in Solidity are deprecated. Using them
-      leads to reduced code quality. With new major versions of the Solidity
-      compiler, deprecated functions and operators may result in side effects
-      and compile errors.
-    languages:
-      - solidity
-    severity: WARNING
-    metadata:
-      cwe: "CWE-477: Use of Obsolete Function"
     pattern-either:
       - pattern: suicide(...)
       - pattern: block.blockhash(...)
@@ -25,3 +16,9 @@ rules:
               patterns:
                 - pattern-regex: function
           - focus-metavariable: $F
+    message: Several functions or operators are deprecated. Using them leads to reduced code quality. With new major versions of the Solidity compiler, deprecated functions or operators may result in side effects and compile errors.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      cwe: "CWE-477: Use of Obsolete Function"

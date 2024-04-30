@@ -134,9 +134,7 @@ rules:
                 ...
               }
           - focus-metavariable: $COLLECTION
-    message:
-      External calls can fail accidentally or deliberately, which can cause a
-      DoS condition in the contract.
+    message: External calls can fail accidentally or deliberately, which can cause a DoS condition in the contract.
     languages:
       - solidity
     severity: WARNING

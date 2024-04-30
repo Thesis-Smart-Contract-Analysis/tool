@@ -1,16 +1,12 @@
 rules:
   - id: swe-100
     patterns:
-      - pattern: function $F() { ... }
-      - pattern-not: function $F() public { ... }
-      - pattern-not: function $F() private { ... }
-      - pattern-not: function $F() external { ... }
-      - pattern-not: function $F() internal { ... }
-    message: |
-      Functions that do not have a function visibility type specified are public
-      by default. This can lead to a vulnerability if a developer forgot to set
-      the visibility and a malicious user is able to make unauthorized or
-      unintended state changes.
+      - pattern: function $F(...) { ... }
+      - pattern-not: function $F(...) public { ... }
+      - pattern-not: function $F(...) private { ... }
+      - pattern-not: function $F(...) internal { ... }
+      - pattern-not: function $F(...) external { ... }
+    message: Function `$F` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.
     languages:
       - solidity
     severity: WARNING

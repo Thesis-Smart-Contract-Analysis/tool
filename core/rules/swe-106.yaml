@@ -107,9 +107,7 @@ rules:
             $CHECK(_msgSender);
             ...
           }
-    message:
-      Due to missing or insufficient access controls, malicious parties can
-      self-destruct the contract.
+    message: The lack of access control for function `$F` and its subsequent call to function `$K` creates a security vulnerability that could be exploited by malicious actors to delete the smart contract and steal all of its ETH.
     languages:
       - solidity
     severity: WARNING

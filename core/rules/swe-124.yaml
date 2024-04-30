@@ -38,7 +38,7 @@ rules:
             require($ARR.length < 2**256);
             ...
           }
-    message: If an attacker is able to write to arbitrary storage locations of a contract, the authorization checks may easily be circumvented. This can allow an attacker to corrupt the storage; for instance, by overwriting a field that stores the address of the contract owner.
+    message: An attacker can alter the value of any storage location through `$ARR` to bypass authentication and tamper with state variables.
     languages:
       - solidity
     severity: WARNING

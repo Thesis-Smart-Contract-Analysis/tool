@@ -10,11 +10,11 @@ rules:
                 ...
               }
           # Semgrep can not capture named return variables so we use regex
-          - pattern-regex: function [a-zA-Z0-9_$].+returns\s*\(+.+(?P<NAMED_RETURN_VAR>[a-zA-Z0-9_$]+)\)+
-          - focus-metavariable: $NAMED_RETURN_VAR
+          - pattern-regex: function [a-zA-Z0-9_$].+returns\s*\(+.+(?P<VAR2>[a-zA-Z0-9_$]+)\)+
+          - focus-metavariable: $VAR2
           - metavariable-comparison:
-              comparison: str($NAMED_RETURN_VAR) == str($VAR)
-              metavariable: $NAMED_RETURN_VAR
+              comparison: str($VAR2) == str($VAR)
+              metavariable: $VAR2
       # Case: shadowing with local variables
       - patterns:
           - pattern-inside: |
@@ -47,8 +47,7 @@ rules:
               comparison: str($VAR2) == str($VAR1)
               metavariable: $VAR2
           - focus-metavariable: $VAR2
-    message: Solidity allows for ambiguous naming of state variables when
-      inheritance is used.
+    message: The variable `$VAR2` takes precedence over a variable with the same name declared in an outer scope.
     languages:
       - solidity
     severity: WARNING

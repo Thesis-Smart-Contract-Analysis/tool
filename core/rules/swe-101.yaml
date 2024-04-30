@@ -48,17 +48,15 @@ rules:
       - pattern: $X ** $Y
       - patterns:
           - pattern-either:
-              - pattern: $V++
-              - pattern: ++$V
-              - pattern: $V--
-              - pattern: --$V
+              - pattern: $X++
+              - pattern: ++$X
+              - pattern: $X--
+              - pattern: --$X
           - pattern-not-inside: |
               for(...) {
                 ...
               }
-    message: The product performs a calculation that generates incorrect or
-      unintended results that are later used in security-critical decisions or
-      resource management.
+    message: The operation on variable `$X` could lead to overflow/underflow.
     languages:
       - solidity
     severity: WARNING

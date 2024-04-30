@@ -11,7 +11,7 @@ rules:
                 - pattern: <... block.timestamp ...>
                 - pattern: <... block.difficulty ...>
                 - pattern: <... blockhash ...>
-          - focus-metavariable: $PSEUDO_RANDOM_VAR
+          - focus-metavariable: $INSECURE_RANDOM_VAL
           - pattern-inside: |
               contract $C {
                 ...
@@ -136,13 +136,7 @@ rules:
                   }
                 }
               }
-    message: Use of block.timestamp is insecure, as a miner can choose to provide
-      any timestamp within a few seconds and still get his block accepted by
-      others. Use of `blockhash`, `block.difficulty` and other fields is also
-      insecure, as they're controlled by the miner. If the stakes are high, the
-      miner can mine lots of blocks in a short time by renting hardware, pick
-      the block that has required block hash for him to win, and drop all
-      others.
+    message: Using the value `$INSECURE_RANDOM_VAL` is unsafe because it can be manipulated by miners.
     languages:
       - solidity
     severity: WARNING

@@ -59,11 +59,7 @@ rules:
                 }
               }
           - focus-metavariable: $HASH
-    message: A secure implementation needs to protect against Signature Replay
-      Attacks by for example keeping track of all processed message hashes and
-      only allowing new message hashes to be processed. A malicious user could
-      attack a contract without such a control and get message hash that was
-      sent by another user processed multiple times.
+    message: Same signature can be used multiple times to execute the `$F` function. This could result in unintended consequences if the signer's intention was to approve a transaction once.
     languages:
       - solidity
     severity: WARNING
@@ -72,5 +68,6 @@ rules:
       references:
         - https://example.com
         - https://cwe.mitre.org/data/definitions/347.html
+        - https://solidity-by-example.org/hacks/signature-replay/
       cwe:
         - "CWE 347: Improper Verification of Cryptographic Signature"

@@ -1,43 +1,42 @@
 rules:
   - id: swe-117
-    pattern-either:
-      - patterns:
-          - pattern: $HASH = <... $SIG ...>;
-          - pattern-either:
-              - pattern-inside: |
-                  function $F1(..., bytes $SIG, ...) {
-                    ...
-                    require(!$COLLECTION[$HASH]);
-                    ...
-                    address $FROM = $INTERMEDIATE_FUNC(..., $SIG, ...);
-                    ...
-                  }
-              - pattern-inside: |
-                  function $F1(..., bytes $SIG, ...) {
-                    ...
-                    assert(!$COLLECTION[$HASH]);
-                    ...
-                    address $FROM = $INTERMEDIATE_FUNC(..., $SIG, ...);
-                    ...
-                  }
+    patterns:
+      - pattern: $HASH = <... $SIG ...>;
+      - focus-metavariable: $HASH
+      - pattern-either:
           - pattern-inside: |
-              contract $C {
-                $COLLECTION_TYPE $COLLECTION;
-                function $INTERMEDIATE_FUNC(..., bytes $SIG2, ...) {
-                    ...
-                    $RECOVER_FUNC(..., $SIG2, ...);
-                    ...
-                }
-                function $RECOVER_FUNC($BYTES $MESSAGE_HASH, bytes $SIG3) {
-                    ...
-                    <... $SIG3 ...>;
-                    ...
-                    ecrecover(..., $MESSAGE_HASH, ...);
-                    ...
-                }
+              function $F1(..., bytes $SIG, ...) {
+                ...
+                require(!$COLLECTION[$HASH]);
+                ...
+                address $FROM = $INTERMEDIATE_FUNC(..., $SIG, ...);
+                ...
               }
-    message: A malicious user can slightly modify the three values v, r and s to
-      create other valid signatures.
+          - pattern-inside: |
+              function $F1(..., bytes $SIG, ...) {
+                ...
+                assert(!$COLLECTION[$HASH]);
+                ...
+                address $FROM = $INTERMEDIATE_FUNC(..., $SIG, ...);
+                ...
+              }
+      - pattern-inside: |
+          contract $C {
+            $COLLECTION_TYPE $COLLECTION;
+            function $INTERMEDIATE_FUNC(..., bytes $SIG2, ...) {
+                ...
+                $RECOVER_FUNC(..., $SIG2, ...);
+                ...
+            }
+            function $RECOVER_FUNC($BYTES $MESSAGE_HASH, bytes $SIG3) {
+                ...
+                <... $SIG3 ...>;
+                ...
+                ecrecover(..., $MESSAGE_HASH, ...);
+                ...
+            }
+          }
+    message: A malicious user can slightly modify the three values v, r and s to create other valid signatures.
     languages:
       - solidity
     severity: WARNING

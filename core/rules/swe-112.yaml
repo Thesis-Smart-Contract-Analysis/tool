@@ -26,10 +26,7 @@ rules:
             - pattern: call
             - pattern: delegatecall
             - pattern: staticcall
-    message:
-      Calling into untrusted contracts is very dangerous, as the code at the
-      target address can change any storage values of the caller and has full
-      control over the caller's balance.
+    message: Calling into untrusted contract `$ADDR` is very dangerous, as the code at the target address can change any storage values of the caller and has full control over the caller's balance.
     languages:
       - solidity
     severity: WARNING

@@ -78,7 +78,7 @@ rules:
                 ...
               }
           - focus-metavariable: $F
-    message: Due to missing or insufficient access controls, malicious parties can withdraw some or all Ether from the contract account.
+    message: Function `$F` lacks access control, making it accessible to anyone.
     languages:
       - solidity
     severity: WARNING

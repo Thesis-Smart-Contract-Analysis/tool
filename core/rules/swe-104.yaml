@@ -36,10 +36,7 @@ rules:
               ...
             }
           }
-    message: The return value of a message call is not checked. Execution will
-      resume even if the called contract throws an exception. If the call fails
-      accidentally or an attacker forces the call to fail, this may cause
-      unexpected behaviour in the subsequent program logic.
+    message: The return value of `$METHOD` is not checked. Execution will resume even if the called contract throws an exception. If `$METHOD` fails unintentionally or an attacker forces it to fail, this may cause unexpected behavior in the subsequent program logic.
     languages:
       - solidity
     severity: WARNING
