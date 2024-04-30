@@ -12,15 +12,15 @@ rules:
           - pattern-inside: |
               contract $C {
                 $STATE_VARIBLE_TYPE $STATE_VARIABLE;
-                $CONTRACT_TYPE $CONTRACT_INSTANCE;
+                $CONTRACT_TYPE $A;
                 constructor(...,address $CONTRACT_ADDRESS,...) {
                   ...
-                  $CONTRACT_INSTANCE = $CONTRACT_TYPE($CONTRACT_ADDRESS);
+                  $A = $CONTRACT_TYPE($CONTRACT_ADDRESS);
                   ...
                 }
                 modifier $M2(...) {
                   ...
-                  <... $CONTRACT_INSTANCE.$M2 ...>;
+                  <... $A.$M2 ...>;
                   ...
                 }
               }
@@ -37,23 +37,7 @@ rules:
               - pattern: |
                   function $F(...,$T $V,...) {
                     ...
-                    $A.$M($V);
-                    ...
-                    <... $STATE_VARIABLE ...>;
-                    ...
-                  }
-              - pattern: |
-                  function $F(...,$T $V,...) {
-                    ...
-                    $A.$M.$M2($V);
-                    ...
-                    <... $STATE_VARIABLE ...>;
-                    ...
-                  }
-              - pattern: |
-                  function $F(...,$T $V,...) {
-                    ...
-                    $A.$M.$M2($V).$M3($G);
+                    $A.$M. ... .$M1($V);
                     ...
                     <... $STATE_VARIABLE ...>;
                     ...
@@ -83,11 +67,7 @@ rules:
                 - pattern: staticcall
                 - pattern: send
                 - pattern: transfer
-    message:
-      In the reentrancy attack (a.k.a. recursive call attack), a malicious
-      contract calls back into the calling contract before the first invocation
-      of the function is finished. This may cause the different invocations of
-      the function to interact in undesirable ways.
+    message: Function `$F` make an external call to `$A` before updating the value of state variable `$STATE_VARIABLE`. This could potentially lead to a re-entrancy attack.
     languages:
       - solidity
     severity: WARNING
@@ -96,5 +76,6 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-107/
         - https://cwe.mitre.org/data/definitions/841.html
+        - https://semgrep.dev/docs/writing-rules/pattern-syntax#method-calls
       cwe:
         - "CWE 841: Improper Enforcement of Behavioral Workflow"
