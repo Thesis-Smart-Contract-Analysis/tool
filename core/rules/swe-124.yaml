@@ -1,0 +1,51 @@
+rules:
+  - id: swe-124
+    patterns:
+      - pattern-either:
+          - pattern: $ARR.length--;
+          - pattern: $ARR.length++;
+          - pattern: --$ARR.length;
+          - pattern: ++$ARR.length;
+          - pattern: $ARR.length-=1;
+          - pattern: $ARR.length+=1;
+          - pattern: $ARR.length-=$VAL;
+          - pattern: $ARR.length+=$VAL;
+          - pattern: $ARR.length = <... $VAL ...>;
+          - pattern: $ARR.length = $VAL2;
+      # Lower bound
+      - pattern-not-inside: |
+          function $F(...) {
+            ...
+            require(0 < $ARR.length);
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...,$VAL,...) {
+            ...
+            require(0 < $ARR.length);
+            ...
+          }
+      # Upper bound
+      - pattern-not-inside: |
+          function $F(...) {
+            ...
+            require($ARR.length < 2**256);
+            ...
+          }
+      - pattern-not-inside: |
+          function $F(...,$VAL,...) {
+            ...
+            require($ARR.length < 2**256);
+            ...
+          }
+    message: If an attacker is able to write to arbitrary storage locations of a contract, the authorization checks may easily be circumvented. This can allow an attacker to corrupt the storage; for instance, by overwriting a field that stores the address of the contract owner.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references:
+        - https://swcregistry.io/docs/SWC-124/
+        - https://cwe.mitre.org/data/definitions/123.html
+      category: security
+      cwe:
+        - "CWE 123: Write-what-where Condition"
