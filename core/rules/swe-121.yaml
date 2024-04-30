@@ -1,0 +1,76 @@
+rules:
+  - id: swe-121
+    pattern-either:
+      - patterns:
+          - pattern: |
+              contract $C {
+                function $F(...) {
+                  ...
+                  $HASH = $GET_HASH(...);
+                  ...
+                }
+                ...
+                function $GET_HASH(...) {
+                  ...
+                  <... keccak256(...) ...>;
+                  ...
+                }
+              }
+          - pattern-not: |
+              contract $C {
+                ...
+                $TYPE $USED_SIGS;
+                ...
+                function $F(...) {
+                  ...
+                  $HASH = $GET_HASH(...);
+                  ...
+                  require(!$USED_SIGS[$HASH] , "...");
+                  ...
+                }
+                ...
+                function $GET_HASH(...) {
+                  ...
+                  <... keccak256(...) ...>;
+                  ...
+                }
+              }
+          - focus-metavariable: $HASH
+      - patterns:
+          - pattern: |
+              contract $C {
+                function $F(...) {
+                  ...
+                  $HASH = <... keccak256(...) ...>;
+                  ...
+                }
+              }
+          - pattern-not: |
+              contract $C {
+                ...
+                $TYPE $USED_SIGS;
+                ...
+                function $F(...) {
+                  ...
+                  $HASH = <... keccak256(...) ...>;
+                  ...
+                  require(!$USED_SIGS[$HASH] , "...");
+                  ...
+                }
+              }
+          - focus-metavariable: $HASH
+    message: A secure implementation needs to protect against Signature Replay
+      Attacks by for example keeping track of all processed message hashes and
+      only allowing new message hashes to be processed. A malicious user could
+      attack a contract without such a control and get message hash that was
+      sent by another user processed multiple times.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://example.com
+        - https://cwe.mitre.org/data/definitions/347.html
+      cwe:
+        - "CWE 347: Improper Verification of Cryptographic Signature"
