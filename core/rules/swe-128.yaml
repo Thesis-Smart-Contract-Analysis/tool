@@ -4,6 +4,7 @@ rules:
       # Case: clear array
       - patterns:
           - pattern: $ARR = new $T[](0);
+          - focus-metavariable: $ARR
           - pattern-inside: |
               function $USE(...) {
                 ...
@@ -41,6 +42,7 @@ rules:
                     }
       # Case: modify array in a loop
       - patterns:
+          - focus-metavariable: $ARR
           - pattern-either:
               - pattern: <... $ARR.push(...) ...>
               - pattern: <... $ARR[...] = $VAL ...>
@@ -61,10 +63,11 @@ rules:
                     ...
                   }
           - metavariable-comparison:
-              comparison: $NUM >= 1000 # estimated number from a hand-made experiment
+              comparison: $NUM >= 1000 # estimated number estimated number from a hand-made experiment
               metavariable: $NUM
       # Case: modify array in a loop with arbitrary number of iterations
       - patterns:
+          - focus-metavariable: $ARR
           - pattern-either:
               - pattern: <... $ARR.push(...) ...>
               - pattern: <... $ARR[...] = $VAL ...>
@@ -76,9 +79,7 @@ rules:
                 }
                 ...
               }
-    message:
-      Modifying an array of unknown size, that increases in size  time, can
-      lead to such a Denial of Service condition.
+    message: Modifying a dynamic array `$ARR` whose size increases over time can lead to a denial-of-service condition.
     languages:
       - solidity
     severity: WARNING
