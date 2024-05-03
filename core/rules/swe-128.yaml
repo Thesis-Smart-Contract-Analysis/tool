@@ -1,0 +1,91 @@
+rules:
+  - id: swe-128
+    pattern-either:
+      # Case: clear array
+      - patterns:
+          - pattern: $ARR = new $T[](0);
+          - pattern-inside: |
+              function $USE(...) {
+                ...
+              }
+          - pattern-either:
+              # Contract has a function to add more elements
+              - pattern-inside: |
+                  contract $C {
+                      ...
+                      $T[] $ARR;
+                      ...
+                      function $ADD(...) {
+                        ...
+                        <... $ARR.push(...) ...>;
+                        ...
+                      }
+                      ... 
+                    }
+              # Contract has a function to assign elements in a loop
+              - pattern-inside: |
+                  contract $C {
+                      ...
+                      $T[] $ARR;
+                      ...
+                      function $ADD(...) {
+                        ...
+                        for(...) {
+                          ...
+                          <... $ARR[<... $COUNT ...>] = $VAL ...>;
+                          ...
+                        }
+                        ...
+                      }
+                      ...
+                    }
+      # Case: modify array in a loop
+      - patterns:
+          - pattern-either:
+              - pattern: <... $ARR.push(...) ...>
+              - pattern: <... $ARR[...] = $VAL ...>
+              - pattern-inside: |
+                  for(...; $I < $NUM; ...) {
+                    ...
+                  }
+              - pattern-inside: |
+                  for(...; $I <= $NUM; ...) {
+                    ...
+                  }
+              - pattern-inside: |
+                  for(...; $I > $NUM; ...) {
+                    ...
+                  }
+              - pattern-inside: |
+                  for(...; $I >= $NUM; ...) {
+                    ...
+                  }
+          - metavariable-comparison:
+              comparison: $NUM >= 1000 # estimated number from a hand-made experiment
+              metavariable: $NUM
+      # Case: modify array in a loop with arbitrary number of iterations
+      - patterns:
+          - pattern-either:
+              - pattern: <... $ARR.push(...) ...>
+              - pattern: <... $ARR[...] = $VAL ...>
+          - pattern-inside: |
+              function $F(..., $T $ITERATION, ...) {
+                ...
+                for(...; $I < $ITERATION; ...) {
+                  ...
+                }
+                ...
+              }
+    message:
+      Modifying an array of unknown size, that increases in size  time, can
+      lead to such a Denial of Service condition.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-128/
+        - https://cwe.mitre.org/data/definitions/400.html
+      cwe:
+        - "CWE 400: Uncontrolled Resource Consumption"
