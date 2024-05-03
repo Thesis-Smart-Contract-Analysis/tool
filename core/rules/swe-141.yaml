@@ -1,0 +1,27 @@
+rules:
+  - id: swe-141
+    patterns:
+      - pattern-either:
+          - pattern: $LIB($ADDR).$METHOD(...)
+          - pattern: |
+              $LIB $LIB_INSTANCE = $LIB($ADDR);
+              ...
+              <... $LIB_INSTANCE.$METHOD(...) ...>
+      - pattern-inside: |
+          contract $C {
+            ...
+            $PROXY_TYPE $PROXY;
+            ...
+            function $F(...) {
+              ...
+              address $ADDR = $PROXY.$GET_ADDR(...);
+              ...
+            }
+            ...
+          }
+    message: Beware of malicious code when using library `$LIB` through proxy smart contract `$PROXY`.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
