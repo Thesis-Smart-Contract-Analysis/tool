@@ -1,0 +1,30 @@
+rules:
+  - id: swe-145
+    pattern-either:
+      # Case: hardcoded address
+      - patterns:
+          - pattern-either:
+              - pattern: payable($A).$TRANSFER(...);
+              - pattern: $A.$TRANSFER(...);
+          - metavariable-pattern:
+              metavariable: $A
+              pattern-regex: ^0x
+          - focus-metavariable: $A
+      # Case: address from argument
+      - patterns:
+          - pattern-either:
+              - pattern: payable($A).$TRANSFER(...);
+              - pattern: $A.$TRANSFER(...);
+          - pattern-inside: |
+              function $F(...,$ADDR_TYPE $A,...) {
+                ...
+              }
+          - focus-metavariable: $A
+    message: Be cautious when transferring ETH to address `$A` as it may not exist.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://docs.soliditylang.org/en/latest/types.html#members-of-addresses
