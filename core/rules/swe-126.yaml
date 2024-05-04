@@ -1,0 +1,27 @@
+rules:
+  - id: swe-126
+    patterns:
+      - pattern: |
+          address(...).call(abi.encodeWithSignature(...));
+      - pattern-not-inside: |
+          function $F(...){ 
+            ...
+            $GAS = gasleft() - ...;
+            require($GAS - $GAS/64 >= ..., "...");
+
+            (...) = address(...).call(abi.encodeWithSignature(...));
+            ...
+          }
+    message:
+      The gas amount is not checked before executing function calls to other
+      smart contracts. If the provided gas is not sufficient, it will affect the
+      execution results of the smart contract.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-126/
+      cwe:
+        - "CWE-691: Insufficient Control Flow Management"
