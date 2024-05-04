@@ -1,0 +1,38 @@
+rules:
+  - id: swc-129
+    pattern-either:
+      - pattern: |
+          $VAR1 =+ $VAR2
+      - pattern: |
+          $VAR1 =- $VAR2
+      - patterns:
+          - pattern: $VAR1 = ...
+          - pattern-inside: |
+              if(<... $VAR1 = ... ...>){
+                ...
+              }
+      - patterns:
+          - pattern: $VAR1 = ...
+          - pattern-inside: |
+              require(..., $VAR1 = ... , ...)
+
+      - patterns:
+          - pattern: $VAR1 == ...
+          - pattern-not-inside: |
+              if(<... $VAR1 == ... ...>){
+                ...
+              }
+          - pattern-not-inside: |
+              require(..., $VAR1 == ... , ...)
+
+    message: Typographical Error
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-129/
+        - https://cwe.mitre.org/data/definitions/480.html
+      cwe:
+        - "CWE-480: Use of Incorrect Operator"
