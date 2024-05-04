@@ -1,0 +1,16 @@
+rules:
+  - id: swc-132
+    pattern-either:
+      - pattern: |
+          address(...).balance
+    message: Be careful when use `address.balance` to check balance of this address
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-132/
+        - https://cwe.mitre.org/data/definitions/667.html
+      cwe:
+        - "CWE-667: Improper Locking"
