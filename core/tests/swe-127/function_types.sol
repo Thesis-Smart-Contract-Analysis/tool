@@ -23,7 +23,7 @@ contract FunctionTypes {
         require(msg.value != 0, 'send funds!');
         Func memory func;
         func.f = frwd;
-        //rule-id: swe-127
+        //ruleid: swe-127
         assembly { mstore(func, add(mload(func), callvalue)) }
         func.f();
     }
