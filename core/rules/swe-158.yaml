@@ -1,0 +1,89 @@
+rules:
+  - id: swe-158
+    pattern-either:
+      - patterns:
+        - pattern: function $F(uint256,uint128) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: ideal_warn_timed
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint64,int64) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: link_classic_internal
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint16,uint64) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: available_assert_time
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint256,bytes8) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: branch_passphrase_public
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint64,address) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: passphrase_calculate_transfer
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(bytes1) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: many_msg_babbage
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(bytes4[9],bytes5[6],int48[11]) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: transfer
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(int128) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: gasprice_bit_ether
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(bytes16,uint128) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: sign_szabo_bytecode
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint256[],bytes8,bool) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: remove_good
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint256) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: pizza_mandate_apology
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(uint256) {...}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: coral_cable_news
+        - focus-metavariable: $F
+      - patterns:
+        - pattern: function $F(bytes16) {}
+        - metavariable-pattern:
+            metavariable: $F
+            pattern: collate_propagate_storage
+        - focus-metavariable: $F
+    message: The first 4 bytes of the hash value of the signature of function `$F` can cause collisions.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      references:
+        - https://forum.openzeppelin.com/t/beware-of-the-proxy-learn-how-to-exploit-function-clashing/1070/6
+      category: security
