@@ -1,0 +1,27 @@
+rules:
+  - id: swc-133
+    patterns:
+      - pattern-inside: |
+          contract $C{
+            ...
+            function $F(...,$TYPE $VAR, ...){
+              ...
+            }
+            ...
+          }
+      - pattern: |
+          abi.encodePacked(...,$VAR, ...)
+      - metavariable-regex:
+          metavariable: $TYPE
+          regex: address\[\]
+    message: Be careful when use `api.encodedPacked()` with dynamic length variable as $VAR
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-133/
+        - https://cwe.mitre.org/data/definitions/294.html
+      cwe:
+        - "CWE-294: Authentication Bypass by Capture-replay"
