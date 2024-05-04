@@ -1,0 +1,50 @@
+rules:
+  - id: swc-127
+    patterns:
+      - pattern-inside: |
+          contract $C {
+            ...
+            struct $STRUCT {
+              $TYPE $F;
+            }
+            ...
+          }
+      - patterns:
+          - pattern-inside: |
+              function $FUNC(...) {
+                ...
+                $STRUCT $S
+                ...
+                $S.$F = ...;
+                ...
+              }
+          - pattern-either:
+              - pattern: |
+                  $S.$F = ...;
+              - patterns:
+                  - pattern-inside: |
+                      ...
+                      $TYPE $V;
+                      ...
+                  - pattern: |
+                      $V = ...
+              - pattern: |
+                  assembly {
+                    $METHOD
+                  }
+      - metavariable-regex:
+          metavariable: $TYPE
+          regex: function()
+    message: Function type variable can be changed and thus excute random code
+      instruction. Becareful when use assembly instructions to change variable
+      to an arbitrary value
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-127/
+        - https://cwe.mitre.org/data/definitions/695.html
+      cwe:
+        - "CWE-695: Use of Low-Level Functionality"
