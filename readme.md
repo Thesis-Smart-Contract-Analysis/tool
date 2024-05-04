@@ -136,3 +136,63 @@ Chạy với Docker:
 docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
 docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config ./core/rules/swe-100.yaml ./core/tests/swe-100.sol
 ```
+
+## Core
+
+Run script:
+
+```shell
+cd core
+python scanner.py --sgrep_rule ./rules/swe-100.yaml ./tests/swe-100/
+```
+
+Sample output:
+
+```json
+{
+    "semantic_grep": {
+        "matches": {
+            "swe-100": {
+                "files": [
+                    {
+                        "file_path": "tests/swe-100/visibility_not_set.sol",
+                        "match_position": [
+                            5,
+                            6
+                        ],
+                        "match_lines": [
+                            11,
+                            15
+                        ],
+                        "match_string": "    function withdrawWinnings() {\n        // Winner if the last 8 hex characters of the address are 0.\n        require(uint32(msg.sender) == 0);\n        _sendWinnings();\n    }"
+                    },
+                    {
+                        "file_path": "tests/swe-100/visibility_not_set.sol",
+                        "match_position": [
+                            5,
+                            6
+                        ],
+                        "match_lines": [
+                            18,
+                            20
+                        ],
+                        "match_string": "    function _sendWinnings() {\n        msg.sender.transfer(this.balance);\n    }"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE 710: Improper Adherence to Coding Standards",
+                    "references": "https://swcregistry.io/docs/SWC-100/",
+                    "description": "Function `withdrawWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
+                    "severity": "WARNING"
+                }
+            }
+        },
+        "errors": []
+    }
+}
+```
+
+## References
+
+- [libsast](https://github.com/ajinabraham/libsast)
+- [argparse](https://docs.python.org/3/library/argparse.html)
