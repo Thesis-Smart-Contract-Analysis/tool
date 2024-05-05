@@ -1,0 +1,26 @@
+rules:
+  - id: swe-146
+    patterns:
+      - pattern: |
+          function $C(...){
+            ...
+          }
+      - pattern-inside: |
+          contract $C {
+            ...
+            function $C(...){
+              ...
+            }
+            ...
+            constructor(...) {
+              ...
+            }
+          }
+    message:
+      There should only be one constructor in the contract for the Solidity
+      version < 0.4.22
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
