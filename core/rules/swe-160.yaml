@@ -1,0 +1,15 @@
+rules:
+  - id: identity-verification
+    pattern: |
+      assembly {
+        $SIZE := extcodesize($ADDRESS)
+      }
+    message:
+      Use `tx.origin` instead of opcode `extcodesize` to check if address is
+      a smart contract. But using `tx.origin` can lead to `Authorization through
+      tx.origin` vulnerability
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
