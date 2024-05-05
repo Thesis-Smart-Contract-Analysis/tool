@@ -1,9 +1,9 @@
 from libsast import Scanner
 import argparse
-import json
-import sys
+import json, os
 
-ScannerOptions = {
+RULES = "./core/rules/"
+SCANNER_OPTIONS: "dict[str, any]" = {
     "sgrep_rules": None,
     "sgrep_extensions": None,
     "match_rules": None,
@@ -17,8 +17,7 @@ ScannerOptions = {
     "show_progress": False,
 }
 
-
-def parse_args() -> "tuple[str, list]":
+def parse_args() -> "tuple[str, list[str]]":
     parser = argparse.ArgumentParser(
         prog="python3 scanner.py",
         description="Scan smart contracts for vulnerabilities",
@@ -27,30 +26,42 @@ def parse_args() -> "tuple[str, list]":
         "-r",
         "--rules",
         help="Path to directory containing semgrep rules",
-        default="./core/rules/",
+        default=RULES,
         metavar="RULES",
     )
     parser.add_argument(
         "-t",
         "--targets",
         help="Path to directory containing tests",
-        default=["./core/tests/swe-100"],
         metavar="TARGETS",
         nargs="*",
+        required=True,
     )
     args = parser.parse_args()
     return (args.rules, args.targets)
 
 
 def init_scanner(rules: str, targets: list) -> Scanner:
-    options = ScannerOptions
+    # Convert to absolute paths
+    rules = os.path.abspath(rules)
+    targets = [os.path.abspath(target) for target in targets]
+
+    # Initialize scanner options
+    options = SCANNER_OPTIONS
     options["sgrep_rules"] = rules
     options["sgrep_extensions"] = {"*", ".sol"}
     options["show_progress"] = True
     return Scanner(options, targets)
 
 
-rules, targets = parse_args()
-scanner = init_scanner(rules, targets)
-res = scanner.scan()
-print(json.dumps(res, indent=2))
+if __name__ == "__main__":
+    rules, targets = parse_args()
+    print(f"Rules: {rules}")
+    print(f"Targets: {targets}")
+
+    # Initialize the scanner
+    scanner: Scanner = init_scanner(rules, targets)
+
+    # Perform scanning
+    res: dict = scanner.scan()
+    print(json.dumps(res, indent=2))
