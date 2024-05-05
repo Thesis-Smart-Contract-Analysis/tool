@@ -163,12 +163,6 @@ options:
 flask --app services/server.py run --debug
 ```
 
-Request:
-
-```http
-GET /scan?targets=./core/tests/swe-101 HTTP/1.1
-```
-
 ### Libsast
 
 CWE ở trong `/home/aleister/.pyenv/versions/3.8.0/lib/python3.8/site-packages/libsast/standards/cwe.yaml` có dạng:
@@ -211,3 +205,4 @@ docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep se
 - [libsast](https://github.com/ajinabraham/libsast)
 - [argparse](https://docs.python.org/3/library/argparse.html)
 - [json](https://docs.python.org/3/library/json.html)
+- [flask](https://flask.palletsprojects.com/en/3.0.x/)

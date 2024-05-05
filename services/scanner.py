@@ -41,10 +41,10 @@ def parse_args() -> "tuple[str, list[str]]":
     return (args.rules, args.targets)
 
 
-def init_scanner(rules: str, targets: list) -> Scanner:
+def init_scanner(targets: list, rules=RULES) -> Scanner:
     # Convert to absolute paths
-    rules = os.path.abspath(rules)
-    targets = [os.path.abspath(target) for target in targets]
+    # rules = os.path.abspath(rules)
+    # targets = [os.path.abspath(target) for target in targets]
 
     # Initialize scanner options
     options = SCANNER_OPTIONS
