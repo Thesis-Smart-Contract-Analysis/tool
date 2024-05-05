@@ -1,0 +1,14 @@
+rules:
+  - id: swe-116
+    pattern: block.$PROPERTY
+    message: Be careful when using the `block.$PROPERTY` attribute in smart contracts.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-116/
+        - https://cwe.mitre.org/data/definitions/3829.html
+      cwe:
+        - "CWE-829: Inclusion of Functionality from Untrusted Control Sphere"
