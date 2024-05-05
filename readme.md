@@ -1,6 +1,8 @@
 # Smart Contract Analyzer
 
-## Directory Structure
+## Setup
+
+### Directory Structure
 
 Cấu trúc thư mục:
 - `common`: các chức năng dùng chung chẳng hạn như utils, logger, ...
@@ -12,7 +14,7 @@ Cấu trúc thư mục:
 - `frontend`: giao diện web.
 - `requirements.txt`: quản lý phụ thuộc.
 
-## Virtual Environment
+### Virtual Environment
 
 Tạo môi trường ảo:
 
@@ -22,22 +24,19 @@ python -m venv .
 
 Kích hoạt môi trường ảo:
 
+Windows:
+
 ```powershell
 .\Scripts\activate
 ```
 
-## Convention
+Linux:
 
-Các quy ước khi viết rule:
-- Dựa trên bài báo "Unveiling the Landscape of Smart Contract Vulnerabilities: A Detailed Examination and Codification of Vulnerabilities in Prominent Blockchains" để viết định danh (`id`) và mô tả (`message`). Nếu mô tả trong bài báo này hoặc ở SWC không hợp lý, chẳng hạn như SWC-101 nó đi giải thích thay vì đưa ra cảnh báo, thì có thể dùng mô tả của CWE tương ứng.
-- Tạm thời không cần quan tâm đến version của lỗ hổng. Sau này mình sẽ xây dựng một cơ chế để phát hiện lỗ hổng trong một khoảng version nhất định nào đó.
-- Khi viết test bằng SemGrep, cần sử dụng những [comment sau](https://semgrep.dev/docs/writing-rules/testing-rules) để đánh dấu:
-  - `//ruleid: <id>`: cho biết dòng bên dưới cần được match.
-  - `//ok: <id>`: cho biết dòng bên dưới không được match.
-  - `//todook: <id>`: cho biết dòng bên dưới cần được match nhưng hiện tại không match được.
-  - `//todook: <id>`: cho biết dòng bên dưới không được match nhưng hiện tại vẫn match.
+```shell
+source ~/venv/bin/activate
+```
 
-## Solidity in VSCode
+### Solidity in VSCode
 
 Extension [juanfranblanco/vscode-solidity](https://github.com/juanfranblanco/vscode-solidity) trong VSCode cho phép thay đổi phiên bản của compiler.
 
@@ -53,7 +52,7 @@ Một số cách sử dụng compiler:
 
 Tuy nhiên, có một số vấn đề xảy ra khi sử dụng các phiên bản cũ:
 
-### Version 0.4.x
+#### Version 0.4.x
 
 Sẽ xảy ra lỗi như sau ở trong output của extension:
 
@@ -118,7 +117,7 @@ npm install -g @remix-project/remixd
 remixd -s . --remix-ide https://remix.ethereum.org
 ```
 
-### Version 0.5.0
+#### Version 0.5.0
 
 Sẽ xảy ra lỗi như sau:
 
@@ -128,25 +127,27 @@ Sẽ xảy ra lỗi như sau:
 
 Giải pháp: sử dụng phiên bản sau 0.5.0
 
-## Semgrep
+## Convention
 
-Chạy với Docker:
+Các quy ước khi viết rule:
+- Dựa trên bài báo "Unveiling the Landscape of Smart Contract Vulnerabilities: A Detailed Examination and Codification of Vulnerabilities in Prominent Blockchains" để viết định danh (`id`) và mô tả (`message`). Nếu mô tả trong bài báo này hoặc ở SWC không hợp lý, chẳng hạn như SWC-101 nó đi giải thích thay vì đưa ra cảnh báo, thì có thể dùng mô tả của CWE tương ứng.
+- Tạm thời không cần quan tâm đến version của lỗ hổng. Sau này mình sẽ xây dựng một cơ chế để phát hiện lỗ hổng trong một khoảng version nhất định nào đó.
+- Khi viết test bằng SemGrep, cần sử dụng những [comment sau](https://semgrep.dev/docs/writing-rules/testing-rules) để đánh dấu:
+  - `//ruleid: <id>`: cho biết dòng bên dưới cần được match.
+  - `//ok: <id>`: cho biết dòng bên dưới không được match.
+  - `//todook: <id>`: cho biết dòng bên dưới cần được match nhưng hiện tại không match được.
+  - `//todook: <id>`: cho biết dòng bên dưới không được match nhưng hiện tại vẫn match.
 
-```powershell
-docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
-docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config ./core/rules/swe-100.yaml ./core/tests/swe-100.sol
-```
 
 ## Core
 
-Run script:
+Scan:
 
 ```shell
-cd core
-python scanner.py --sgrep_rule ./rules/swe-100.yaml ./tests/swe-100/
+python core/scanner.py --sgrep_rule ./core/rules/swe-100.yaml ./core/tests/swe-100/
 ```
 
-Sample output:
+Output mẫu:
 
 ```json
 {
@@ -191,6 +192,44 @@ Sample output:
     }
 }
 ```
+
+### Libsast
+
+CWE ở trong `/home/aleister/.pyenv/versions/3.8.0/lib/python3.8/site-packages/libsast/standards/cwe.yaml` có dạng:
+
+```yaml
+cwe-#: "CWE #: <description>"
+```
+
+Nếu CWE ở trong rule có dạng mảng:
+
+```yaml
+cwe:
+- "CWE #: <description>"
+```
+
+Thì sẽ sinh ra lỗi sau:
+
+```python
+TypeError: unhashable type: 'list'
+```
+
+Ngoài ra, `cwe.yaml` cần bổ sung các CWE sau:
+- cwe-664: "CWE 664: Improper Control of a Resource Through its Lifetime"
+- cwe-670: "CWE 670: Always-Incorrect Control Flow Implementation"
+- cwe-682: "CWE-682: Incorrect Calculation"
+- cwe-691: "CWE-691: Insufficient Control Flow Management"
+- cwe-710: "CWE 710: Improper Adherence to Coding Standards"
+
+### Semgrep
+
+Chạy với Docker:
+
+```powershell
+docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
+docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config ./core/rules/swe-100.yaml ./core/tests/swe-100.sol
+```
+
 
 ## References
 
