@@ -1,0 +1,17 @@
+rules:
+  - id: swe-143
+    patterns:
+      - pattern-inside: |
+          function $FUNC(...) {
+            (...) = $ADD.call{
+              value: ...,
+              gas: ...
+            }(abi.encodeWithSignature("$F", "...", ...));
+          }
+      - pattern: abi.encodeWithSignature(...)
+    message: Smart contract at address `$ADD` may not exist function with signature `$F`
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
