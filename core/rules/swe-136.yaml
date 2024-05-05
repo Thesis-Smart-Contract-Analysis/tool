@@ -1,0 +1,21 @@
+rules:
+  - id: swc-136
+    patterns:
+      - pattern: $TYPE $VAR;
+      - pattern-inside: |
+          contract $C {
+            ...
+            $TYPE private $VAR;
+            ...
+          }
+    message: Be careful when using `$VAR` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-136/
+        - https://cwe.mitre.org/data/definitions/767.html
+      cwe:
+        - "CWE-767: Access to Critical Private Variable via Public Method"
