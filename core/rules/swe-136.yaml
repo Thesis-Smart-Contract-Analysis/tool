@@ -1,5 +1,5 @@
 rules:
-  - id: swc-136
+  - id: swe-136
     patterns:
       - pattern: $TYPE $VAR;
       - pattern-inside: |
