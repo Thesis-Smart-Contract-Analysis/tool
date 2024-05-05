@@ -28,7 +28,6 @@ rules:
         - https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol
         - https://cwe.mitre.org/data/definitions/665.html
       category: security
-      cwe:
-        - "CWE 665: Improper Initialization"
+      cwe: "CWE 665: Improper Initialization"
 
 

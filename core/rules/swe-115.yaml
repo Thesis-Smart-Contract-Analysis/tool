@@ -37,5 +37,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-115/
         - https://cwe.mitre.org/data/definitions/477.html
-      cwe:
-        - "CWE 477: Use of Obsolete Function"
+      cwe: "CWE 477: Use of Obsolete Function"
