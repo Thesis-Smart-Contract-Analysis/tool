@@ -1,5 +1,5 @@
 rules:
-  - id: swc-132
+  - id: swe-132
     pattern-either:
       - pattern: |
           address(...).balance

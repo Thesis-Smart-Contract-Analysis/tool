@@ -1,5 +1,5 @@
 rules:
-  - id: swc-134
+  - id: swe-134
     pattern-either:
       - pattern: $CALL.send(...);
       - pattern: $CALL.transfer(...);

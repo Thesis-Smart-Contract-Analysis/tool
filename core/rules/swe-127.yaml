@@ -1,5 +1,5 @@
 rules:
-  - id: swc-127
+  - id: swe-127
     patterns:
       - pattern-inside: |
           contract $C {

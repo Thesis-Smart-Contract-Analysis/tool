@@ -1,5 +1,5 @@
 rules:
-  - id: swc-129
+  - id: swe-129
     pattern-either:
       - pattern: |
           $VAR1 =+ $VAR2
