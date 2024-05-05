@@ -1,0 +1,18 @@
+rules:
+  - id: swc-134
+    pattern-either:
+      - pattern: $CALL.send(...);
+      - pattern: $CALL.transfer(...);
+      - pattern-regex: .+call.?.+.gas\([0-9]+\)?.+\(?.+\);
+      - pattern-regex: .+\{?.+gas:.+[0-9]+\}\(?.+\);
+    message: Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount
+    languages:
+      - solidity
+    severity: WARNING
+    metadata:
+      category: security
+      references:
+        - https://swcregistry.io/docs/SWC-134/
+        - https://cwe.mitre.org/data/definitions/655.html
+      cwe:
+        - "CWE-655: Improper Initialization"
