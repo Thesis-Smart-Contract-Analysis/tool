@@ -163,6 +163,54 @@ options:
 flask --app services/server.py run --debug
 ```
 
+#### Upload
+
+Request:
+
+```http
+POST http://localhost:5000/upload
+```
+
+Response trong trường thành công:
+
+
+```json
+{
+    "path": "/upload/BECToken.sol"
+}
+```
+
+Response trong trường hợp trùng:
+
+```json
+{
+    "message": "File already exists",
+    "path": "/upload/BECToken.sol"
+}
+```
+
+#### Get uploaded file
+
+```http
+GET http://localhost:5000/upload/<filename>
+```
+
+#### Scan
+
+Scan file đã upload:
+
+```http
+GET http://localhost:5000/scan?filename=<filename>
+```
+
+Scan chuỗi:
+
+```http
+GET http://localhost:5000/scan?string=/*%0A%20*%20@source:%20https://github.com/sigp/solidity-security-blog%23visibility%0A%20*%20@author:%20SigmaPrime%0A%20*%20Modified%20by%20Gerhard%20Wagner%0A%20*/%0A%0Apragma%20solidity%20^0.4.24;%0A%0Acontract%20HashForEther%20{%0A%20%20%20%20//ruleid:%20swe-100%0A%20%20%20%20function%20withdrawWinnings()%20{%0A%20%20%20%20%20%20%20%20//%20Winner%20if%20the%20last%208%20hex%20characters%20of%20the%20address%20are%200.%0A%20%20%20%20%20%20%20%20require(uint32(msg.sender)%20==%200);%0A%20%20%20%20%20%20%20%20_sendWinnings();%0A%20%20%20%20}%0A%0A%20%20%20%20//ruleid:%20swe-100%0A%20%20%20%20function%20_sendWinnings()%20{%0A%20%20%20%20%20%20%20%20msg.sender.transfer(this.balance);%0A%20%20%20%20}%0A}%0A
+```
+
+**Không cần URL-encode vẫn được**
+
 ### Libsast
 
 CWE ở trong `/home/aleister/.pyenv/versions/3.8.0/lib/python3.8/site-packages/libsast/standards/cwe.yaml` có dạng:
@@ -183,13 +231,6 @@ Thì sẽ sinh ra lỗi sau:
 ```python
 TypeError: unhashable type: 'list'
 ```
-
-Ngoài ra, `cwe.yaml` cần bổ sung các CWE sau:
-- cwe-664: "CWE 664: Improper Control of a Resource Through its Lifetime"
-- cwe-670: "CWE 670: Always-Incorrect Control Flow Implementation"
-- cwe-682: "CWE-682: Incorrect Calculation"
-- cwe-691: "CWE-691: Insufficient Control Flow Management"
-- cwe-710: "CWE 710: Improper Adherence to Coding Standards"
 
 ### Semgrep
 
