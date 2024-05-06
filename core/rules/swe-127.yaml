@@ -46,5 +46,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-127/
         - https://cwe.mitre.org/data/definitions/695.html
-      cwe:
-        - "CWE-695: Use of Low-Level Functionality"
+      cwe: "CWE-695: Use of Low-Level Functionality"

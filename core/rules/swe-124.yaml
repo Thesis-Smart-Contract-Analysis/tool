@@ -47,5 +47,4 @@ rules:
         - https://swcregistry.io/docs/SWC-124/
         - https://cwe.mitre.org/data/definitions/123.html
       category: security
-      cwe:
-        - "CWE 123: Write-what-where Condition"
+      cwe: "CWE 123: Write-what-where Condition"

@@ -35,5 +35,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-112/
         - https://cwe.mitre.org/data/definitions/829.html
-      cwe:
-        - "CWE 829: Inclusion of Functionality from Untrusted Control Sphere"
+      cwe: "CWE 829: Inclusion of Functionality from Untrusted Control Sphere"

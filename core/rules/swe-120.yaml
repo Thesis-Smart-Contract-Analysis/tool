@@ -145,5 +145,4 @@ rules:
         - https://swcregistry.io/docs/SWC-120/
         - https://cwe.mitre.org/data/definitions/330.html
       category: security
-      cwe:
-        - "CWE 330: Use of Insufficiently Random Values"
+      cwe: "CWE 330: Use of Insufficiently Random Values"

@@ -88,5 +88,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-128/
         - https://cwe.mitre.org/data/definitions/400.html
-      cwe:
-        - "CWE 400: Uncontrolled Resource Consumption"
+      cwe: "CWE 400: Uncontrolled Resource Consumption"

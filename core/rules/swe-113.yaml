@@ -143,5 +143,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-113/
         - https://cwe.mitre.org/data/definitions/703.html
-      cwe:
-        - "CWE 703: Improper Check or Handling of Exceptional Conditions"
+      cwe: "CWE 703: Improper Check or Handling of Exceptional Conditions"

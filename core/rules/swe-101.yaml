@@ -65,5 +65,4 @@ rules:
         - https://swcregistry.io/docs/SWC-101/
         - https://docs.soliditylang.org/en/latest/types.html
         - https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity
-      cwe:
-        - "CWE-682: Incorrect Calculation"
+      cwe: "CWE-682: Incorrect Calculation"
