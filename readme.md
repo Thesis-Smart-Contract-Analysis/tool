@@ -205,4 +205,5 @@ docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep se
 - [libsast](https://github.com/ajinabraham/libsast)
 - [argparse](https://docs.python.org/3/library/argparse.html)
 - [json](https://docs.python.org/3/library/json.html)
+- [logging](https://docs.python.org/3/library/logging.html)
 - [flask](https://flask.palletsprojects.com/en/3.0.x/)

@@ -1,7 +1,7 @@
 from flask import Flask, request, send_from_directory
 from werkzeug.utils import secure_filename
 from scanner import init_scanner
-import json, os
+import json, os, uuid
 
 SERVICES_FOLDER = "./services"
 ABS_SERVICES_FOLDER = os.path.abspath(SERVICES_FOLDER)
@@ -16,18 +16,45 @@ def scan():
     # Get query params
     request_args: dict = request.args
     filename = request_args.get("filename", "")
-    filename = secure_filename(filename)
+    string = request_args.get("string", "")
 
-    # TODO: validate query params
+    # Only one of filename or string should be provided
+    if filename and string:
+        return (
+            {"message": "Please provide either a filename or string"},
+            400,
+            {"Content-Type": "application/json"},
+        )
 
-    # Build the absolute path
-    abs_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-    app.logger.info(f"Scanning file: {abs_path}")
+    if filename:
+        # Sanitize the filename
+        filename = secure_filename(filename)
 
-    # Check if the file exists
-    if not os.path.exists(abs_path):
-        res = {"message": "File not found"}
-        return res, 404, {"Content-Type": "application/json"}
+        # Build the absolute path
+        abs_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        app.logger.info(f"Scanning file: {abs_path}")
+
+        # Check if the file exists
+        if not os.path.exists(abs_path):
+            res = {"message": "File not found"}
+            return res, 404, {"Content-Type": "application/json"}
+
+    elif string:
+        app.logger.info(f"Scanning string:\n {string}")
+
+        # Generate file name and build file path
+        filename = uuid.uuid4().hex + ".sol"
+        abs_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+
+        # Save the string to a file
+        with open(abs_path, "w") as f:
+            f.write(string)
+    else:
+        return (
+            {"message": "Please provide a filename or string"},
+            400,
+            {"Content-Type": "application/json"},
+        )
 
     # Initialize the scanner
     targets = [abs_path]
