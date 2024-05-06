@@ -16,6 +16,8 @@ contract SimpleDAO {
         if (credit[msg.sender] >= amount) {
             //ruleid: swe-107
             require(msg.sender.call.value(amount)());
+            //ruleid: swe-107
+            require(msg.sender.call{gas: 2000, value: amount}());
             credit[msg.sender] -= amount;
         }
     }

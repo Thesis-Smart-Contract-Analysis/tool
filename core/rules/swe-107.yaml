@@ -58,6 +58,14 @@ rules:
                     <... $STATE_VARIABLE ...>;
                     ...
                   }
+              - pattern: |
+                  function $F(...,$T $V,...) {
+                    ...
+                    $A.$M{gas:$G,value:$V}(...);
+                    ...
+                    <... $STATE_VARIABLE ...>;
+                    ...
+                  }
           - focus-metavariable: $M
           - metavariable-pattern:
               metavariable: $M

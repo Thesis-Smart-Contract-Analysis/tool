@@ -15,6 +15,8 @@ contract HandleErrorsInExternalCalls {
         someAddress.call{value: 55}("");
         //ruleid: swe-104
         someAddress.call{value: 100}(abi.encodeWithSignature("deposit()"));
+        //ruleid: swe-104
+        someAddress.call{gas: 2000, value: 100}(abi.encodeWithSignature("deposit()"));
     }
 
     function goodSend(address payable someAddress) external {

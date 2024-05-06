@@ -3,8 +3,8 @@ rules:
     patterns:
       - pattern-either:
           - pattern: $ADDRESS.$METHOD(...)
-          - pattern: $ADDRESS.$METHOD{value:$VAL}(...)
-          - pattern: $ADDRESS.$METHOD{value:$VAL,gas:$GAS}(...)
+          - pattern: $ADDRESS.$METHOD{$VAR:...}(...)
+          - pattern: $ADDRESS.$METHOD{$VALUE:...,$GAS:...}(...)
       - metavariable-pattern:
           metavariable: $METHOD
           pattern-either:
