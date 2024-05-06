@@ -12,4 +12,4 @@ rules:
     severity: WARNING
     metadata:
       references: https://swcregistry.io/docs/SWC-100/
-      cwe: "CWE 710: Improper Adherence to Coding Standards"
+      cwe: "CWE-710: Improper Adherence to Coding Standards"

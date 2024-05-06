@@ -196,7 +196,7 @@ rules:
     severity: WARNING
     metadata:
       category: security
-      cwe: "CWE 670: Always-Incorrect Control Flow Implementation"
+      cwe: "CWE-670: Always-Incorrect Control Flow Implementation"
       references:
         - https://swcregistry.io/docs/SWC-110/#assert_constructorsol
         - https://cwe.mitre.org/data/definitions/670.html

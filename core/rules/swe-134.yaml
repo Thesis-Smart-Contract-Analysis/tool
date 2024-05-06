@@ -14,5 +14,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-134/
         - https://cwe.mitre.org/data/definitions/655.html
-      cwe:
-        - "CWE-655: Improper Initialization"
+      cwe: "CWE-665: Improper Initialization"

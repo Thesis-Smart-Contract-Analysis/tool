@@ -17,7 +17,7 @@ rules:
     severity: WARNING
     metadata:
       category: security
-      cwe: "CWE 664: Improper Control of a Resource Through its Lifetime"
+      cwe: "CWE-664: Improper Control of a Resource Through its Lifetime"
       references:
         - https://swcregistry.io/docs/SWC-103/
         - https://cwe.mitre.org/data/definitions/664.html

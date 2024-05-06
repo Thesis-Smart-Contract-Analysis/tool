@@ -28,4 +28,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-108/
         - https://docs.soliditylang.org/en/latest/types.html
-      cwe: "CWE 710: Improper Adherence to Coding Standards"
+      cwe: "CWE-710: Improper Adherence to Coding Standards"

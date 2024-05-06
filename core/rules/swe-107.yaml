@@ -77,4 +77,4 @@ rules:
         - https://swcregistry.io/docs/SWC-107/
         - https://cwe.mitre.org/data/definitions/841.html
         - https://semgrep.dev/docs/writing-rules/pattern-syntax#method-calls
-      cwe: "CWE 841: Improper Enforcement of Behavioral Workflow"
+      cwe: "CWE-841: Improper Enforcement of Behavioral Workflow"

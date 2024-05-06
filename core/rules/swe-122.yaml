@@ -82,4 +82,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-122/
         - https://cwe.mitre.org/data/definitions/345.html
-      cwe: "CWE 345: Insufficient Verification of Data Authenticity"
+      cwe: "CWE-345: Insufficient Verification of Data Authenticity"

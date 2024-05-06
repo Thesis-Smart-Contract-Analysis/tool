@@ -84,7 +84,7 @@ rules:
     severity: WARNING
     metadata:
       category: security
-      cwe: "CWE 284: Improper Access Control"
+      cwe: "CWE-284: Improper Access Control"
       references:
         - https://swcregistry.io/docs/SWC-105/
         - https://cwe.mitre.org/data/definitions/284.html

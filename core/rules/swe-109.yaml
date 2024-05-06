@@ -20,7 +20,7 @@ rules:
     severity: WARNING
     metadata:
       category: security
-      cwe: "CWE 824: Access of Uninitialized Pointer"
+      cwe: "CWE-824: Access of Uninitialized Pointer"
       references:
         - https://swcregistry.io/docs/SWC-109/
         - https://cwe.mitre.org/data/definitions/824.html
