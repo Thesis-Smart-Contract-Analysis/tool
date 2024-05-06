@@ -1,6 +1,7 @@
 from libsast import Scanner
 import argparse
-import json, os
+import json, logging
+
 
 RULES = "./core/rules/"
 SCANNER_OPTIONS: "dict[str, any]" = {
@@ -17,17 +18,14 @@ SCANNER_OPTIONS: "dict[str, any]" = {
     "show_progress": False,
 }
 
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+
+
 def parse_args() -> "tuple[str, list[str]]":
     parser = argparse.ArgumentParser(
         prog="python3 scanner.py",
         description="Scan smart contracts for vulnerabilities",
-    )
-    parser.add_argument(
-        "-r",
-        "--rules",
-        help="Path to directory containing semgrep rules",
-        default=RULES,
-        metavar="RULES",
     )
     parser.add_argument(
         "-t",
@@ -37,16 +35,21 @@ def parse_args() -> "tuple[str, list[str]]":
         nargs="*",
         required=True,
     )
+    parser.add_argument(
+        "-r",
+        "--rules",
+        help="Path to directory containing semgrep rules",
+        default=RULES,
+        metavar="RULES",
+    )
     args = parser.parse_args()
-    return (args.rules, args.targets)
+    return (args.targets, args.rules)
 
 
 def init_scanner(targets: list, rules=RULES) -> Scanner:
-    # Convert to absolute paths
-    # rules = os.path.abspath(rules)
-    # targets = [os.path.abspath(target) for target in targets]
+    logging.info(f"Targets: {targets}")
+    logging.info(f"Rules: {rules}")
 
-    # Initialize scanner options
     options = SCANNER_OPTIONS
     options["sgrep_rules"] = rules
     options["sgrep_extensions"] = {"*", ".sol"}
@@ -55,12 +58,11 @@ def init_scanner(targets: list, rules=RULES) -> Scanner:
 
 
 if __name__ == "__main__":
-    rules, targets = parse_args()
-    print(f"Rules: {rules}")
-    print(f"Targets: {targets}")
+    # Parse command line arguments
+    targets, rules = parse_args()
 
     # Initialize the scanner
-    scanner: Scanner = init_scanner(rules, targets)
+    scanner: Scanner = init_scanner(targets, rules)
 
     # Perform scanning
     res: dict = scanner.scan()
