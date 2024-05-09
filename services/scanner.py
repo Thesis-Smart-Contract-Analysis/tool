@@ -1,6 +1,6 @@
 from libsast import Scanner
 import argparse
-import json, logging
+import json, logging, subprocess, os
 
 
 RULES = "./core/rules/"
@@ -57,6 +57,35 @@ def init_scanner(targets: list, rules=RULES) -> Scanner:
     return Scanner(options, targets)
 
 
+def slither_scan(target: str):
+    # Get file name and file path
+    filename = target.split("/")[-1].split(".")[0]
+    filepath = f"./services/outputs/{filename}.json"
+
+    # Delete file if existed
+    try:
+        os.remove(filepath)
+    except FileNotFoundError:
+        pass
+
+    # Build and execute the command
+    cmd = [
+        "slither",
+        target,
+        "--solc-disable-warnings",
+        "--exclude-optimization",
+        "--exclude-informational",
+        "--json",
+        filepath,
+    ]
+    subprocess.run(cmd)
+
+    # Read json from file
+    with open(filepath, "r") as f:
+        json_data = json.load(f)
+    return json_data
+
+
 if __name__ == "__main__":
     # Parse command line arguments
     targets, rules = parse_args()
@@ -65,5 +94,11 @@ if __name__ == "__main__":
     scanner: Scanner = init_scanner(targets, rules)
 
     # Perform scanning
+    print("🔍 Scanning with SemGrep")
     res: dict = scanner.scan()
     print(json.dumps(res, indent=2))
+
+    # Scan with Slither
+    print("🔍 Scanning with Slither")
+    slither_res = slither_scan(targets[0])
+    print(json.dumps(slither_res, indent=2))

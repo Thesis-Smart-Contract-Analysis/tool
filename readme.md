@@ -241,6 +241,12 @@ docker run -it -v "${PWD}:/src" semgrep/semgrep semgrep login
 docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep semgrep scan --config ./core/rules/swe-100.yaml ./core/tests/swe-100.sol
 ```
 
+### Slither
+
+```shell
+slither core/tests/swe-100 --solc-disable-warnings --solc-solcs-select 0.4.25 --exclude-optimization --exclude-informational --checklist --json output.json
+```
+
 ## References
 
 - [libsast](https://github.com/ajinabraham/libsast)
