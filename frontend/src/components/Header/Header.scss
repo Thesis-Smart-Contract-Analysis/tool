@@ -1,0 +1,54 @@
+@import "/src/styles/variables";
+
+.header {
+  width: 100%;
+
+  &__wrapper {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .header-logo__wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem;
+
+      .header-logo {
+        &__image {
+          width: auto;
+          height: 4.8rem;
+        }
+
+        &__text {
+          font-size: 3rem;
+          line-height: 3.4rem;
+          font-weight: bold;
+          background: linear-gradient(
+            90deg,
+            $primary-blue-500,
+            $primary-blue-700
+          );
+          background-clip: text;
+          color: transparent;
+        }
+      }
+    }
+
+    .header-nav__wrapper {
+      .header-nav {
+        &__menu {
+          display: flex;
+
+          .header-nav__item {
+            width: auto;
+            font-size: 1.6rem;
+            font-weight: 500;
+            line-height: 2.4rem;
+          }
+        }
+      }
+    }
+  }
+}
