@@ -247,6 +247,21 @@ docker run -e SEMGREP_APP_TOKEN=<TOKEN> --rm -v "${PWD}:/src" semgrep/semgrep se
 slither core/tests/swe-100 --solc-disable-warnings --solc-solcs-select 0.4.25 --exclude-optimization --exclude-informational --checklist --json output.json
 ```
 
+### JSON Schema for Humans
+
+Generate documentation for JSON schema:
+
+```shell
+generate-schema-doc services/schema.json --config template_name=js public
+```
+
+Hosting:
+
+```shell
+cd public
+python3 -m http.server
+```
+
 ## References
 
 - [libsast](https://github.com/ajinabraham/libsast)
