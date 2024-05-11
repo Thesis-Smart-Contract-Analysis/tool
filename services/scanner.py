@@ -57,7 +57,7 @@ def init_scanner(targets: list, rules=RULES) -> Scanner:
     return Scanner(options, targets)
 
 
-def slither_scan(target: str):
+def slither_scan(target: str) -> dict:
     # Get file name and file path
     filename = target.split("/")[-1].split(".")[0]
     filepath = f"./services/outputs/{filename}.json"
@@ -86,6 +86,22 @@ def slither_scan(target: str):
     return json_data
 
 
+def mythril_scan(target: str) -> dict:
+    # Get file path
+    filepath = os.path.abspath(target)
+
+    cmd = [
+        "myth",
+        "analyze",
+        filepath,
+        "-o",
+        "json"
+    ]
+    completed_process = subprocess.run(cmd, capture_output=True, text=True)
+    json_str = completed_process.stdout
+    return json.loads(json_str)
+    
+
 if __name__ == "__main__":
     # Parse command line arguments
     targets, rules = parse_args()
@@ -96,9 +112,15 @@ if __name__ == "__main__":
     # Perform scanning
     print("🔍 Scanning with SemGrep")
     res: dict = scanner.scan()
-    print(json.dumps(res, indent=2))
+    print(json.dumps(res, indent=2, sort_keys=True))
 
     # Scan with Slither
     print("🔍 Scanning with Slither")
-    slither_res = slither_scan(targets[0])
-    print(json.dumps(slither_res, indent=2))
+    slither_res: dict = slither_scan(targets[0])
+    print(json.dumps(slither_res, indent=2, sort_keys=True))
+
+    # Scan with Mythril
+    print("🔍 Scanning with Mythril")
+    mythril_res: dict = mythril_scan(targets[0])
+    print(json.dumps(mythril_res, indent=2, sort_keys=True))
+    
