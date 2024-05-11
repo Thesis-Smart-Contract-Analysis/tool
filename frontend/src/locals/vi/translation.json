@@ -1,4 +1,12 @@
 {
+  "common": {
+    "or": "Hoặc"
+  },
+  "file": {
+    "browse-file": "Chọn File",
+    "drag-file-content": "Kéo - Thả file vào đây",
+    "drop-file-content": "Thả file ở đây ..."
+  },
   "header": {
     "about-us": "Về chúng tôi",
     "contact-us": "Liên hệ với chúng tôi",

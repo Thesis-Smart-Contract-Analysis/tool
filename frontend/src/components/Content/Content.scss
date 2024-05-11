@@ -1,0 +1,72 @@
+@import "/src/styles/variables";
+
+.content {
+  width: 100%;
+  height: calc(100vh - $header-height - $footer-height);
+
+  &__wrapper {
+    height: 100%;
+    display: flex;
+    gap: 1.2rem;
+
+    .content-upload-file {
+      &__wrapper {
+        height: 100%;
+        width: 30%;
+        position: relative;
+        border: 0.2rem dashed $primary-blue-600;
+        background-color: $primary-blue-50;
+
+        .content-upload-file {
+          &__control {
+            width: 100%;
+            display: flex;
+            gap: 1.2rem;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            input {
+              display: none;
+            }
+
+            .MuiSvgIcon-root {
+              width: 8rem;
+              height: 8rem;
+              color: $primary-blue-500;
+            }
+
+            .MuiTypography-root {
+              color: $primary-blue-500;
+              font-size: 1.8rem;
+              line-height: 1.8rem;
+            }
+
+            .upload-file-btn {
+              background-color: $primary-blue-500;
+              border-radius: 0.8rem;
+              color: white;
+              font-size: 1.8rem;
+              font-weight: 600;
+              padding: 0.8rem 1.2rem;
+              margin: 0.8rem 0;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .content-code-editor {
+      &__wrapper {
+        width: 70%;
+        height: 100%;
+        background-color: $neutrals-400;
+      }
+    }
+  }
+}

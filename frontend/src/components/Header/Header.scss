@@ -1,6 +1,7 @@
 @import "/src/styles/variables";
 
 .header {
+  height: $header-height;
   width: 100%;
 
   &__wrapper {
@@ -27,8 +28,9 @@
           font-weight: bold;
           background: linear-gradient(
             90deg,
-            $primary-blue-500,
-            $primary-blue-700
+            $primary-blue-400,
+            $primary-blue-600,
+            $primary-blue-800
           );
           background-clip: text;
           color: transparent;
