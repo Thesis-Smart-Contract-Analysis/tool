@@ -29,10 +29,9 @@ def parse_args() -> "tuple[str, list[str]]":
     )
     parser.add_argument(
         "-t",
-        "--targets",
-        help="Path to directory containing tests",
-        metavar="TARGETS",
-        nargs="*",
+        "--target",
+        help="Path to a smart contract",
+        metavar="TARGET",
         required=True,
     )
     parser.add_argument(
@@ -43,13 +42,10 @@ def parse_args() -> "tuple[str, list[str]]":
         metavar="RULES",
     )
     args = parser.parse_args()
-    return (args.targets, args.rules)
+    return (args.target, args.rules)
 
 
-def init_scanner(targets: list, rules=RULES) -> Scanner:
-    logging.info(f"Targets: {targets}")
-    logging.info(f"Rules: {rules}")
-
+def init_scanner(targets: list, rules: str) -> Scanner:
     options = SCANNER_OPTIONS
     options["sgrep_rules"] = rules
     options["sgrep_extensions"] = {"*", ".sol"}
@@ -57,10 +53,16 @@ def init_scanner(targets: list, rules=RULES) -> Scanner:
     return Scanner(options, targets)
 
 
+def semgrep_scan(target: str, rules=RULES) -> dict:
+    scanner: Scanner = init_scanner([target], rules)
+    json = scanner.scan()
+    return json
+
+
 def slither_scan(target: str) -> dict:
     # Get file name and file path
     filename = target.split("/")[-1].split(".")[0]
-    filepath = f"./services/outputs/{filename}.json"
+    filepath = f"./services/{filename}.json"
 
     # Delete file if existed
     try:
@@ -83,6 +85,10 @@ def slither_scan(target: str) -> dict:
     # Read json from file
     with open(filepath, "r") as f:
         json_data = json.load(f)
+
+    # Remove file
+    os.remove(filepath)
+
     return json_data
 
 
@@ -90,37 +96,33 @@ def mythril_scan(target: str) -> dict:
     # Get file path
     filepath = os.path.abspath(target)
 
-    cmd = [
-        "myth",
-        "analyze",
-        filepath,
-        "-o",
-        "json"
-    ]
+    cmd = ["myth", "analyze", filepath, "-o", "json"]
     completed_process = subprocess.run(cmd, capture_output=True, text=True)
     json_str = completed_process.stdout
+
     return json.loads(json_str)
-    
+
+
+def scan(target: str, rules: str) -> dict:
+    # Scan with Semgrep
+    res: dict = semgrep_scan(target, rules)
+
+    # Scan with Slither
+    slither_res: dict = slither_scan(target)
+
+    # Scan with Mythril
+    mythril_res: dict = mythril_scan(target)
+
+    # Aggregate results
+    res["slither"] = slither_res
+    res["mythril"] = mythril_res
+    return res
+
 
 if __name__ == "__main__":
     # Parse command line arguments
-    targets, rules = parse_args()
-
-    # Initialize the scanner
-    scanner: Scanner = init_scanner(targets, rules)
+    target, rules = parse_args()
 
     # Perform scanning
-    print("🔍 Scanning with SemGrep")
-    res: dict = scanner.scan()
-    print(json.dumps(res, indent=2, sort_keys=True))
-
-    # Scan with Slither
-    print("🔍 Scanning with Slither")
-    slither_res: dict = slither_scan(targets[0])
-    print(json.dumps(slither_res, indent=2, sort_keys=True))
-
-    # Scan with Mythril
-    print("🔍 Scanning with Mythril")
-    mythril_res: dict = mythril_scan(targets[0])
-    print(json.dumps(mythril_res, indent=2, sort_keys=True))
-    
+    res = scan(target, rules)
+    print(json.dumps(res, indent=4))
