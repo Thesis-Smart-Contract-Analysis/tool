@@ -3,12 +3,18 @@ rules:
     patterns:
       - pattern-inside: |
           function $FUNC(...) {
-            (...) = $ADD.call{
+            (...) = $ADD.$METHOD{
               value: ...,
               gas: ...
             }(abi.encodeWithSignature("$F", "...", ...));
           }
       - pattern: abi.encodeWithSignature(...)
+      - metavariable-pattern:
+          metavariable: $METHOD
+          pattern-either:
+            - pattern: call
+            - pattern: delegatecall
+            - pattern: staticcall
     message: Smart contract at address `$ADD` may not exist function with signature `$F`
     languages:
       - solidity

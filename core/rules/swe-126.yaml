@@ -1,21 +1,26 @@
 rules:
   - id: swe-126
-    patterns:
-      - pattern: |
-          address(...).call(abi.encodeWithSignature(...));
-      - pattern-not-inside: |
-          function $F(...){ 
-            ...
-            $GAS = gasleft() - ...;
-            require($GAS - $GAS/64 >= ..., "...");
+    pattern-either:
+      - patterns:
+          - pattern: |
+              address(...).$METHOD(abi.encodeWithSignature(...));
+          - pattern-not-inside: |
+              function $F(...){ 
+                ...
+                $GAS = gasleft() - ...;
+                require($GAS - $GAS/64 >= ..., "...");
 
-            (...) = address(...).call(abi.encodeWithSignature(...));
-            ...
-          }
-    message:
-      The gas amount is not checked before executing function calls to other
-      smart contracts. If the provided gas is not sufficient, it will affect the
-      execution results of the smart contract.
+                (...) = address(...).$METHOD(abi.encodeWithSignature(...));
+                ...
+              }
+          - metavariable-pattern:
+              metavariable: $METHOD
+              pattern-either:
+                - pattern: call
+                - pattern: delegatecall
+                - pattern: staticcall
+    message: The gas amount in function `$F` is not checked before executing
+      function calls to other smart contracts.
     languages:
       - solidity
     severity: WARNING
