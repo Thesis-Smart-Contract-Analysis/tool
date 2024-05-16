@@ -1,6 +1,33 @@
 {
-  "common": {},
+  "hero": {
+    "desc": {
+      "title": "Protect Your Smart Contracts",
+      "animation": {
+        "text-1": "Scan Quickly ...",
+        "text-2": "Simple Interface ...",
+        "text-3": "Detailed Descriptions ..."
+      },
+      "body": "This tool allows you to scan and analyze vulnerabilities in Solidity smart contracts and provides warnings and remediation measures."
+    },
+    "scan-now": "Scan Now",
+    "more": "Learn More"
+  },
+  "content": {
+    "title": "Solidity Smart Contract Scanner",
+    "scan-file": "Scan File",
+    "browse-file": "Choose File",
+    "clear-files": "Clear All",
+    "drag-file-content": "Drag and drop files here",
+    "drop-file-content": "Drop files here..."
+  },
+  "common": {
+    "choose": "Choose",
+    "or": "Or"
+  },
   "header": {
-    "about-us": "About Us"
+    "about-us": "About Us",
+    "contact-us": "Contact Us",
+    "home": "Home",
+    "docs": "Docs"
   }
 }

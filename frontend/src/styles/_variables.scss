@@ -24,3 +24,11 @@ $neutrals-700: #4f4f4f;
 $neutrals-800: #454545;
 $neutrals-900: #3d3d3d;
 $neutrals-950: #000000;
+
+$bg-primary: linear-gradient(
+  90deg,
+  $primary-blue-300,
+  $primary-blue-400,
+  $primary-blue-500
+);
+$btn-box-shadow: $primary-blue-700 0px 2px 8px;

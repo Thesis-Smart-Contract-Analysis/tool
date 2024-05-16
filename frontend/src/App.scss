@@ -1,6 +1,7 @@
-@import "src/styles/variables";
+@import 'src/styles/variables';
 
 .container {
   width: 100%;
   min-height: 100vh;
+  position: relative;
 }

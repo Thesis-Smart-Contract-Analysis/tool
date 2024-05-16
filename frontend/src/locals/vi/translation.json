@@ -1,12 +1,30 @@
 {
-  "common": {
-    "or": "Hoặc"
+  "hero": {
+    "desc": {
+      "title": "Bảo vệ hợp đồng thông minh của bạn",
+      "animation": {
+        "text-1": "Quét nhanh chóng ...",
+        "text-2": "Giao diện đơn giản ...",
+        "text-3": "Mô tả chi tiết ..."
+      },
+      "body": "Công cụ này giúp bạn có thể quét và phân tích các lỗ hổng tồn tại trong hợp đồng thông minh được viết bằng Solidity, đồng thời đưa ra những cảnh báo và các biện pháp để khắc phục."
+    },
+    "scan-now": "Quét ngay",
+    "more": "Tìm hiểu thêm"
   },
-  "file": {
+  "content": {
+    "title": "Quét hợp đồng thông minh Solidity",
+    "scan-file": "Quét File",
     "browse-file": "Chọn File",
+    "clear-files": "Xóa tất cả",
     "drag-file-content": "Kéo - Thả file vào đây",
     "drop-file-content": "Thả file ở đây ..."
   },
+  "common": {
+    "choose": "Chọn",
+    "or": "Hoặc"
+  },
+
   "header": {
     "about-us": "Về chúng tôi",
     "contact-us": "Liên hệ với chúng tôi",

@@ -1,10 +1,11 @@
-@import "/src/styles/variables";
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
 
 .header {
   height: $header-height;
   width: 100%;
 
-  &__wrapper {
+  &__content {
     margin: auto;
     display: flex;
     align-items: center;
@@ -23,17 +24,11 @@
         }
 
         &__text {
+          @include primary-text-color;
+
           font-size: 3rem;
           line-height: 3.4rem;
           font-weight: bold;
-          background: linear-gradient(
-            90deg,
-            $primary-blue-400,
-            $primary-blue-600,
-            $primary-blue-800
-          );
-          background-clip: text;
-          color: transparent;
         }
       }
     }
@@ -48,6 +43,18 @@
             font-size: 1.6rem;
             font-weight: 500;
             line-height: 2.4rem;
+            color: $primary-blue-950;
+            cursor: pointer;
+          }
+
+          .header-nav__document {
+            @extend .header-nav__item;
+
+            margin-left: 1.2rem;
+            color: white;
+            border-radius: 0.8rem;
+            background: $bg-primary;
+            box-shadow: $btn-box-shadow;
           }
         }
       }
