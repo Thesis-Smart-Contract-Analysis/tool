@@ -9,6 +9,12 @@
     align-items: center;
     gap: 10%;
 
+    @include for-phone-only {
+      padding: 1.2rem;
+      flex-direction: column;
+      gap: 8rem;
+    }
+
     .hero {
       &__description {
         width: 50%;
@@ -16,11 +22,21 @@
         flex-direction: column;
         gap: 3.2rem;
 
+        @include for-phone-only {
+          width: 100%;
+          text-align: center;
+          gap: 4rem;
+        }
+
         .hero {
           &__text-wrap {
             display: flex;
             flex-direction: column;
             gap: 3.2rem;
+
+            @include for-phone-only {
+              gap: 4rem;
+            }
 
             .title {
               font-size: 4.8rem;
@@ -30,6 +46,10 @@
 
               #cursor-animation {
                 @include primary-text-color;
+
+                @include for-phone-only {
+                  font-size: 3.2rem;
+                }
 
                 &::after {
                   content: '|';
@@ -52,12 +72,21 @@
             .body {
               font-size: 1.6rem;
               color: $primary-blue-900;
+
+              @include for-phone-only {
+                font-size: 2rem;
+              }
             }
           }
 
           &__btn-wrap {
             display: flex;
             gap: 2.4rem;
+
+            @include for-phone-only {
+              width: 100%;
+              justify-content: center;
+            }
 
             @mixin btn {
               width: 15rem;
@@ -97,6 +126,10 @@
         width: 40%;
         height: 48rem;
         position: relative;
+
+        @include for-phone-only {
+          width: 100%;
+        }
 
         .file-scan {
           width: 100%;

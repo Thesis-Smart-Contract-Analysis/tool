@@ -15,7 +15,7 @@
       display: flex;
       align-items: center;
       gap: 1.2rem;
-      padding: 1.2rem;
+      padding: 1.2rem 0;
 
       .header-logo {
         &__image {
@@ -36,6 +36,10 @@
     .header-nav__wrapper {
       .header-nav {
         &__menu {
+          @include for-phone-only {
+            display: none;
+          }
+
           display: flex;
 
           .header-nav__item {
