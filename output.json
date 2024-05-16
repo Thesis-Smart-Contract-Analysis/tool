@@ -1,0 +1,339 @@
+{
+    "semantic_grep": {
+        "errors": [],
+        "findings": [
+            {
+                "matches": [
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            10,
+                            22
+                        ],
+                        "match_lines": [
+                            9,
+                            9
+                        ],
+                        "match_string": "contract HashForEther {"
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "cwe": "CWE-665: Improper Initialization",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
+                        "https://cwe.mitre.org/data/definitions/665.html"
+                    ],
+                    "description": "The absence of an explicitly defined constructor in smart contract `HashForEther` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `HashForEther` or an incorrectly formatted constructor declaration.",
+                    "severity": "WARNING",
+                    "id": "swe-118"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            9,
+                            43
+                        ],
+                        "match_lines": [
+                            19,
+                            19
+                        ],
+                        "match_string": "        msg.sender.transfer(this.balance);"
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "cwe": "CWE-665: Improper Initialization",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-134/",
+                        "https://cwe.mitre.org/data/definitions/655.html"
+                    ],
+                    "description": "Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount",
+                    "severity": "WARNING",
+                    "id": "swe-134"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            1,
+                            24
+                        ],
+                        "match_lines": [
+                            7,
+                            7
+                        ],
+                        "match_string": "pragma solidity ^0.4.24;"
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "cwe": "CWE-664: Improper Control of a Resource Through its Lifetime",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-103/",
+                        "https://cwe.mitre.org/data/definitions/664.html",
+                        "https://semgrep.dev/docs/kb/rules/match-absence"
+                    ],
+                    "description": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
+                    "severity": "WARNING",
+                    "id": "swe-103"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            5,
+                            6
+                        ],
+                        "match_lines": [
+                            11,
+                            15
+                        ],
+                        "match_string": "    function withdrawWinnings() {\n        // Winner if the last 8 hex characters of the address are 0.\n        require(uint32(msg.sender) == 0);\n        _sendWinnings();\n    }"
+                    },
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            5,
+                            6
+                        ],
+                        "match_lines": [
+                            18,
+                            20
+                        ],
+                        "match_string": "    function _sendWinnings() {\n        msg.sender.transfer(this.balance);\n    }"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE-710: Improper Adherence to Coding Standards",
+                    "references": "https://swcregistry.io/docs/SWC-100/",
+                    "description": "Function `withdrawWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
+                    "severity": "WARNING",
+                    "id": "swe-100"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "file_path": "services/uploads/visibility_not_set.sol",
+                        "match_position": [
+                            9,
+                            42
+                        ],
+                        "match_lines": [
+                            19,
+                            19
+                        ],
+                        "match_string": "        msg.sender.transfer(this.balance);"
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "cwe": "CWE-284: Improper Access Control",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-105/",
+                        "https://cwe.mitre.org/data/definitions/284.html"
+                    ],
+                    "description": "Function `_sendWinnings` lacks access control, making it accessible to anyone.",
+                    "severity": "WARNING",
+                    "id": "swe-105"
+                }
+            }
+        ],
+        "success": true
+    },
+    "slither": {
+        "error": null,
+        "findings": [
+            {
+                "matches": [
+                    {
+                        "type": "function",
+                        "name": "_sendWinnings",
+                        "source_mapping": {
+                            "start": 423,
+                            "length": 77,
+                            "filename_relative": "services/uploads/visibility_not_set.sol",
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                            "filename_short": "services/uploads/visibility_not_set.sol",
+                            "is_dependency": false,
+                            "lines": [
+                                18,
+                                19,
+                                20
+                            ],
+                            "starting_column": 5,
+                            "ending_column": 6
+                        },
+                        "type_specific_fields": {
+                            "parent": {
+                                "type": "contract",
+                                "name": "HashForEther",
+                                "source_mapping": {
+                                    "start": 165,
+                                    "length": 338,
+                                    "filename_relative": "services/uploads/visibility_not_set.sol",
+                                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                                    "filename_short": "services/uploads/visibility_not_set.sol",
+                                    "is_dependency": false,
+                                    "lines": [
+                                        9,
+                                        10,
+                                        11,
+                                        12,
+                                        13,
+                                        14,
+                                        15,
+                                        16,
+                                        17,
+                                        18,
+                                        19,
+                                        20,
+                                        21
+                                    ],
+                                    "starting_column": 1,
+                                    "ending_column": 2
+                                }
+                            },
+                            "signature": "_sendWinnings()"
+                        }
+                    },
+                    {
+                        "type": "node",
+                        "name": "msg.sender.transfer(this.balance)",
+                        "source_mapping": {
+                            "start": 459,
+                            "length": 33,
+                            "filename_relative": "services/uploads/visibility_not_set.sol",
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                            "filename_short": "services/uploads/visibility_not_set.sol",
+                            "is_dependency": false,
+                            "lines": [
+                                19
+                            ],
+                            "starting_column": 9,
+                            "ending_column": 42
+                        },
+                        "type_specific_fields": {
+                            "parent": {
+                                "type": "function",
+                                "name": "_sendWinnings",
+                                "source_mapping": {
+                                    "start": 423,
+                                    "length": 77,
+                                    "filename_relative": "services/uploads/visibility_not_set.sol",
+                                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                                    "filename_short": "services/uploads/visibility_not_set.sol",
+                                    "is_dependency": false,
+                                    "lines": [
+                                        18,
+                                        19,
+                                        20
+                                    ],
+                                    "starting_column": 5,
+                                    "ending_column": 6
+                                },
+                                "type_specific_fields": {
+                                    "parent": {
+                                        "type": "contract",
+                                        "name": "HashForEther",
+                                        "source_mapping": {
+                                            "start": 165,
+                                            "length": 338,
+                                            "filename_relative": "services/uploads/visibility_not_set.sol",
+                                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                                            "filename_short": "services/uploads/visibility_not_set.sol",
+                                            "is_dependency": false,
+                                            "lines": [
+                                                9,
+                                                10,
+                                                11,
+                                                12,
+                                                13,
+                                                14,
+                                                15,
+                                                16,
+                                                17,
+                                                18,
+                                                19,
+                                                20,
+                                                21
+                                            ],
+                                            "starting_column": 1,
+                                            "ending_column": 2
+                                        }
+                                    },
+                                    "signature": "_sendWinnings()"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "metadata": {
+                    "description": "HashForEther._sendWinnings() (services/uploads/visibility_not_set.sol#18-20) sends eth to arbitrary user\n\tDangerous calls:\n\t- msg.sender.transfer(this.balance) (services/uploads/visibility_not_set.sol#19)\n",
+                    "id": "arbitrary-send-eth",
+                    "severity": "High",
+                    "markdown": "[HashForEther._sendWinnings()](services/uploads/visibility_not_set.sol#L18-L20) sends eth to arbitrary user\n\tDangerous calls:\n\t- [msg.sender.transfer(this.balance)](services/uploads/visibility_not_set.sol#L19)\n",
+                    "first_markdown_element": "services/uploads/visibility_not_set.sol#L18-L20",
+                    "confidence": "Medium"
+                }
+            }
+        ],
+        "success": true
+    },
+    "mythril": {
+        "error": null,
+        "findings": [
+            {
+                "matches": [
+                    {
+                        "address": 189,
+                        "code": "msg.sender.transfer(this.balance)",
+                        "contract": "HashForEther",
+                        "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                        "function": "_sendWinnings()",
+                        "lineno": 19,
+                        "max_gas_used": 35925,
+                        "min_gas_used": 1644,
+                        "sourceMap": "459:33"
+                    }
+                ],
+                "metadata": {
+                    "description": "The value of the call is dependent on balance or storage write\nThis can lead to race conditions. An attacker may be able to run a transaction after our transaction which can change the value of the call",
+                    "severity": "Medium",
+                    "swc-id": "114",
+                    "title": "Transaction Order Dependence"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "address": 189,
+                        "code": "msg.sender.transfer(this.balance)",
+                        "contract": "HashForEther",
+                        "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                        "function": "_sendWinnings()",
+                        "lineno": 19,
+                        "max_gas_used": 35925,
+                        "min_gas_used": 1644,
+                        "sourceMap": "459:33"
+                    }
+                ],
+                "metadata": {
+                    "description": "Any sender can withdraw Ether from the contract account.\nArbitrary senders other than the contract creator can profitably extract Ether from the contract account. Verify the business logic carefully and make sure that appropriate security controls are in place to prevent unexpected loss of funds.",
+                    "severity": "High",
+                    "swc-id": "105",
+                    "title": "Unprotected Ether Withdrawal"
+                }
+            }
+        ],
+        "success": true
+    }
+}
