@@ -1,0 +1,61 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.result {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  padding: 4rem 2rem 2rem;
+  border: 2px solid $primary-blue-500;
+  border-radius: 1.2rem;
+
+  &__title {
+    position: absolute;
+    top: -3rem;
+    left: 4rem;
+    border: 2px solid $primary-blue-500;
+    width: fit-content;
+    padding: 1.2rem;
+    background-color: white;
+    border-radius: 1.2rem;
+
+    &.MuiTypography-root {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+
+  .result {
+    &__content {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      gap: 1.2rem;
+
+      .code-editor {
+        &__wrapper {
+          width: 100%;
+          height: 60vh;
+          border: 0.1rem solid $primary-blue-500;
+        }
+      }
+    }
+
+    &__control {
+      display: flex;
+      justify-content: flex-end;
+
+      .MuiButtonBase-root {
+        background: $bg-primary;
+        box-shadow: $btn-box-shadow;
+        font-size: 1.6rem;
+        font-family: 400;
+        color: white;
+        border-radius: 0.8rem;
+        padding: 1.2rem;
+      }
+    }
+  }
+}
