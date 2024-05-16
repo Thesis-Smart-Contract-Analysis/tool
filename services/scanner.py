@@ -78,7 +78,7 @@ def init_scanner(targets: list, rules: str) -> Scanner:
     return Scanner(options, targets)
 
 
-def semgrep_scan(target: str, rules=SEMGREP_RULES) -> dict:
+def semgrep_scan(target: str, rules: str) -> dict:
     scanner: Scanner = init_scanner([target], rules)
     json = scanner.scan()
     return json
@@ -128,7 +128,7 @@ def mythril_scan(target: str) -> dict:
     return json.loads(json_str)
 
 
-def scan(target: str, rules: str) -> dict:
+def scan(target: str, rules=SEMGREP_RULES) -> dict:
     # Scan with Semgrep
     res: dict = semgrep_scan(target, rules)
 

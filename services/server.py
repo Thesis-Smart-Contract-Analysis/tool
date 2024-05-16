@@ -1,6 +1,6 @@
 from flask import Flask, request, send_from_directory
 from werkzeug.utils import secure_filename
-from scanner import init_scanner
+from scanner import scan as perform_scan
 import json, os, uuid
 
 SERVICES_FOLDER = "./services"
@@ -57,11 +57,7 @@ def scan():
         )
 
     # Initialize the scanner
-    targets = [abs_path]
-    scanner = init_scanner(targets)
-
-    # Perform scanning
-    res = scanner.scan()
+    res = perform_scan(abs_path)
     return (
         json.dumps(res, indent=2, sort_keys=True),
         200,
