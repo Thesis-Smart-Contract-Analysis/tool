@@ -1,4 +1,5 @@
 from flask import Flask, request, send_from_directory
+from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from scanner import detect_version, scan as perform_scan
 import json, os, uuid
@@ -8,6 +9,7 @@ ABS_SERVICES_FOLDER = os.path.abspath(SERVICES_FOLDER)
 UPLOAD_FOLDER = os.path.join(ABS_SERVICES_FOLDER, "uploads")
 
 app = Flask(__name__)
+CORS(app)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 
