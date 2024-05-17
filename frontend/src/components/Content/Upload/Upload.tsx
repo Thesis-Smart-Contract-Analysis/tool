@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from 'react';
 
 import { useTranslation } from "react-i18next";
 import { useDropzone } from "react-dropzone";
@@ -10,9 +10,9 @@ import Typography from "@mui/material/Typography";
 import BackupIcon from "@mui/icons-material/Backup";
 import Stack from "@mui/material/Stack";
 
-import "./Upload.scss";
-import { ResultContext } from "@/context/ResultContext";
-import { scanFile, scanSourceCode } from "@/apis/services/scan";
+import './Upload.scss';
+import { ResultContext } from '@/context/ResultContext';
+import { scanFile, scanSourceCode } from '@/apis/services/scan';
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
@@ -50,7 +50,7 @@ const Upload: React.FC = () => {
     try {
       setIsResultLoading(true);
 
-      const { data } = await scanFile("king_of_the_ether_throne.sol");
+      const { data } = await scanFile('lotto.sol');
 
       setCurrentSourceCode(code);
       setResult(data);
@@ -136,9 +136,12 @@ const Upload: React.FC = () => {
         </Box>
       </Box>
 
-      <Box className="upload__control">
-        <a href="#result" onClick={handleScanFile}>
-          {t("content.upload.scan-file")}
+      <Box className='upload__control'>
+        <a
+          href='#result'
+          onClick={handleScanFile}
+        >
+          {t('content.upload.scan-file')}
         </a>
       </Box>
     </Box>
