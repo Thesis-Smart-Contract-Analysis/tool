@@ -75,6 +75,7 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
 }
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"
+INFORMATIONAL = "Informational"
 FULL_COVERAGE = "full_coverage"
 
 SCAN_TIME = "scan_time"
@@ -283,6 +284,10 @@ def normalize_slither_findings(res: dict) -> list[dict]:
     if RESULTS in res and DETECTORS in res[RESULTS]:
         # Move 'detectors' one level up and overwrite 'results' as 'findings'
         findings = res[RESULTS].pop(DETECTORS)
+
+        # Remove informational findings
+        findings = [finding for finding in findings if finding[IMPACT] != INFORMATIONAL]
+
         for finding in findings:
             # Rename 'elements' to 'matches'
             finding[MATCHES] = finding.pop(ELEMENTS)
@@ -293,7 +298,6 @@ def normalize_slither_findings(res: dict) -> list[dict]:
             # Move 'check' to 'metadata' and rename to 'id'
             metadata[ID] = finding.pop(CHECK)
             # Move 'impact' to 'metadata' and rename to 'severity'
-            # TODO: Normalize severity
             metadata[SEVERITY] = finding.pop(IMPACT)
             # Move the rest of the keys to 'metadata'
             for key in finding.copy():
