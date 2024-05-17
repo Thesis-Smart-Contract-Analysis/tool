@@ -1,6 +1,6 @@
 from flask import Flask, request, send_from_directory
 from werkzeug.utils import secure_filename
-from scanner import scan as perform_scan
+from scanner import detect_version, scan as perform_scan
 import json, os, uuid
 
 SERVICES_FOLDER = "./services"
@@ -56,8 +56,12 @@ def scan():
             {"Content-Type": "application/json"},
         )
 
-    # Initialize the scanner
-    res = perform_scan(abs_path)
+    # Detect version
+    version = detect_version(abs_path)
+    app.logger.info(f"Detected version: {version}")
+
+    # Perform scanning
+    res = perform_scan(abs_path, version=version)
     return (
         json.dumps(res, indent=2, sort_keys=True),
         200,

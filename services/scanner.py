@@ -1,9 +1,11 @@
 from libsast import Scanner
 import argparse
-import json, logging, subprocess, os
+import json, logging, subprocess, os, re
 
 
 SEMGREP_RULES = "./core/rules/"
+SEMGREP_DETECT_VERSION_RULE = "./services/solidity-version.yaml"
+SEMGREP_DETECT_VERSION_RULE_ID = "solidity-version"
 SEMGREP_SCANNER_OPTIONS: "dict[str, any]" = {
     "sgrep_rules": None,
     "sgrep_extensions": None,
@@ -43,6 +45,7 @@ SEVERITY = "severity"
 TITLE = "title"
 SWC_ID = "swc-id"
 TX_SEQUENCE = "tx_sequence"
+MATCH_STRING = "match_string"
 
 SLITHER_SEMGREP_VULN_MAPPINGS = {
     "encode-packed-collision": "swe-133",
@@ -106,18 +109,61 @@ def parse_args() -> "tuple[str, str, str]":
     return (args.target, args.rules, args.version)
 
 
-def init_scanner(targets: list, rules: str) -> Scanner:
-    options = SEMGREP_SCANNER_OPTIONS
-    options["sgrep_rules"] = rules
-    options["sgrep_extensions"] = {"*", ".sol"}
-    options["show_progress"] = True
-    return Scanner(options, targets)
+def detect_version(target: str):
+    scanner: Scanner = init_scanner([target], SEMGREP_DETECT_VERSION_RULE)
+    res = scanner.scan()
+    semgrep_res = res[SEMGREP]
+
+    if (
+        MATCHES in semgrep_res
+        and SEMGREP_DETECT_VERSION_RULE_ID in semgrep_res[MATCHES]
+    ):
+        files = semgrep_res[MATCHES][SEMGREP_DETECT_VERSION_RULE_ID][FILES]
+        match_string = files[0][MATCH_STRING]
+        version = re.findall("[0-9.*]+", match_string)[0]
+        return version
+
+    return DEFAULT_VERSION
+
+
+def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
+    # Scan with Semgrep
+    print("🔍 Scanning with Semgrep")
+    res: dict = semgrep_scan(target, rules)
+
+    # Scan with Slither
+    print("🔍 Scanning with Slither")
+    slither_res: dict = slither_scan(target, version)
+
+    # Scan with Mythril
+    print("🔍 Scanning with Mythril")
+    mythril_res: dict = mythril_scan(target, version)
+
+    # Aggregate results
+    res[SLITHER] = slither_res
+    res[MYTHRIL] = mythril_res
+
+    # Normalize results
+    normalize(res)
+
+    # Mark duplicated findings
+    mark_duplicated(res)
+
+    return res
 
 
 def semgrep_scan(target: str, rules: str) -> dict:
     scanner: Scanner = init_scanner([target], rules)
     json = scanner.scan()
     return json
+
+
+def init_scanner(targets: list, rules: str) -> Scanner:
+    options = SEMGREP_SCANNER_OPTIONS
+    options["sgrep_rules"] = rules
+    options["sgrep_extensions"] = {"*", ".sol"}
+    options["show_progress"] = False
+    return Scanner(options, targets)
 
 
 def slither_scan(target: str, version: str) -> dict:
@@ -143,7 +189,7 @@ def slither_scan(target: str, version: str) -> dict:
         "--json",
         filepath,
     ]
-    subprocess.run(cmd)
+    subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
     # Read json from file
     with open(filepath, "r") as f:
@@ -164,29 +210,6 @@ def mythril_scan(target: str, version: str) -> dict:
     json_str = completed_process.stdout
 
     return json.loads(json_str)
-
-
-def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
-    # Scan with Semgrep
-    res: dict = semgrep_scan(target, rules)
-
-    # Scan with Slither
-    slither_res: dict = slither_scan(target, version)
-
-    # Scan with Mythril
-    mythril_res: dict = mythril_scan(target, version)
-
-    # Aggregate results
-    res[SLITHER] = slither_res
-    res[MYTHRIL] = mythril_res
-
-    # Normalize results
-    normalize(res)
-
-    # Mark duplicated findings
-    mark_duplicated(res)
-
-    return res
 
 
 def normalize(res: dict):
@@ -333,6 +356,10 @@ def mark_duplicated(res: dict) -> dict:
 if __name__ == "__main__":
     # Parse command line arguments
     target, rules, version = parse_args()
+
+    # Detect version
+    if version == DEFAULT_VERSION:
+        version = detect_version(target)
 
     # Perform scanning
     res = scan(target, rules, version)
