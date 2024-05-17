@@ -43,6 +43,34 @@ TITLE = "title"
 SWC_ID = "swc-id"
 TX_SEQUENCE = "tx_sequence"
 
+SLITHER_SEMGREP_VULN_MAPPINGS = {
+    "encode-packed-collision": "swe-133",
+    "multiple-constructors": "swe-146",
+    "rtlo": "swe-130",
+    "shadowing-state": "swe-119",
+    "shadowing-abstract": "swe-119",
+    "shadowing-local": "swe-119",
+    "suicidal": "swe-106",
+    "uninitialized-storage": "swe-109",
+    "controlled-array-length": "swe-124",
+    "controlled-delegatecall": "swe-113",
+    "reentrancy-eth": "swe-107",
+    "reentrancy-no-eth": "swe-107",
+    "unchecked-transfer": "swe-104",
+    "unchecked-send": "swe-104",
+    "unchecked-lowlevel": "swe-104",
+    "weak-prng": "swe-120",
+    "domain-separator-collision": "swe-158",
+    "locked-ether": "swe-138",
+    "tx-origin": "swe-115",
+    "calls-loop": "swe-113",
+    "incorrect-unary": "swe-129",
+    "timestamp": "swe-116",
+    "shadowing-builtin": "swe-154",
+}
+SEMGREP_ID = "semgrep-id"
+DUPLICATED = "duplicated"
+
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
@@ -145,6 +173,9 @@ def scan(target: str, rules=SEMGREP_RULES) -> dict:
     # Normalize results
     normalize(res)
 
+    # Mark duplicated findings
+    mark_duplicated(res)
+
     return res
 
 
@@ -232,7 +263,7 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
             metadata = finding[METADATA]
             metadata[DESCRIPTION] = finding.pop(DESCRIPTION)
             metadata[SEVERITY] = finding.pop(SEVERITY)
-            metadata[SWC_ID] = finding.pop(SWC_ID)
+            metadata[ID] = "swc-" + finding.pop(SWC_ID)
             metadata[TITLE] = finding.pop(TITLE)
             # Construct 'matches'
             matches = []
@@ -255,6 +286,38 @@ def sort_keys(json: dict) -> dict:
     keys = list(json.keys())
     keys.sort()
     return {key: json[key] for key in keys}
+
+
+def mark_duplicated(res: dict) -> dict:
+    # Find ids in semgrep res
+    semgrep_res = res[SEMGREP]
+    semgrep_findings = semgrep_res[FINDINGS]
+    semgrep_ids = []
+    for finding in semgrep_findings:
+        metadata = finding[METADATA]
+        semgrep_ids.append(metadata[ID])
+
+    # Mark duplicated slither findings
+    slither_res = res[SLITHER]
+    slither_findings = slither_res[FINDINGS]
+    for finding in slither_findings:
+        metadata = finding[METADATA]
+        slither_id = metadata[ID]
+        if slither_id in SLITHER_SEMGREP_VULN_MAPPINGS:
+            semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
+            metadata[SEMGREP_ID] = semgrep_id
+            metadata[DUPLICATED] = semgrep_id in semgrep_ids
+
+    # Mark duplicated mythril findings
+    mythril_res = res[MYTHRIL]
+    mythril_findings = mythril_res[FINDINGS]
+    for finding in mythril_findings:
+        metadata = finding[METADATA]
+        mythril_id = metadata[ID]
+        for semgrep_id in semgrep_ids:
+            if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
+                metadata[SEMGREP_ID] = semgrep_id
+                metadata[DUPLICATED] = True
 
 
 if __name__ == "__main__":
