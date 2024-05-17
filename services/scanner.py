@@ -17,6 +17,7 @@ SEMGREP_SCANNER_OPTIONS: "dict[str, any]" = {
     "ignore_paths": None,
     "show_progress": False,
 }
+DEFAULT_VERSION = "0.8.25"
 
 SEMGREP = "semantic_grep"
 SLITHER = "slither"
@@ -75,7 +76,7 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
 
 
-def parse_args() -> "tuple[str, list[str]]":
+def parse_args() -> "tuple[str, str, str]":
     parser = argparse.ArgumentParser(
         prog="python3 scanner.py",
         description="Scan smart contracts for vulnerabilities",
@@ -94,8 +95,15 @@ def parse_args() -> "tuple[str, list[str]]":
         default=SEMGREP_RULES,
         metavar="RULES",
     )
+    parser.add_argument(
+        "-v",
+        "--version",
+        help="Specify the version of the smart contract",
+        default=DEFAULT_VERSION,
+        metavar="VERSION",
+    )
     args = parser.parse_args()
-    return (args.target, args.rules)
+    return (args.target, args.rules, args.version)
 
 
 def init_scanner(targets: list, rules: str) -> Scanner:
@@ -112,7 +120,7 @@ def semgrep_scan(target: str, rules: str) -> dict:
     return json
 
 
-def slither_scan(target: str) -> dict:
+def slither_scan(target: str, version: str) -> dict:
     # Get file name and file path
     filename = target.split("/")[-1].split(".")[0]
     filepath = f"./services/{filename}.json"
@@ -130,6 +138,8 @@ def slither_scan(target: str) -> dict:
         "--solc-disable-warnings",
         "--exclude-optimization",
         "--exclude-informational",
+        "--solc-solcs-select",
+        version,
         "--json",
         filepath,
     ]
@@ -145,26 +155,26 @@ def slither_scan(target: str) -> dict:
     return json_data
 
 
-def mythril_scan(target: str) -> dict:
+def mythril_scan(target: str, version: str) -> dict:
     # Get file path
     filepath = os.path.abspath(target)
 
-    cmd = ["myth", "analyze", filepath, "-o", "json"]
+    cmd = ["myth", "analyze", filepath, "-o", "json", "--solv", version]
     completed_process = subprocess.run(cmd, capture_output=True, text=True)
     json_str = completed_process.stdout
 
     return json.loads(json_str)
 
 
-def scan(target: str, rules=SEMGREP_RULES) -> dict:
+def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
     # Scan with Semgrep
     res: dict = semgrep_scan(target, rules)
 
     # Scan with Slither
-    slither_res: dict = slither_scan(target)
+    slither_res: dict = slither_scan(target, version)
 
     # Scan with Mythril
-    mythril_res: dict = mythril_scan(target)
+    mythril_res: dict = mythril_scan(target, version)
 
     # Aggregate results
     res[SLITHER] = slither_res
@@ -322,8 +332,8 @@ def mark_duplicated(res: dict) -> dict:
 
 if __name__ == "__main__":
     # Parse command line arguments
-    target, rules = parse_args()
+    target, rules, version = parse_args()
 
     # Perform scanning
-    res = scan(target, rules)
+    res = scan(target, rules, version)
     print(json.dumps(res, indent=4))
