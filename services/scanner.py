@@ -339,7 +339,30 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
             matches.append(match)
             finding[MATCHES] = matches
 
+        # Merge finding with same metadata (not including severity)
+        findings_hash_table = {}
+        for finding in findings:
+            metadata = finding[METADATA]
+            hashed_metadata = hash_mythril_metadata(metadata)
+            if hashed_metadata not in findings_hash_table:
+                findings_hash_table[hashed_metadata] = finding
+            else:
+                findings_hash_table[hashed_metadata][MATCHES].extend(finding[MATCHES])
+                finding[DUPLICATED] = True
+
+        # Remove findings marked as duplicated
+        findings = [
+            finding for finding in findings_hash_table.values() if DUPLICATED not in finding
+        ]
+
     return findings
+
+
+def hash_mythril_metadata(metadata: dict) -> str:
+    # Exclude severity
+    metadata_for_hash = metadata.copy()
+    metadata_for_hash.pop(SEVERITY)
+    return hash(json.dumps(metadata_for_hash))
 
 
 def sort_keys(json: dict) -> dict:
