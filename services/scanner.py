@@ -252,8 +252,8 @@ def normalize_semgrep_findings(res: dict) -> list[dict]:
             finding[MATCHES] = finding.pop(FILES)
         # Remove 'matches'
         res.pop(MATCHES)
-
-    return findings
+        return findings
+    return []
 
 
 def normalize_slither_findings(res: dict) -> list[dict]:
@@ -282,8 +282,8 @@ def normalize_slither_findings(res: dict) -> list[dict]:
                     finding.pop(key)
         # Remove 'results'
         res.pop(RESULTS)
-
-    return findings
+        return findings
+    return []
 
 
 def normalize_mythril_findings(res: dict) -> list[dict]:
@@ -311,8 +311,9 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
                         finding.pop(key)
             matches.append(match)
             finding[MATCHES] = matches
+        return findings
 
-    return findings
+    return []
 
 
 def sort_keys(json: dict) -> dict:
