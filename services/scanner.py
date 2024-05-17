@@ -1,6 +1,7 @@
 from libsast import Scanner
 import argparse
 import json, logging, subprocess, os, re
+from datetime import datetime
 
 
 SEMGREP_RULES = "./core/rules/"
@@ -131,16 +132,31 @@ def detect_version(target: str):
 
 def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
     # Scan with Semgrep
-    print("🔍 Scanning with Semgrep")
+    logging.info("🔍 Scanning with Semgrep")
+    start_time = datetime.now()
     res: dict = semgrep_scan(target, rules)
+    end_time = datetime.now()
+    semgrep_scan_time = end_time - start_time
+    logging.info("🕒 Scan time: %s", semgrep_scan_time)
+    res[SEMGREP][SCAN_TIME] = semgrep_scan_time.total_seconds()
 
     # Scan with Slither
-    print("🔍 Scanning with Slither")
+    logging.info("🔍 Scanning with Slither")
+    start_time = datetime.now()
     slither_res: dict = slither_scan(target, version)
+    end_time = datetime.now()
+    slither_scan_time = end_time - start_time
+    logging.info("🕒 Scan time: %s", slither_scan_time)
+    slither_res[SCAN_TIME] = slither_scan_time.total_seconds()
 
     # Scan with Mythril
-    print("🔍 Scanning with Mythril")
+    logging.info("🔍 Scanning with Mythril")
+    start_time = datetime.now()
     mythril_res: dict = mythril_scan(target, version)
+    end_time = datetime.now()
+    mythril_scan_time = end_time - start_time
+    logging.info("🕒 Scan time: %s", mythril_scan_time)
+    mythril_res[SCAN_TIME] = mythril_scan_time.total_seconds()
 
     # Aggregate results
     res[SLITHER] = slither_res
@@ -151,6 +167,10 @@ def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
 
     # Mark duplicated findings
     mark_duplicated(res)
+
+    # Calculate total scan time
+    total_scan_time = semgrep_scan_time + slither_scan_time + mythril_scan_time
+    res[SCAN_TIME] = total_scan_time.total_seconds()
 
     return res
 

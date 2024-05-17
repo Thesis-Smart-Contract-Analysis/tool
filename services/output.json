@@ -147,6 +147,7 @@
                 }
             }
         ],
+        "scan_time": 1.024285,
         "success": true
     },
     "slither": {
@@ -284,58 +285,132 @@
                     "first_markdown_element": "services/uploads/visibility_not_set.sol#L18-L20",
                     "confidence": "Medium"
                 }
-            }
-        ],
-        "success": true
-    },
-    "mythril": {
-        "error": null,
-        "findings": [
+            },
             {
-                "matches": [
-                    {
-                        "address": 189,
-                        "code": "msg.sender.transfer(this.balance)",
-                        "contract": "HashForEther",
-                        "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
-                        "function": "_sendWinnings()",
-                        "lineno": 19,
-                        "max_gas_used": 35925,
-                        "min_gas_used": 1644,
-                        "sourceMap": "459:33"
-                    }
-                ],
+                "matches": [],
                 "metadata": {
-                    "description": "The value of the call is dependent on balance or storage write\nThis can lead to race conditions. An attacker may be able to run a transaction after our transaction which can change the value of the call",
-                    "severity": "Medium",
-                    "id": "swc-114",
-                    "title": "Transaction Order Dependence"
+                    "description": "solc-0.4.24 is not recommended for deployment\n",
+                    "id": "solc-version",
+                    "severity": "Informational",
+                    "markdown": "solc-0.4.24 is not recommended for deployment\n",
+                    "first_markdown_element": "",
+                    "confidence": "High"
                 }
             },
             {
                 "matches": [
                     {
-                        "address": 189,
-                        "code": "msg.sender.transfer(this.balance)",
-                        "contract": "HashForEther",
-                        "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
-                        "function": "_sendWinnings()",
-                        "lineno": 19,
-                        "max_gas_used": 35925,
-                        "min_gas_used": 1644,
-                        "sourceMap": "459:33"
+                        "type": "pragma",
+                        "name": "^0.4.24",
+                        "source_mapping": {
+                            "start": 137,
+                            "length": 24,
+                            "filename_relative": "services/uploads/visibility_not_set.sol",
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                            "filename_short": "services/uploads/visibility_not_set.sol",
+                            "is_dependency": false,
+                            "lines": [
+                                7
+                            ],
+                            "starting_column": 1,
+                            "ending_column": 25
+                        },
+                        "type_specific_fields": {
+                            "directive": [
+                                "solidity",
+                                "^",
+                                "0.4",
+                                ".24"
+                            ]
+                        }
                     }
                 ],
                 "metadata": {
-                    "description": "Any sender can withdraw Ether from the contract account.\nArbitrary senders other than the contract creator can profitably extract Ether from the contract account. Verify the business logic carefully and make sure that appropriate security controls are in place to prevent unexpected loss of funds.",
-                    "severity": "High",
-                    "id": "swc-105",
-                    "title": "Unprotected Ether Withdrawal",
-                    "semgrep-id": "swe-105",
-                    "duplicated": true
+                    "description": "Pragma version^0.4.24 (services/uploads/visibility_not_set.sol#7) allows old versions\n",
+                    "id": "solc-version",
+                    "severity": "Informational",
+                    "markdown": "Pragma version[^0.4.24](services/uploads/visibility_not_set.sol#L7) allows old versions\n",
+                    "first_markdown_element": "services/uploads/visibility_not_set.sol#L7",
+                    "confidence": "High"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "type": "function",
+                        "name": "_sendWinnings",
+                        "source_mapping": {
+                            "start": 423,
+                            "length": 77,
+                            "filename_relative": "services/uploads/visibility_not_set.sol",
+                            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                            "filename_short": "services/uploads/visibility_not_set.sol",
+                            "is_dependency": false,
+                            "lines": [
+                                18,
+                                19,
+                                20
+                            ],
+                            "starting_column": 5,
+                            "ending_column": 6
+                        },
+                        "type_specific_fields": {
+                            "parent": {
+                                "type": "contract",
+                                "name": "HashForEther",
+                                "source_mapping": {
+                                    "start": 165,
+                                    "length": 338,
+                                    "filename_relative": "services/uploads/visibility_not_set.sol",
+                                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/visibility_not_set.sol",
+                                    "filename_short": "services/uploads/visibility_not_set.sol",
+                                    "is_dependency": false,
+                                    "lines": [
+                                        9,
+                                        10,
+                                        11,
+                                        12,
+                                        13,
+                                        14,
+                                        15,
+                                        16,
+                                        17,
+                                        18,
+                                        19,
+                                        20,
+                                        21
+                                    ],
+                                    "starting_column": 1,
+                                    "ending_column": 2
+                                }
+                            },
+                            "signature": "_sendWinnings()"
+                        },
+                        "additional_fields": {
+                            "target": "function",
+                            "convention": "mixedCase"
+                        }
+                    }
+                ],
+                "metadata": {
+                    "description": "Function HashForEther._sendWinnings() (services/uploads/visibility_not_set.sol#18-20) is not in mixedCase\n",
+                    "id": "naming-convention",
+                    "severity": "Informational",
+                    "markdown": "Function [HashForEther._sendWinnings()](services/uploads/visibility_not_set.sol#L18-L20) is not in mixedCase\n",
+                    "first_markdown_element": "services/uploads/visibility_not_set.sol#L18-L20",
+                    "confidence": "High"
                 }
             }
         ],
+        "scan_time": 0.514538,
         "success": true
-    }
+    },
+    "mythril": {
+        "error": null,
+        "findings": [],
+        "scan_time": 3.885271,
+        "success": true
+    },
+    "full_coverage": false,
+    "scan_time": 5.424094
 }
