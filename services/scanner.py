@@ -286,7 +286,7 @@ def normalize_slither_findings(res: dict) -> list[dict]:
         findings = res[RESULTS].pop(DETECTORS)
 
         # Remove informational findings
-        findings = [finding for finding in findings if finding[IMPACT] != INFORMATIONAL]
+        # findings = [finding for finding in findings if finding[IMPACT] != INFORMATIONAL]
 
         for finding in findings:
             # Rename 'elements' to 'matches'
@@ -387,13 +387,17 @@ def mark_duplicated(res: dict) -> dict:
     slither_findings = slither_res[FINDINGS]
     for finding in slither_findings:
         metadata = finding[METADATA]
+        # Skip informational findings
+        severity = metadata[SEVERITY]
+        if severity == INFORMATIONAL:
+            continue
         slither_id = metadata[ID]
         if slither_id in SLITHER_SEMGREP_VULN_MAPPINGS:
             semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
             metadata[SEMGREP_ID] = semgrep_id
             metadata[DUPLICATED] = semgrep_id in semgrep_ids
-            is_duplicated = is_duplicated or metadata[DUPLICATED]
-
+            is_duplicated = is_duplicated and metadata[DUPLICATED]
+            
     # Mark duplicated mythril findings
     mythril_res = res[MYTHRIL]
     mythril_findings = mythril_res[FINDINGS]
@@ -404,7 +408,7 @@ def mark_duplicated(res: dict) -> dict:
             if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
                 metadata[SEMGREP_ID] = semgrep_id
                 metadata[DUPLICATED] = True
-                is_duplicated = is_duplicated or metadata[DUPLICATED]
+                is_duplicated = is_duplicated and metadata[DUPLICATED]
 
     # Mark duplicated semgrep findings
     res[FULL_COVERAGE] = is_duplicated
