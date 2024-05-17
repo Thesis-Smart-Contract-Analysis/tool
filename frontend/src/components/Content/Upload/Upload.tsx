@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
@@ -11,9 +11,13 @@ import BackupIcon from '@mui/icons-material/Backup';
 import Stack from '@mui/material/Stack';
 
 import './Upload.scss';
+import { ResultContext } from '@/context/ResultContext';
+import { scanFile, scanSourceCode } from '@/apis/services/scan';
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
+  const { setIsResultLoading, setResult, setCurrentSourceCode } =
+    useContext(ResultContext);
 
   const [code, setCode] = useState('');
   const [files, setFiles] = useState<File[]>([]);
@@ -41,6 +45,22 @@ const Upload: React.FC = () => {
     const text = await file.text();
     setCode(text);
   };
+
+  const handleScanFile = async () => {
+    try {
+      setIsResultLoading(true);
+
+      const { data } = await scanFile('lotto.sol');
+
+      setCurrentSourceCode(code);
+      setResult(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsResultLoading(false);
+    }
+  };
+
   return (
     <Box className='upload'>
       <Typography className='upload__title'>
@@ -124,7 +144,12 @@ const Upload: React.FC = () => {
       </Box>
 
       <Box className='upload__control'>
-        <a href='#result'>{t('content.upload.scan-file')}</a>
+        <a
+          href='#result'
+          onClick={handleScanFile}
+        >
+          {t('content.upload.scan-file')}
+        </a>
       </Box>
     </Box>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import { Editor } from '@monaco-editor/react';
@@ -7,11 +7,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 import './Result.scss';
+import { ResultContext } from '@/context/ResultContext';
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
+  const { result, isResultLoading, currentSourceCode, setCurrentSourceCode } =
+    useContext(ResultContext);
 
-  const [code, setCode] = useState('');
+  console.log(result);
 
   return (
     <Box className='result'>
@@ -28,15 +31,9 @@ const Result: React.FC = () => {
       <Box className='result__content'>
         <Box className='code-editor__wrapper'>
           <Editor
-            value={code}
-            onChange={(value) => setCode(value as string)}
-            defaultLanguage='sol'
-          />
-        </Box>
-        <Box className='code-editor__wrapper'>
-          <Editor
-            value={code}
-            onChange={(value) => setCode(value as string)}
+            loading={isResultLoading}
+            value={currentSourceCode}
+            onChange={(value) => setCurrentSourceCode(value as string)}
             defaultLanguage='sol'
           />
         </Box>
