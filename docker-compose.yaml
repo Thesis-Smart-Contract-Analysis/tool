@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: services/Dockerfile
+    image: tool-backend
     container_name: backend
     ports:
       - "5000:5000"

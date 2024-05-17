@@ -74,6 +74,9 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
 }
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"
+FULL_COVERAGE = "full_coverage"
+
+SCAN_TIME = "scan_time"
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -252,8 +255,8 @@ def normalize_semgrep_findings(res: dict) -> list[dict]:
             finding[MATCHES] = finding.pop(FILES)
         # Remove 'matches'
         res.pop(MATCHES)
-        return findings
-    return []
+
+    return findings
 
 
 def normalize_slither_findings(res: dict) -> list[dict]:
@@ -282,8 +285,8 @@ def normalize_slither_findings(res: dict) -> list[dict]:
                     finding.pop(key)
         # Remove 'results'
         res.pop(RESULTS)
-        return findings
-    return []
+
+    return findings
 
 
 def normalize_mythril_findings(res: dict) -> list[dict]:
@@ -311,9 +314,8 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
                         finding.pop(key)
             matches.append(match)
             finding[MATCHES] = matches
-        return findings
 
-    return []
+    return findings
 
 
 def sort_keys(json: dict) -> dict:
@@ -323,6 +325,8 @@ def sort_keys(json: dict) -> dict:
 
 
 def mark_duplicated(res: dict) -> dict:
+    is_duplicated = False
+
     # Find ids in semgrep res
     semgrep_res = res[SEMGREP]
     semgrep_findings = semgrep_res[FINDINGS]
@@ -341,6 +345,7 @@ def mark_duplicated(res: dict) -> dict:
             semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
             metadata[SEMGREP_ID] = semgrep_id
             metadata[DUPLICATED] = semgrep_id in semgrep_ids
+            is_duplicated = is_duplicated or metadata[DUPLICATED]
 
     # Mark duplicated mythril findings
     mythril_res = res[MYTHRIL]
@@ -352,6 +357,10 @@ def mark_duplicated(res: dict) -> dict:
             if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
                 metadata[SEMGREP_ID] = semgrep_id
                 metadata[DUPLICATED] = True
+                is_duplicated = is_duplicated or metadata[DUPLICATED]
+
+    # Mark duplicated semgrep findings
+    res[FULL_COVERAGE] = is_duplicated
 
 
 if __name__ == "__main__":
