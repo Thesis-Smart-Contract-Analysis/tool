@@ -1,0 +1,7 @@
+rules:
+  - id: solidity-version
+    pattern-regex: "pragma solidity .*"
+    message: Found
+    languages:
+      - solidity
+    severity: INFO
