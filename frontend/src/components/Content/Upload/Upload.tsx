@@ -1,31 +1,31 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from "react";
 
-import { useTranslation } from 'react-i18next';
-import { useDropzone } from 'react-dropzone';
-import { Editor } from '@monaco-editor/react';
+import { useTranslation } from "react-i18next";
+import { useDropzone } from "react-dropzone";
+import { Editor } from "@monaco-editor/react";
 
-import CancelIcon from '@mui/icons-material/Cancel';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import BackupIcon from '@mui/icons-material/Backup';
-import Stack from '@mui/material/Stack';
+import CancelIcon from "@mui/icons-material/Cancel";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import BackupIcon from "@mui/icons-material/Backup";
+import Stack from "@mui/material/Stack";
 
-import './Upload.scss';
-import { ResultContext } from '@/context/ResultContext';
-import { scanFile, scanSourceCode } from '@/apis/services/scan';
+import "./Upload.scss";
+import { ResultContext } from "@/context/ResultContext";
+import { scanFile, scanSourceCode } from "@/apis/services/scan";
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
   const { setIsResultLoading, setResult, setCurrentSourceCode } =
     useContext(ResultContext);
 
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState("");
   const [files, setFiles] = useState<File[]>([]);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       if (files.find((file) => file.name === acceptedFiles[0].name))
-        alert('Trùng tên file');
+        alert("Trùng tên file");
       else setFiles((prev) => [...prev, ...acceptedFiles]);
     },
     [files]
@@ -50,7 +50,7 @@ const Upload: React.FC = () => {
     try {
       setIsResultLoading(true);
 
-      const { data } = await scanFile('lotto.sol');
+      const { data } = await scanFile("king_of_the_ether_throne.sol");
 
       setCurrentSourceCode(code);
       setResult(data);
@@ -62,42 +62,39 @@ const Upload: React.FC = () => {
   };
 
   return (
-    <Box className='upload'>
-      <Typography className='upload__title'>
-        {t('content.upload.title')}
+    <Box className="upload">
+      <Typography className="upload__title">
+        {t("content.upload.title")}
       </Typography>
 
-      <Box className='upload__content'>
-        <Box className='upload-file__wrapper'>
+      <Box className="upload__content">
+        <Box className="upload-file__wrapper">
           <Box
-            component='div'
-            className='upload-file__list'
+            component="div"
+            className="upload-file__list"
             {...getRootProps()}
           >
             {files?.map((file) => {
               return (
                 <Box
                   key={file.size + file.name}
-                  className='upload-file__item'
+                  className="upload-file__item"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleChooseFile(file);
                   }}
                 >
-                  <Stack
-                    className='title'
-                    gap={1}
-                  >
-                    <Typography variant='body1'>{file.name}</Typography>
-                    <Typography variant='body2'>
+                  <Stack className="title" gap={1}>
+                    <Typography variant="body1">{file.name}</Typography>
+                    <Typography variant="body2">
                       {Math.floor(file.size / 1000)} KB
                     </Typography>
                   </Stack>
 
-                  <Box className='action'>
+                  <Box className="action">
                     <CancelIcon
-                      fontSize='large'
-                      color='action'
+                      fontSize="large"
+                      color="action"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleDeleteFile(file);
@@ -109,46 +106,39 @@ const Upload: React.FC = () => {
             })}
 
             <Stack
-              justifyContent={'flex-end'}
-              alignItems={'center'}
+              justifyContent={"flex-end"}
+              alignItems={"center"}
               gap={1}
-              className='upload-file__dropzone'
+              className="upload-file__dropzone"
             >
-              <input
-                id='upload-file-o'
-                type='file'
-                {...getInputProps()}
-              />
+              <input id="upload-file-o" type="file" {...getInputProps()} />
 
-              <BackupIcon className='icon' />
+              <BackupIcon className="icon" />
 
-              <Typography className='text'>{t('common.choose')}</Typography>
+              <Typography className="text">{t("common.choose")}</Typography>
 
-              <Typography className='text'>- {t('common.or')} -</Typography>
+              <Typography className="text">- {t("common.or")} -</Typography>
 
-              <Typography className='text'>
+              <Typography className="text">
                 {isDragActive
-                  ? t('content.upload.drop-file-content')
-                  : t('content.upload.drag-file-content')}
+                  ? t("content.upload.drop-file-content")
+                  : t("content.upload.drag-file-content")}
               </Typography>
             </Stack>
           </Box>
         </Box>
-        <Box className='code-editor__wrapper'>
+        <Box className="code-editor__wrapper">
           <Editor
             value={code}
             onChange={(value) => setCode(value as string)}
-            defaultLanguage='sol'
+            defaultLanguage="sol"
           />
         </Box>
       </Box>
 
-      <Box className='upload__control'>
-        <a
-          href='#result'
-          onClick={handleScanFile}
-        >
-          {t('content.upload.scan-file')}
+      <Box className="upload__control">
+        <a href="#result" onClick={handleScanFile}>
+          {t("content.upload.scan-file")}
         </a>
       </Box>
     </Box>
