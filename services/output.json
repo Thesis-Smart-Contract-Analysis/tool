@@ -174,11 +174,11 @@
                 }
             }
         ],
-        "scan_time": 1.089603,
+        "scan_time": 1.002866,
         "success": true
     },
     "slither": {
-        "error": null,
+        "errors": [],
         "findings": [
             {
                 "matches": [
@@ -920,11 +920,11 @@
                 }
             }
         ],
-        "scan_time": 0.601629,
+        "scan_time": 0.617578,
         "success": true
     },
     "mythril": {
-        "error": null,
+        "errors": [],
         "findings": [
             {
                 "matches": [
@@ -967,7 +967,8 @@
                     "description": "A call to a user-supplied address is executed.\nAn external message call to an address specified by the caller is executed. Note that the callee account might contain arbitrary code and could re-enter any function within this contract. Reentering the contract in an intermediate state may lead to unexpected behaviour. Make sure that no state modifications are executed after this call and/or reentrancy guards are in place.",
                     "severity": "Low",
                     "id": "swc-107",
-                    "title": "External Call To User-Supplied Address"
+                    "title": "External Call To User-Supplied Address",
+                    "semgrep-id": "swe-107"
                 }
             },
             {
@@ -988,7 +989,8 @@
                     "description": "Any sender can withdraw Ether from the contract account.\nArbitrary senders other than the contract creator can profitably extract Ether from the contract account. Verify the business logic carefully and make sure that appropriate security controls are in place to prevent unexpected loss of funds.",
                     "severity": "High",
                     "id": "swc-105",
-                    "title": "Unprotected Ether Withdrawal"
+                    "title": "Unprotected Ether Withdrawal",
+                    "semgrep-id": "swe-105"
                 }
             },
             {
@@ -1009,7 +1011,8 @@
                     "description": "Write to persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state.",
                     "severity": "Medium",
                     "id": "swc-107",
-                    "title": "State access after external call"
+                    "title": "State access after external call",
+                    "semgrep-id": "swe-107"
                 }
             },
             {
@@ -1035,7 +1038,8 @@
                     "description": "Read of persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state. This issue is reported for internal compiler generated code.",
                     "severity": "Low",
                     "id": "swc-107",
-                    "title": "State access after external call"
+                    "title": "State access after external call",
+                    "semgrep-id": "swe-107"
                 }
             },
             {
@@ -1077,13 +1081,14 @@
                     "description": "Write to persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state. This issue is reported for internal compiler generated code.",
                     "severity": "Low",
                     "id": "swc-107",
-                    "title": "State access after external call"
+                    "title": "State access after external call",
+                    "semgrep-id": "swe-107"
                 }
             }
         ],
-        "scan_time": 10.838784,
+        "scan_time": 10.936079,
         "success": true
     },
     "full_coverage": false,
-    "scan_time": 12.530016
+    "scan_time": 12.556523
 }

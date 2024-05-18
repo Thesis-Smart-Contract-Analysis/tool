@@ -27,6 +27,7 @@ SLITHER = "slither"
 MYTHRIL = "mythril"
 
 ERRORS = "errors"
+ERROR = "error"
 SUCCESS = "success"
 MATCHES = "matches"
 ID = "id"
@@ -75,6 +76,7 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
 }
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"
+# DUPLICATED_WITH_SLITHER = "duplicated-with-slither"
 INFORMATIONAL = "Informational"
 FULL_COVERAGE = "full_coverage"
 
@@ -248,6 +250,8 @@ def normalize(res: dict):
         if tool in res:
             tool_res = res[tool]
             normalizer = normalizers[tool]
+            # 'errors'
+            normalize_errors(tool_res)
             # 'success'
             set_success(tool_res)
             # 'findings'
@@ -257,6 +261,13 @@ def normalize(res: dict):
             res[tool][FINDINGS] = findings
             # Sort keys
             res[tool] = sort_keys(tool_res)
+
+
+def normalize_errors(res: dict):
+    if ERROR in res:
+        res[ERRORS] = res.pop(ERROR)
+        if res[ERRORS] == None:
+            res[ERRORS] = []
 
 
 def set_success(res: dict):
@@ -352,7 +363,9 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
 
         # Remove findings marked as duplicated
         findings = [
-            finding for finding in findings_hash_table.values() if DUPLICATED not in finding
+            finding
+            for finding in findings_hash_table.values()
+            if DUPLICATED not in finding
         ]
 
     return findings
@@ -397,18 +410,30 @@ def mark_duplicated(res: dict) -> dict:
             metadata[SEMGREP_ID] = semgrep_id
             metadata[DUPLICATED] = semgrep_id in semgrep_ids
             is_duplicated = is_duplicated and metadata[DUPLICATED]
-            
+
+    # Find slither findings that have semgrep id
+    # semgrep_ids_in_slither_res = [
+    #     finding[METADATA][SEMGREP_ID]
+    #     for finding in slither_findings
+    #     if SEMGREP_ID in finding[METADATA]
+    # ]
+
     # Mark duplicated mythril findings
     mythril_res = res[MYTHRIL]
     mythril_findings = mythril_res[FINDINGS]
     for finding in mythril_findings:
         metadata = finding[METADATA]
         mythril_id = metadata[ID]
+        metadata[SEMGREP_ID] = "swe-" + mythril_id.split("-")[1]
         for semgrep_id in semgrep_ids:
             if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
-                metadata[SEMGREP_ID] = semgrep_id
                 metadata[DUPLICATED] = True
                 is_duplicated = is_duplicated and metadata[DUPLICATED]
+        # Mark duplicated mythril findings with slither findings
+        # for semgrep_id in semgrep_ids_in_slither_res:
+        #     if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
+        #         metadata[DUPLICATED_WITH_SLITHER] = True
+        #         is_duplicated = is_duplicated and metadata[DUPLICATED_WITH_SLITHER]
 
     # Mark duplicated semgrep findings
     res[FULL_COVERAGE] = is_duplicated
