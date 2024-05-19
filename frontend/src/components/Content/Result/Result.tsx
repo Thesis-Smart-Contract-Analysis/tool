@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useContext } from "react";
 
-import { useTranslation } from 'react-i18next';
-import { Editor } from '@monaco-editor/react';
+import { useTranslation } from "react-i18next";
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
-import './Result.scss';
-import { ResultContext } from '@/context/ResultContext';
+import "./Result.scss";
+import { ResultContext } from "@/context/ResultContext";
+import CodeEditor from "@/CodeEditor/CodeEditor";
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
@@ -17,26 +17,28 @@ const Result: React.FC = () => {
   console.log(result);
 
   return (
-    <Box className='result'>
+    <Box className="result">
       <span
         style={{
-          position: 'absolute',
-          top: '-4rem',
+          position: "absolute",
+          top: "-4rem",
         }}
-        id='result'
+        id="result"
       ></span>
-      <Typography className='result__title'>
-        {t('content.result.title')}
+      <Typography className="result__title">
+        {t("content.result.title")}
       </Typography>
-      <Box className='result__content'>
-        <Box className='code-editor__wrapper'>
-          <Editor
-            loading={isResultLoading}
-            value={currentSourceCode}
-            onChange={(value) => setCurrentSourceCode(value as string)}
-            defaultLanguage='sol'
-          />
-        </Box>
+      <Box className="result__content">
+        {isResultLoading ? (
+          <h1>Loading ...</h1>
+        ) : (
+          <Box className="code-editor__wrapper">
+            <CodeEditor
+              code={currentSourceCode}
+              setCode={setCurrentSourceCode}
+            />
+          </Box>
+        )}
       </Box>
     </Box>
   );
