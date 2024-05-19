@@ -12,10 +12,11 @@ import Stack from "@mui/material/Stack";
 
 import "./Upload.scss";
 import { ResultContext } from "@/context/ResultContext";
+import { scanFile } from "@/apis/services/scan";
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
-  const { setIsResultLoading, setCurrentSourceCode } =
+  const { setIsResultLoading, setCurrentSourceCode, setResult } =
     useContext(ResultContext);
 
   const [code, setCode] = useState("");
@@ -49,10 +50,11 @@ const Upload: React.FC = () => {
     try {
       setIsResultLoading(true);
 
-      // const { data } = await scanFile("king_of_the_ether_throne.sol");
+      const { data } = await scanFile("odd_even.sol");
+
+      setResult(data);
 
       setCurrentSourceCode(code);
-      // setResult(data);
     } catch (error) {
       console.error(error);
     } finally {

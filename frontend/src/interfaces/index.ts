@@ -15,11 +15,11 @@ export interface Mythril {
 }
 
 export interface MythrilFinding {
-  matches: PurpleMatch[];
-  metadata: PurpleMetadata;
+  matches: MythrilMatch[];
+  metadata: MythrilMetadata;
 }
 
-export interface PurpleMatch {
+export interface MythrilMatch {
   address: number;
   code?: string;
   contract: string;
@@ -31,7 +31,7 @@ export interface PurpleMatch {
   sourceMap: string;
 }
 
-export interface PurpleMetadata {
+export interface MythrilMetadata {
   description: string;
   severity: string;
   id: string;
@@ -48,18 +48,18 @@ export interface SemanticGrep {
 }
 
 export interface SemanticGrepFinding {
-  matches: FluffyMatch[];
-  metadata: FluffyMetadata;
+  matches: SemanticGrepMatch[];
+  metadata: SemanticGrepMetadata;
 }
 
-export interface FluffyMatch {
+export interface SemanticGrepMatch {
   file_path: string;
   match_position: number[];
   match_lines: number[];
   match_string: string;
 }
 
-export interface FluffyMetadata {
+export interface SemanticGrepMetadata {
   cwe: string;
   references: string[];
   description: string;
@@ -76,11 +76,11 @@ export interface Slither {
 }
 
 export interface SlitherFinding {
-  matches: TentacledMatch[];
-  metadata: TentacledMetadata;
+  matches: SlitherMatch[];
+  metadata: SlitherMetadata;
 }
 
-export interface TentacledMatch {
+export interface SlitherMatch {
   type: string;
   name: string;
   source_mapping: SourceMapping;
@@ -123,7 +123,7 @@ export interface Parent {
   type_specific_fields?: ParentTypeSpecificFields;
 }
 
-export interface TentacledMetadata {
+export interface SlitherMetadata {
   description: string;
   id: string;
   severity: string;

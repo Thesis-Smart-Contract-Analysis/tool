@@ -7,14 +7,12 @@ import Typography from "@mui/material/Typography";
 
 import "./Result.scss";
 import { ResultContext } from "@/context/ResultContext";
-import CodeEditor from "@/CodeEditor/CodeEditor";
+import { RESULT_TYPE } from "@/enums";
+import ResultBoard from "./ResultBoard/ResultBoard";
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
-  const { result, isResultLoading, currentSourceCode, setCurrentSourceCode } =
-    useContext(ResultContext);
-
-  console.log(result);
+  const { isResultLoading, result } = useContext(ResultContext);
 
   return (
     <Box className="result">
@@ -32,12 +30,27 @@ const Result: React.FC = () => {
         {isResultLoading ? (
           <h1>Loading ...</h1>
         ) : (
-          <Box className="code-editor__wrapper">
-            <CodeEditor
-              code={currentSourceCode}
-              setCode={setCurrentSourceCode}
+          <React.Fragment>
+            <ResultBoard
+              title="So1Scan"
+              time={result?.semantic_grep.scan_time as number}
+              type={RESULT_TYPE.SEMGREP}
             />
-          </Box>
+            {result?.full_coverage ? null : (
+              <React.Fragment>
+                <ResultBoard
+                  title="Slither"
+                  time={result?.slither.scan_time as number}
+                  type={RESULT_TYPE.SLITHER}
+                />
+                <ResultBoard
+                  title="Mythril"
+                  time={result?.mythril.scan_time as number}
+                  type={RESULT_TYPE.MYTHRIL}
+                />
+              </React.Fragment>
+            )}
+          </React.Fragment>
         )}
       </Box>
     </Box>

@@ -29,7 +29,10 @@
       "browse-file": "Chọn File",
       "clear-files": "Xóa tất cả",
       "drag-file-content": "Kéo - Thả file vào đây",
-      "drop-file-content": "Thả file ở đây ..."
+      "drop-file-content": "Thả file ở đây ...",
+      "result-board": {
+        "scan-time": "Thời gian quét"
+      }
     }
   },
   "common": {

@@ -9,6 +9,18 @@
   color: transparent;
 }
 
+@mixin slither-text-color {
+  background: linear-gradient(90deg, #ad1f2c, #000);
+  background-clip: text;
+  color: transparent;
+}
+
+@mixin mythril-text-color {
+  background: linear-gradient(90deg, #2c56dd, #000);
+  background-clip: text;
+  color: transparent;
+}
+
 @mixin primary-text-color-rotate {
   background: linear-gradient(
     $primary-blue-400,
