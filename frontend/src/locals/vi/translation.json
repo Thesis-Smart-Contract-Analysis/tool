@@ -17,11 +17,14 @@
     "title": "Quét hợp đồng thông minh Solidity",
     "upload": {
       "title": "Tải lên hợp đồng",
-      "scan-file": "Quét File",
+      "scan": "Quét",
       "browse-file": "Chọn File",
       "clear-files": "Xóa tất cả",
       "drag-file-content": "Kéo - Thả file vào đây",
-      "drop-file-content": "Thả file ở đây ..."
+      "drop-file-content": "Thả file ở đây ...",
+      "file-exist": "Trùng tên file",
+      "choose-file": "Quét bằng File",
+      "source-code": "Quét bằng mã nguồn"
     },
     "result": {
       "title": "Kết quả",

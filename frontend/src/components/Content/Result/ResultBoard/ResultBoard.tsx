@@ -24,9 +24,11 @@ const ResultBoard: React.FC<{
           {title}
         </Typography>
 
-        <Typography className="result-board__time">{`${t(
-          "content.result.result-board.scan-time"
-        )}: ${time}s`}</Typography>
+        {time ? (
+          <Typography className="result-board__time">{`${t(
+            "content.result.result-board.scan-time"
+          )}: ${time}s`}</Typography>
+        ) : null}
       </Box>
 
       <Box className="code-editor__wrapper">

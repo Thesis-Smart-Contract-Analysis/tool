@@ -1,4 +1,4 @@
-import { IResult } from '@/interfaces';
+import { IResult } from "@/interfaces";
 
 export type TResultContext = {
   result: IResult | null;
@@ -7,4 +7,6 @@ export type TResultContext = {
   setIsResultLoading: React.Dispatch<React.SetStateAction<boolean>>;
   currentSourceCode: string;
   setCurrentSourceCode: React.Dispatch<React.SetStateAction<string>>;
+  currentFileName: string;
+  setCurrentFileName: React.Dispatch<React.SetStateAction<string>>;
 };

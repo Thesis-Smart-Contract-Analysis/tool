@@ -9,6 +9,7 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isResultLoading, setIsResultLoading] = useState(false);
   const [result, setResult] = useState<IResult | null>(null);
   const [currentSourceCode, setCurrentSourceCode] = useState("");
+  const [currentFileName, setCurrentFileName] = useState("");
 
   return (
     <ResultContext.Provider
@@ -16,9 +17,11 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setResult,
         setIsResultLoading,
         setCurrentSourceCode,
+        setCurrentFileName,
         result,
         isResultLoading,
         currentSourceCode,
+        currentFileName,
       }}
     >
       {children}

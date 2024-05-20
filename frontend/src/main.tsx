@@ -1,19 +1,31 @@
-import React from 'react';
+import React from "react";
 
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-import CssBaseline from '@mui/material/CssBaseline';
+import CssBaseline from "@mui/material/CssBaseline";
 
-import App from './App.tsx';
-import './i18n';
-import './index.scss';
-import ResultProvider from './context/ResultContext.tsx';
+import App from "./App.tsx";
+import "./i18n";
+import "./index.scss";
+import ResultProvider from "./context/ResultContext.tsx";
+import { Experimental_CssVarsProvider as CSSVarProvider } from "@mui/material/styles";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+import theme from "./theme.ts";
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ResultProvider>
-      <CssBaseline />
-      <App />
+      <CSSVarProvider theme={theme}>
+        <CssBaseline />
+        <App />
+        <ToastContainer
+          style={{
+            fontSize: "1.6rem",
+          }}
+        />
+      </CSSVarProvider>
     </ResultProvider>
   </React.StrictMode>
 );

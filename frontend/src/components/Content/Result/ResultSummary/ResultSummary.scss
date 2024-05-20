@@ -1,0 +1,25 @@
+.result-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .result-summary__chart {
+      width: 30%;
+    }
+
+    .result-summary__result {
+      width: 70%;
+      height: 50vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.2rem;
+      overflow-y: auto;
+    }
+  }
+}

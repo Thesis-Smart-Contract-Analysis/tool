@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 
 import { useTranslation } from "react-i18next";
 
@@ -9,10 +9,19 @@ import "./Result.scss";
 import { ResultContext } from "@/context/ResultContext";
 import { RESULT_TYPE } from "@/enums";
 import ResultBoard from "./ResultBoard/ResultBoard";
+import ResultSummary from "./ResultSummary/ResultSummary";
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
-  const { isResultLoading, result } = useContext(ResultContext);
+  const { result } = useContext(ResultContext);
+
+  useEffect(() => {
+    if (result) {
+      document.getElementById("result")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  }, [result]);
 
   return (
     <Box className="result">
@@ -26,33 +35,30 @@ const Result: React.FC = () => {
       <Typography className="result__title">
         {t("content.result.title")}
       </Typography>
+
       <Box className="result__content">
-        {isResultLoading ? (
-          <h1>Loading ...</h1>
-        ) : (
+        <ResultBoard
+          title="So1Scan"
+          time={result?.semantic_grep.scan_time as number}
+          type={RESULT_TYPE.SEMGREP}
+        />
+        {result?.full_coverage ? null : (
           <React.Fragment>
             <ResultBoard
-              title="So1Scan"
-              time={result?.semantic_grep.scan_time as number}
-              type={RESULT_TYPE.SEMGREP}
+              title="Slither"
+              time={result?.slither.scan_time as number}
+              type={RESULT_TYPE.SLITHER}
             />
-            {result?.full_coverage ? null : (
-              <React.Fragment>
-                <ResultBoard
-                  title="Slither"
-                  time={result?.slither.scan_time as number}
-                  type={RESULT_TYPE.SLITHER}
-                />
-                <ResultBoard
-                  title="Mythril"
-                  time={result?.mythril.scan_time as number}
-                  type={RESULT_TYPE.MYTHRIL}
-                />
-              </React.Fragment>
-            )}
+            <ResultBoard
+              title="Mythril"
+              time={result?.mythril.scan_time as number}
+              type={RESULT_TYPE.MYTHRIL}
+            />
           </React.Fragment>
         )}
       </Box>
+
+      <ResultSummary />
     </Box>
   );
 };
