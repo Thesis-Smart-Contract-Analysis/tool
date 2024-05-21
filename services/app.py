@@ -2,7 +2,7 @@ from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from flask_cors import CORS, cross_origin
-from scanner import scan as perform_scan
+from scanner import detect_version, scan as perform_scan
 import json, os, uuid
 
 SERVICES_FOLDER = "./services"
