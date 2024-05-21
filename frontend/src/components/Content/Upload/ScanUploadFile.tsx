@@ -128,7 +128,7 @@ const ScanUploadFile: React.FC<{
               justifyContent={"center"}
               alignItems={"center"}
               gap={1}
-              className="upload-file__dropzone"
+              className="upload-file__dropZone"
               {...getRootProps()}
             >
               <input id="upload-file-o" type="file" {...getInputProps()} />

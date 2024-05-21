@@ -24,41 +24,43 @@ const Result: React.FC = () => {
   }, [result]);
 
   return (
-    <Box className="result">
-      <span
-        style={{
-          position: "absolute",
-          top: "-4rem",
-        }}
-        id="result"
-      ></span>
-      <Typography className="result__title">
-        {t("content.result.title")}
-      </Typography>
+    <Box className="result-wrapper">
+      <Box className="result">
+        <span
+          style={{
+            position: "absolute",
+            top: "-4rem",
+          }}
+          id="result"
+        ></span>
+        <Typography className="result__title">
+          {t("content.result.title")}
+        </Typography>
 
-      <Box className="result__content">
-        <ResultBoard
-          title="So1Scan"
-          time={result?.semantic_grep.scan_time as number}
-          type={RESULT_TYPE.SEMGREP}
-        />
-        {result?.full_coverage ? null : (
-          <React.Fragment>
-            <ResultBoard
-              title="Slither"
-              time={result?.slither.scan_time as number}
-              type={RESULT_TYPE.SLITHER}
-            />
-            <ResultBoard
-              title="Mythril"
-              time={result?.mythril.scan_time as number}
-              type={RESULT_TYPE.MYTHRIL}
-            />
-          </React.Fragment>
-        )}
+        <Box className="result__content">
+          <ResultBoard
+            title="So1Scan"
+            time={result?.semantic_grep.scan_time as number}
+            type={RESULT_TYPE.SO1SCAN}
+          />
+          {result?.full_coverage ? null : (
+            <React.Fragment>
+              <ResultBoard
+                title="Slither"
+                time={result?.slither.scan_time as number}
+                type={RESULT_TYPE.SLITHER}
+              />
+              <ResultBoard
+                title="Mythril"
+                time={result?.mythril.scan_time as number}
+                type={RESULT_TYPE.MYTHRIL}
+              />
+            </React.Fragment>
+          )}
+        </Box>
+
+        <ResultSummary />
       </Box>
-
-      <ResultSummary />
     </Box>
   );
 };

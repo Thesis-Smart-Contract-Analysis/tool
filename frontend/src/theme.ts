@@ -16,7 +16,7 @@ const theme = extendTheme({
       styleOverrides: {
         root: () => {
           return {
-            color: "#00a4f4",
+            color: "#042f4d",
             ".MuiOutlinedInput-notchedOutline": {
               borderColor: "inherit",
             },
@@ -26,14 +26,14 @@ const theme = extendTheme({
               },
             },
             "& fieldset": {
-              borderWidth: "0.2rem",
+              borderWidth: "0.1rem",
               borderColor: "inherit!important",
             },
             "&:hover fieldset": {
-              borderWidth: "0.2rem",
+              borderWidth: "0.1rem",
             },
             "&.Mui-focused fieldset": {
-              borderWidth: "0.2rem",
+              borderWidth: "0.1rem",
             },
           };
         },

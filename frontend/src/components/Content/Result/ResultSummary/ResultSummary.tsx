@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
 
 import Box from "@mui/material/Box";
+import { Typography } from "@mui/material";
 import { PieChart, pieArcLabelClasses } from "@mui/x-charts/PieChart";
 
 import { ResultContext } from "@/context/ResultContext";
+import Severity from "@/components/Severity/Severity";
+import { TOOL } from "@/enums";
 
 import "./ResultSummary.scss";
-import { Typography } from "@mui/material";
 
-const ResultSummary = () => {
+const ResultSummary: React.FC = () => {
   const { result } = useContext(ResultContext);
 
   const semgrepFound = result?.semantic_grep.findings.map((finding) => {
@@ -27,7 +29,7 @@ const ResultSummary = () => {
 
     return {
       id: found.id + found.description,
-      vulId: found["semgrep-id"] || found.id,
+      vulId: found.id,
       severity: found.severity,
       desc: found.description,
     };
@@ -38,7 +40,7 @@ const ResultSummary = () => {
 
     return {
       id: found.id + found.description,
-      vulId: found["semgrep-id"] || found.id,
+      vulId: found.id,
       severity: found.severity,
       desc: found.description,
     };
@@ -47,6 +49,7 @@ const ResultSummary = () => {
   const founds = [semgrepFound, slitherFound, mythrilFound];
 
   const [summary, setSummary] = useState(semgrepFound);
+  const [tool, setTool] = useState(TOOL[0]);
 
   return (
     <Box className="result-summary">
@@ -93,23 +96,39 @@ const ResultSummary = () => {
                 fontWeight: "bold",
               },
             }}
-            slotProps={{
-              legend: { hidden: true },
-            }}
             onItemClick={(_, d) => {
               setSummary(founds[d.dataIndex]);
+              setTool(TOOL[d.dataIndex]);
             }}
             height={300}
           />
         </Box>
+
         <Box className="result-summary__result">
-          {summary?.map((sum) => {
-            return (
-              <Box key={sum.id}>
-                {sum.vulId} - {sum.severity} - {sum.desc}
-              </Box>
-            );
-          })}
+          <Typography className={`title title--${tool.toLowerCase()}`}>
+            {tool}
+          </Typography>
+
+          <Box className="result-summary__list">
+            {summary?.map((sum) => {
+              return (
+                <Box
+                  key={sum.id}
+                  className={`result-summary__item result-summary__item--${tool.toLowerCase()}`}
+                >
+                  <Box className="title">
+                    {sum.severity.toLowerCase() === "warning" ? (
+                      <span style={{ fontSize: "1.4rem" }}>⚠️</span>
+                    ) : (
+                      <Severity type={sum.severity.toLowerCase()} />
+                    )}
+                    <Typography className="title__id">{sum.vulId}</Typography>
+                  </Box>
+                  <Typography className="desc">{sum.desc}</Typography>
+                </Box>
+              );
+            })}
+          </Box>
         </Box>
       </Box>
     </Box>
