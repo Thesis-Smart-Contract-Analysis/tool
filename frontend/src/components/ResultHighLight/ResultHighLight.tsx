@@ -108,7 +108,7 @@ const ResultHighLight: React.FC<{ type: RESULT_TYPE }> = ({ type }) => {
   const decorations = useMemo(() => {
     const decorationsCollection = [] as monaco.editor.IModelDeltaDecoration[];
 
-    if (type === RESULT_TYPE.SEMGREP) {
+    if (type === RESULT_TYPE.SO1SCAN) {
       result?.semantic_grep.findings.map((find) => {
         find.matches.map((match) => {
           decorationsCollection.push(createSemgrepDecoration(find, match));
