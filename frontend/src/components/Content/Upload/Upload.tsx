@@ -35,7 +35,7 @@ const Upload: React.FC = () => {
   const handleScanFile = async () => {
     try {
       setCurrentSourceCode("");
-      setResult(null);
+      // setResult(null);
 
       if (scanMode === SCAN_MODE.CHOOSE_FILE) {
         setIsResultLoading(true);
@@ -46,11 +46,11 @@ const Upload: React.FC = () => {
 
         setCurrentSourceCode(previewCode);
       } else if (scanMode === SCAN_MODE.SOURCE_CODE) {
-        setIsResultLoading(true);
+        // setIsResultLoading(true);
 
-        const { data } = await scanSourceCode(code);
+        // const { data } = await scanSourceCode(code);
 
-        setResult(data);
+        // setResult(data);
 
         setCurrentSourceCode(code);
       }

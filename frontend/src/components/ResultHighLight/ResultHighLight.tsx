@@ -139,16 +139,14 @@ const ResultHighLight: React.FC<{ type: RESULT_TYPE }> = ({ type }) => {
   };
 
   return (
-    <React.Fragment>
-      <Editor
-        defaultValue={currentSourceCode}
-        defaultLanguage="sol"
-        onMount={handleOnMount}
-        options={{
-          readOnly: true,
-        }}
-      />
-    </React.Fragment>
+    <Editor
+      defaultValue={currentSourceCode}
+      defaultLanguage="sol"
+      onMount={handleOnMount}
+      options={{
+        readOnly: true,
+      }}
+    />
   );
 };
 

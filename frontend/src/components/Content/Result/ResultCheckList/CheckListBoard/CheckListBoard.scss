@@ -1,0 +1,98 @@
+@import "/src/styles/variables";
+@import "/src/styles/mixins";
+
+.checklist-board {
+  display: flex;
+  flex-direction: column;
+
+  &__title {
+    &.MuiTypography-root {
+      font-weight: 500;
+      font-size: 1.8rem;
+      line-height: 1;
+      text-transform: capitalize;
+    }
+
+    &--so1scan {
+      @include primary-text-color;
+    }
+
+    &--slither {
+      @include slither-text-color;
+    }
+
+    &--mythril {
+      @include mythril-text-color;
+    }
+  }
+
+  &__content {
+    display: flex;
+
+    .checklist-board {
+      &__list {
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        max-height: 56rem;
+        overflow-y: auto;
+        padding: 1.2rem;
+
+        .checklist-board__item {
+          border-radius: 0.8rem;
+          padding: 1.2rem;
+          cursor: pointer;
+          white-space: pre-wrap;
+
+          &--so1scan {
+            box-shadow: 0 0 0.4rem #00a4f4;
+          }
+
+          &--slither {
+            box-shadow: 0 0 0.4rem #ad1f2c;
+          }
+
+          &--mythril {
+            box-shadow: 0 0 0.4rem #2c56dd;
+          }
+
+          .title {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            margin-bottom: 0.8rem;
+
+            &__id {
+              &.MuiTypography-root {
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 1.6rem;
+                line-height: 1;
+              }
+            }
+
+            &__severity {
+              &.MuiTypography-root {
+                text-transform: uppercase;
+                font-weight: 600;
+                font-size: 1.6rem;
+              }
+            }
+          }
+
+          .desc {
+            &.MuiTypography-root {
+              font-size: 1.4rem;
+              color: $neutrals-600;
+            }
+          }
+        }
+      }
+
+      &__code-editor {
+        width: 60%;
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@import "/src/styles/variables";
+@import "/src/styles/mixins";
+
+.result-checklist {
+  &__title {
+    &.MuiTypography-root {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+  }
+
+  &__boards {
+    margin-top: 2.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+}

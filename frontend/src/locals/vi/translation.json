@@ -35,6 +35,9 @@
       "drop-file-content": "Thả file ở đây ...",
       "result-board": {
         "scan-time": "Thời gian quét"
+      },
+      "check-list": {
+        "title": "Các lỗ hổng cần được kiểm tra lại"
       }
     }
   },
