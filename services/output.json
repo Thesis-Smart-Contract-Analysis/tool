@@ -5,94 +5,18 @@
             {
                 "matches": [
                     {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            9,
-                            16
-                        ],
-                        "match_lines": [
-                            22,
-                            22
-                        ],
-                        "match_string": "        count++;"
-                    },
-                    {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            18,
-                            45
-                        ],
-                        "match_lines": [
-                            27,
-                            27
-                        ],
-                        "match_string": "        uint n = players[0].number + players[1].number;"
-                    },
-                    {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            36,
-                            39
-                        ],
-                        "match_lines": [
-                            28,
-                            28
-                        ],
-                        "match_string": "        (bool success, ) = players[n%2].addr.call.value(address(this).balance)(\"\");"
-                    }
-                ],
-                "metadata": {
-                    "cwe": "CWE-682: Incorrect Calculation",
-                    "references": [
-                        "https://swcregistry.io/docs/SWC-101/",
-                        "https://docs.soliditylang.org/en/latest/types.html",
-                        "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
-                    ],
-                    "description": "The operation on variable `count` could lead to overflow/underflow.",
-                    "severity": "WARNING",
-                    "id": "swe-101"
-                }
-            },
-            {
-                "matches": [
-                    {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            10,
-                            17
-                        ],
-                        "match_lines": [
-                            9,
-                            9
-                        ],
-                        "match_string": "contract OddEven {"
-                    }
-                ],
-                "metadata": {
-                    "category": "security",
-                    "cwe": "CWE-665: Improper Initialization",
-                    "references": [
-                        "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
-                        "https://cwe.mitre.org/data/definitions/665.html"
-                    ],
-                    "description": "The absence of an explicitly defined constructor in smart contract `OddEven` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `OddEven` or an incorrectly formatted constructor declaration.",
-                    "severity": "WARNING",
-                    "id": "swe-118"
-                }
-            },
-            {
-                "matches": [
-                    {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            1,
-                            23
-                        ],
-                        "match_lines": [
-                            7,
-                            7
-                        ],
-                        "match_string": "pragma solidity ^0.5.0;"
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 1,
+                            "line": 7,
+                            "offset": 180
+                        },
+                        "end": {
+                            "col": 23,
+                            "line": 7,
+                            "offset": 202
+                        },
+                        "lines": "pragma solidity ^0.5.0;"
                     }
                 ],
                 "metadata": {
@@ -103,7 +27,7 @@
                         "https://cwe.mitre.org/data/definitions/664.html",
                         "https://semgrep.dev/docs/kb/rules/match-absence"
                     ],
-                    "description": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
+                    "message": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
                     "severity": "WARNING",
                     "id": "swe-103"
                 }
@@ -111,16 +35,75 @@
             {
                 "matches": [
                     {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            5,
-                            30
-                        ],
-                        "match_lines": [
-                            16,
-                            16
-                        ],
-                        "match_string": "    Player[2] private players;"
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 10,
+                            "line": 9,
+                            "offset": 214
+                        },
+                        "end": {
+                            "col": 17,
+                            "line": 9,
+                            "offset": 221
+                        },
+                        "lines": "contract OddEven {"
+                    }
+                ],
+                "metadata": {
+                    "category": "security",
+                    "cwe": "CWE-665: Improper Initialization",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
+                        "https://cwe.mitre.org/data/definitions/665.html"
+                    ],
+                    "message": "The absence of an explicitly defined constructor in smart contract `OddEven` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `OddEven` or an incorrectly formatted constructor declaration.",
+                    "severity": "WARNING",
+                    "id": "swe-118"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 5,
+                            "line": 16,
+                            "offset": 320
+                        },
+                        "end": {
+                            "col": 31,
+                            "line": 16,
+                            "offset": 346
+                        },
+                        "lines": "    Player[2] private players;"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE-710: Improper Adherence to Coding Standards",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-108/",
+                        "https://docs.soliditylang.org/en/latest/types.html"
+                    ],
+                    "message": "Labeling the visibility for `players` makes it easier to catch incorrect assumptions about who can access the variable.",
+                    "severity": "WARNING",
+                    "id": "swe-108"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 5,
+                            "line": 16,
+                            "offset": 320
+                        },
+                        "end": {
+                            "col": 31,
+                            "line": 16,
+                            "offset": 346
+                        },
+                        "lines": "    Player[2] private players;"
                     }
                 ],
                 "metadata": {
@@ -130,7 +113,7 @@
                         "https://swcregistry.io/docs/SWC-136/",
                         "https://cwe.mitre.org/data/definitions/767.html"
                     ],
-                    "description": "Be careful when using `players` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.",
+                    "message": "Be careful when using `players` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.",
                     "severity": "WARNING",
                     "id": "swe-136"
                 }
@@ -138,28 +121,18 @@
             {
                 "matches": [
                     {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            5,
-                            30
-                        ],
-                        "match_lines": [
-                            16,
-                            16
-                        ],
-                        "match_string": "    Player[2] private players;"
-                    },
-                    {
-                        "file_path": "services/uploads/odd_even.sol",
-                        "match_position": [
-                            5,
-                            19
-                        ],
-                        "match_lines": [
-                            17,
-                            17
-                        ],
-                        "match_string": "    uint count = 0;"
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 5,
+                            "line": 17,
+                            "offset": 351
+                        },
+                        "end": {
+                            "col": 20,
+                            "line": 17,
+                            "offset": 366
+                        },
+                        "lines": "    uint count = 0;"
                     }
                 ],
                 "metadata": {
@@ -168,13 +141,100 @@
                         "https://swcregistry.io/docs/SWC-108/",
                         "https://docs.soliditylang.org/en/latest/types.html"
                     ],
-                    "description": "Labeling the visibility for `players` makes it easier to catch incorrect assumptions about who can access the variable.",
+                    "message": "Labeling the visibility for `count` makes it easier to catch incorrect assumptions about who can access the variable.",
                     "severity": "WARNING",
                     "id": "swe-108"
                 }
+            },
+            {
+                "matches": [
+                    {
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 9,
+                            "line": 22,
+                            "offset": 543
+                        },
+                        "end": {
+                            "col": 16,
+                            "line": 22,
+                            "offset": 550
+                        },
+                        "lines": "        count++;"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE-682: Incorrect Calculation",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-101/",
+                        "https://docs.soliditylang.org/en/latest/types.html",
+                        "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+                    ],
+                    "message": "The operation on variable `count` could lead to overflow/underflow.",
+                    "severity": "WARNING",
+                    "id": "swe-101"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 18,
+                            "line": 27,
+                            "offset": 654
+                        },
+                        "end": {
+                            "col": 45,
+                            "line": 27,
+                            "offset": 681
+                        },
+                        "lines": "        uint n = players[0].number + players[1].number;"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE-682: Incorrect Calculation",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-101/",
+                        "https://docs.soliditylang.org/en/latest/types.html",
+                        "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+                    ],
+                    "message": "The operation on variable `players[0].number` could lead to overflow/underflow.",
+                    "severity": "WARNING",
+                    "id": "swe-101"
+                }
+            },
+            {
+                "matches": [
+                    {
+                        "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+                        "start": {
+                            "col": 36,
+                            "line": 28,
+                            "offset": 728
+                        },
+                        "end": {
+                            "col": 39,
+                            "line": 28,
+                            "offset": 731
+                        },
+                        "lines": "        (bool success, ) = players[n%2].addr.call.value(address(this).balance)(\"\");"
+                    }
+                ],
+                "metadata": {
+                    "cwe": "CWE-682: Incorrect Calculation",
+                    "references": [
+                        "https://swcregistry.io/docs/SWC-101/",
+                        "https://docs.soliditylang.org/en/latest/types.html",
+                        "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+                    ],
+                    "message": "The operation on variable `n` could lead to overflow/underflow.",
+                    "severity": "WARNING",
+                    "id": "swe-101"
+                }
             }
         ],
-        "scan_time": 1.002866,
+        "scan_time": 1.777385,
         "success": true
     },
     "slither": {
@@ -920,7 +980,7 @@
                 }
             }
         ],
-        "scan_time": 0.617578,
+        "scan_time": 0.627786,
         "success": true
     },
     "mythril": {
@@ -1014,81 +1074,11 @@
                     "title": "State access after external call",
                     "semgrep-id": "swe-107"
                 }
-            },
-            {
-                "matches": [
-                    {
-                        "address": 832,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    },
-                    {
-                        "address": 884,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    }
-                ],
-                "metadata": {
-                    "description": "Read of persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state. This issue is reported for internal compiler generated code.",
-                    "severity": "Low",
-                    "id": "swc-107",
-                    "title": "State access after external call",
-                    "semgrep-id": "swe-107"
-                }
-            },
-            {
-                "matches": [
-                    {
-                        "address": 859,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    },
-                    {
-                        "address": 867,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    },
-                    {
-                        "address": 911,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    },
-                    {
-                        "address": 919,
-                        "contract": "OddEven",
-                        "function": "play(uint256)",
-                        "max_gas_used": 246227,
-                        "min_gas_used": 49779,
-                        "sourceMap": "205:667::-"
-                    }
-                ],
-                "metadata": {
-                    "description": "Write to persistent state following external call\nThe contract account state is accessed after an external call to a user defined address. To prevent reentrancy issues, consider accessing the state only before the call, especially if the callee is untrusted. Alternatively, a reentrancy lock can be used to prevent untrusted callees from re-entering the contract in an intermediate state. This issue is reported for internal compiler generated code.",
-                    "severity": "Low",
-                    "id": "swc-107",
-                    "title": "State access after external call",
-                    "semgrep-id": "swe-107"
-                }
             }
         ],
-        "scan_time": 10.936079,
+        "scan_time": 11.218266,
         "success": true
     },
     "full_coverage": false,
-    "scan_time": 12.556523
+    "scan_time": 13.623437
 }
