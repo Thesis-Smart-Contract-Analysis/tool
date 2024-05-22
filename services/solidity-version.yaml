@@ -1,7 +1,9 @@
 rules:
   - id: solidity-version
-    pattern-regex: "pragma solidity .*"
-    message: Found
+    patterns:
+      - pattern-regex: pragma solidity (\^|>=|>|<|~|\*|=)*(?P<VERSION>[0-9.*]+)
+      - focus-metavariable: $VERSION
+    message: Found version `$VERSION`
     languages:
       - solidity
     severity: INFO

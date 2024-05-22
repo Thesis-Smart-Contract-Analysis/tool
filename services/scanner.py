@@ -1,12 +1,10 @@
-from libsast import Scanner
 import argparse
 import json, logging, subprocess, os, re
 from datetime import datetime
 
 
 SEMGREP_RULES = "./core/rules/"
-SEMGREP_DETECT_VERSION_RULE = "./services/solidity-version.yaml"
-SEMGREP_DETECT_VERSION_RULE_ID = "solidity-version"
+
 SEMGREP_SCANNER_OPTIONS: "dict[str, any]" = {
     "sgrep_rules": None,
     "sgrep_extensions": None,
@@ -25,29 +23,18 @@ DEFAULT_VERSION = "0.8.25"
 SEMGREP = "semantic_grep"
 SLITHER = "slither"
 MYTHRIL = "mythril"
-
 ERRORS = "errors"
-ERROR = "error"
-SUCCESS = "success"
 MATCHES = "matches"
 ID = "id"
+CHECK_ID = "check_id"
 RESULTS = "results"
 DETECTORS = "detectors"
 ISSUES = "issues"
-
-FILES = "files"
-ELEMENTS = "elements"
 FINDINGS = "findings"
-
 METADATA = "metadata"
 DESCRIPTION = "description"
-CHECK = "check"
-IMPACT = "impact"
+EXTRA = "extra"
 SEVERITY = "severity"
-TITLE = "title"
-SWC_ID = "swc-id"
-TX_SEQUENCE = "tx_sequence"
-MATCH_STRING = "match_string"
 
 SLITHER_SEMGREP_VULN_MAPPINGS = {
     "encode-packed-collision": "swe-133",
@@ -77,10 +64,7 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"
 # DUPLICATED_WITH_SLITHER = "duplicated-with-slither"
-INFORMATIONAL = "Informational"
-FULL_COVERAGE = "full_coverage"
 
-SCAN_TIME = "scan_time"
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -117,27 +101,38 @@ def parse_args() -> "tuple[str, str, str]":
 
 
 def detect_version(target: str):
-    scanner: Scanner = init_scanner([target], SEMGREP_DETECT_VERSION_RULE)
-    res = scanner.scan()
-    semgrep_res = res[SEMGREP]
+    SEMGREP_DETECT_VERSION_RULE = "./services/solidity-version.yaml"
+    SEMGREP_DETECT_VERSION_RULE_ID = "solidity-version"
+    METAVARS = "metavars"
+    VERSION_VAR = "$VERSION"
+    ABSTRACT_CONTENT = "abstract_content"
 
-    if (
-        MATCHES in semgrep_res
-        and SEMGREP_DETECT_VERSION_RULE_ID in semgrep_res[MATCHES]
-    ):
-        files = semgrep_res[MATCHES][SEMGREP_DETECT_VERSION_RULE_ID][FILES]
-        match_string = files[0][MATCH_STRING]
-        version = re.findall("[0-9.*]+", match_string)[0]
+    version = DEFAULT_VERSION
+    semgrep_res = semgrep_scan(target, SEMGREP_DETECT_VERSION_RULE)
+
+    if RESULTS not in semgrep_res:
         return version
 
-    return DEFAULT_VERSION
+    for result in semgrep_res[RESULTS]:
+        if result[CHECK_ID].split(".")[-1] != SEMGREP_DETECT_VERSION_RULE_ID:
+            continue
+        metavars = result[EXTRA][METAVARS]
+        if VERSION_VAR in metavars:
+            version = metavars[VERSION_VAR][ABSTRACT_CONTENT]
+            return version
+
+    return version
 
 
 def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
+    SCAN_TIME = "scan_time"
+
+    res: dict = {}
+
     # Scan with Semgrep
     logging.info("🔍 Scanning with Semgrep")
     start_time = datetime.now()
-    res: dict = semgrep_scan(target, rules)
+    res[SEMGREP] = semgrep_scan(target, rules)
     end_time = datetime.now()
     semgrep_scan_time = end_time - start_time
     logging.info("🕒 Scan time: %s", semgrep_scan_time)
@@ -179,17 +174,12 @@ def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
 
 
 def semgrep_scan(target: str, rules: str) -> dict:
-    scanner: Scanner = init_scanner([target], rules)
-    json = scanner.scan()
-    return json
+    filepath = os.path.abspath(target)
 
-
-def init_scanner(targets: list, rules: str) -> Scanner:
-    options = SEMGREP_SCANNER_OPTIONS
-    options["sgrep_rules"] = rules
-    options["sgrep_extensions"] = {"*", ".sol"}
-    options["show_progress"] = False
-    return Scanner(options, targets)
+    cmd = ["semgrep", "scan", "--config", rules, "--json", "--quiet", filepath]
+    completed_process = subprocess.run(cmd, capture_output=True, text=True)
+    json_str = completed_process.stdout
+    return json.loads(json_str)
 
 
 def slither_scan(target: str, version: str) -> dict:
@@ -228,7 +218,6 @@ def slither_scan(target: str, version: str) -> dict:
 
 
 def mythril_scan(target: str, version: str) -> dict:
-    # Get file path
     filepath = os.path.abspath(target)
 
     cmd = ["myth", "analyze", filepath, "-o", "json", "--solv", version]
@@ -264,6 +253,8 @@ def normalize(res: dict):
 
 
 def normalize_errors(res: dict):
+    ERROR = "error"
+
     if ERROR in res:
         res[ERRORS] = res.pop(ERROR)
         if res[ERRORS] == None:
@@ -271,27 +262,61 @@ def normalize_errors(res: dict):
 
 
 def set_success(res: dict):
+    SUCCESS = "success"
+
     if ERRORS in res:
         res[SUCCESS] = len(res[ERRORS]) == 0
 
 
 def normalize_semgrep_findings(res: dict) -> list[dict]:
-    if MATCHES in res:
-        findings = []
-        for rule_id, finding in res[MATCHES].items():
-            # Convert 'matches' from dict to array
-            findings.append(finding)
-            # Add rule_id as 'id' in metadata
-            finding[METADATA][ID] = rule_id
-            # Rename 'files' to 'matches'
-            finding[MATCHES] = finding.pop(FILES)
-        # Remove 'matches'
-        res.pop(MATCHES)
+    MESSAGE = "message"
+    PATH = "path"
+    START = "start"
+    END = "end"
+    LINES = "lines"
+    INTERFILE_LANGUAGES_USED = "interfile_languages_used"
+    SKIPPED_RULES = "skipped_rules"
+    VERSION = "version"
+    PATHS = "paths"
+
+    findings = []
+
+    if RESULTS in res:
+        findings = res.pop(RESULTS)
+        for finding in findings:
+            # Construct 'metadata'
+            finding[METADATA] = finding[EXTRA].pop(METADATA)
+            metadata = finding[METADATA]
+            metadata[MESSAGE] = finding[EXTRA].pop(MESSAGE)
+            metadata[SEVERITY] = finding[EXTRA].pop(SEVERITY)
+            metadata[ID] = finding.pop(CHECK_ID).split(".")[-1]
+            # Construct 'matches'
+            finding[MATCHES] = []
+            matches = finding[MATCHES]
+            match = {}
+            match[PATH] = finding.pop(PATH)
+            match[START] = finding.pop(START)
+            match[END] = finding.pop(END)
+            match[LINES] = finding[EXTRA].pop(LINES)
+            matches.append(match)
+            finding.pop(EXTRA)
+
+    # Remove redundant keys
+    res.pop(INTERFILE_LANGUAGES_USED)
+    res.pop(SKIPPED_RULES)
+    res.pop(VERSION)
+    res.pop(PATHS)
 
     return findings
 
 
 def normalize_slither_findings(res: dict) -> list[dict]:
+    ELEMENTS = "elements"
+    CHECK = "check"
+    IMPACT = "impact"
+
+    findings = []
+
     if RESULTS in res and DETECTORS in res[RESULTS]:
         # Move 'detectors' one level up and overwrite 'results' as 'findings'
         findings = res[RESULTS].pop(DETECTORS)
@@ -325,10 +350,22 @@ def normalize_slither_findings(res: dict) -> list[dict]:
 
 
 def normalize_mythril_findings(res: dict) -> list[dict]:
+    LINENO = "lineno"
+    REDUNDANT = "redundant"
+    SWC_ID = "swc-id"
+    TITLE = "title"
+    TX_SEQUENCE = "tx_sequence"
+
+    findings = []
+
     if ISSUES in res:
         # Rename 'issues' to 'findings'
         findings = res.pop(ISSUES)
         for finding in findings:
+            # Skip finding if 'lineno' is not present
+            if LINENO not in finding:
+                finding[REDUNDANT] = True
+                continue
             # Construct 'metadata'
             finding[METADATA] = {}
             metadata = finding[METADATA]
@@ -341,41 +378,26 @@ def normalize_mythril_findings(res: dict) -> list[dict]:
             match = {}
             for key in finding.copy():
                 if key is not METADATA:
-                    # Move the rest of the keys to 'matches'
-                    if key != TX_SEQUENCE:
-                        match[key] = finding.pop(key)
                     # Exclude 'tx_sequence' from 'matches'
-                    else:
+                    if key == TX_SEQUENCE:
                         finding.pop(key)
+                    # Move the rest of the keys to 'matches'
+                    else:
+                        match[key] = finding.pop(key)
             matches.append(match)
             finding[MATCHES] = matches
 
-        # Merge finding with same metadata (not including severity)
-        findings_hash_table = {}
-        for finding in findings:
-            metadata = finding[METADATA]
-            hashed_metadata = hash_mythril_metadata(metadata)
-            if hashed_metadata not in findings_hash_table:
-                findings_hash_table[hashed_metadata] = finding
-            else:
-                findings_hash_table[hashed_metadata][MATCHES].extend(finding[MATCHES])
-                finding[DUPLICATED] = True
-
-        # Remove findings marked as duplicated
-        findings = [
-            finding
-            for finding in findings_hash_table.values()
-            if DUPLICATED not in finding
-        ]
+        # Remove findings marked as redundant
+        findings = [finding for finding in findings if REDUNDANT not in finding]
 
     return findings
 
 
-def hash_mythril_metadata(metadata: dict) -> str:
-    # Exclude severity
-    metadata_for_hash = metadata.copy()
-    metadata_for_hash.pop(SEVERITY)
-    return hash(json.dumps(metadata_for_hash))
+# def hash_mythril_metadata(metadata: dict) -> str:
+#     # Exclude severity
+#     metadata_for_hash = metadata.copy()
+#     metadata_for_hash.pop(SEVERITY)
+#     return hash(json.dumps(metadata_for_hash))
 
 
 def sort_keys(json: dict) -> dict:
@@ -385,6 +407,9 @@ def sort_keys(json: dict) -> dict:
 
 
 def mark_duplicated(res: dict) -> dict:
+    INFORMATIONAL = "Informational"
+    FULL_COVERAGE = "full_coverage"
+
     is_duplicated = False
 
     # Find ids in semgrep res
@@ -436,7 +461,7 @@ def mark_duplicated(res: dict) -> dict:
         #         is_duplicated = is_duplicated and metadata[DUPLICATED_WITH_SLITHER]
 
     # Mark duplicated semgrep findings
-    res[FULL_COVERAGE] = is_duplicated
+    res[FULL_COVERAGE] = not is_duplicated
 
 
 if __name__ == "__main__":
