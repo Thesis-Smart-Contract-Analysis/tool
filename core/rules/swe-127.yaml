@@ -9,35 +9,28 @@ rules:
             }
             ...
           }
-      - patterns:
-          - pattern-inside: |
-              function $FUNC(...) {
-                ...
-                $STRUCT $S
-                ...
-                $S.$F = ...;
-                ...
-              }
-          - pattern-either:
-              - pattern: |
-                  $S.$F = ...;
-              - patterns:
-                  - pattern-inside: |
-                      ...
-                      $TYPE $V;
-                      ...
-                  - pattern: |
-                      $V = ...
-              - pattern: |
-                  assembly {
-                    $METHOD
-                  }
+      - pattern-inside: |
+          function $FUNC(...) {
+            ...
+            $STRUCT $S;
+            ...
+            $S.$F = ...;
+            ...
+          }
+      - pattern: |
+          assembly {
+            $INS
+          }
       - metavariable-regex:
           metavariable: $TYPE
           regex: function()
-    message: Function type variable can be changed and thus excute random code
-      instruction. Becareful when use assembly instructions to change variable
-      to an arbitrary value
+      - metavariable-pattern:
+          metavariable: $INS
+          pattern-either:
+            - pattern-regex: ^(mstore).+(mload)
+            - pattern-regex: .+(:=).+(mload)
+      - focus-metavariable: $INS
+    message: Function type variable can be changed and thus excute random code instruction. Becareful when use assembly instructions to change variable to an arbitrary value
     languages:
       - solidity
     severity: WARNING
