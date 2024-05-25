@@ -22,13 +22,14 @@
                 "metadata": {
                     "category": "security",
                     "cwe": "CWE-664: Improper Control of a Resource Through its Lifetime",
+                    "name": "floating-compiler-version",
                     "references": [
                         "https://swcregistry.io/docs/SWC-103/",
                         "https://cwe.mitre.org/data/definitions/664.html",
                         "https://semgrep.dev/docs/kb/rules/match-absence"
                     ],
                     "message": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
-                    "severity": "WARNING",
+                    "severity": "Low",
                     "id": "swe-103"
                 }
             },
@@ -52,12 +53,13 @@
                 "metadata": {
                     "category": "security",
                     "cwe": "CWE-665: Improper Initialization",
+                    "name": "incorrect-constructor-name",
                     "references": [
                         "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
                         "https://cwe.mitre.org/data/definitions/665.html"
                     ],
                     "message": "The absence of an explicitly defined constructor in smart contract `OddEven` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `OddEven` or an incorrectly formatted constructor declaration.",
-                    "severity": "WARNING",
+                    "severity": "High",
                     "id": "swe-118"
                 }
             },
@@ -80,12 +82,13 @@
                 ],
                 "metadata": {
                     "cwe": "CWE-710: Improper Adherence to Coding Standards",
+                    "name": "state-variable-default-visibility",
                     "references": [
                         "https://swcregistry.io/docs/SWC-108/",
                         "https://docs.soliditylang.org/en/latest/types.html"
                     ],
                     "message": "Labeling the visibility for `players` makes it easier to catch incorrect assumptions about who can access the variable.",
-                    "severity": "WARNING",
+                    "severity": "Low",
                     "id": "swe-108"
                 }
             },
@@ -109,12 +112,13 @@
                 "metadata": {
                     "category": "security",
                     "cwe": "CWE-767: Access to Critical Private Variable via Public Method",
+                    "name": "unencrypted-private-data-on-chain",
                     "references": [
                         "https://swcregistry.io/docs/SWC-136/",
                         "https://cwe.mitre.org/data/definitions/767.html"
                     ],
                     "message": "Be careful when using `players` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.",
-                    "severity": "WARNING",
+                    "severity": "High",
                     "id": "swe-136"
                 }
             },
@@ -137,12 +141,13 @@
                 ],
                 "metadata": {
                     "cwe": "CWE-710: Improper Adherence to Coding Standards",
+                    "name": "state-variable-default-visibility",
                     "references": [
                         "https://swcregistry.io/docs/SWC-108/",
                         "https://docs.soliditylang.org/en/latest/types.html"
                     ],
                     "message": "Labeling the visibility for `count` makes it easier to catch incorrect assumptions about who can access the variable.",
-                    "severity": "WARNING",
+                    "severity": "Low",
                     "id": "swe-108"
                 }
             },
@@ -165,13 +170,14 @@
                 ],
                 "metadata": {
                     "cwe": "CWE-682: Incorrect Calculation",
+                    "name": "integer-overflow-underflow",
                     "references": [
                         "https://swcregistry.io/docs/SWC-101/",
                         "https://docs.soliditylang.org/en/latest/types.html",
                         "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
                     ],
                     "message": "The operation on variable `count` could lead to overflow/underflow.",
-                    "severity": "WARNING",
+                    "severity": "High",
                     "id": "swe-101"
                 }
             },
@@ -194,13 +200,14 @@
                 ],
                 "metadata": {
                     "cwe": "CWE-682: Incorrect Calculation",
+                    "name": "integer-overflow-underflow",
                     "references": [
                         "https://swcregistry.io/docs/SWC-101/",
                         "https://docs.soliditylang.org/en/latest/types.html",
                         "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
                     ],
                     "message": "The operation on variable `players[0].number` could lead to overflow/underflow.",
-                    "severity": "WARNING",
+                    "severity": "High",
                     "id": "swe-101"
                 }
             },
@@ -223,18 +230,19 @@
                 ],
                 "metadata": {
                     "cwe": "CWE-682: Incorrect Calculation",
+                    "name": "integer-overflow-underflow",
                     "references": [
                         "https://swcregistry.io/docs/SWC-101/",
                         "https://docs.soliditylang.org/en/latest/types.html",
                         "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
                     ],
                     "message": "The operation on variable `n` could lead to overflow/underflow.",
-                    "severity": "WARNING",
+                    "severity": "High",
                     "id": "swe-101"
                 }
             }
         ],
-        "scan_time": 1.777385,
+        "scan_time": 1.824865,
         "success": true
     },
     "slither": {
@@ -980,7 +988,7 @@
                 }
             }
         ],
-        "scan_time": 0.627786,
+        "scan_time": 0.598815,
         "success": true
     },
     "mythril": {
@@ -1076,9 +1084,9 @@
                 }
             }
         ],
-        "scan_time": 11.218266,
+        "scan_time": 10.814721,
         "success": true
     },
     "full_coverage": false,
-    "scan_time": 13.623437
+    "scan_time": 13.238401
 }

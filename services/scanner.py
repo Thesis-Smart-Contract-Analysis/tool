@@ -298,7 +298,7 @@ def normalize_semgrep_findings(res: dict) -> list[dict]:
             finding[METADATA] = finding[EXTRA].pop(METADATA)
             metadata = finding[METADATA]
             metadata[MESSAGE] = finding[EXTRA].pop(MESSAGE)
-            metadata[SEVERITY] = finding[EXTRA].pop(SEVERITY)
+            metadata[SEVERITY] = finding[EXTRA].pop(SEVERITY).capitalize()
             metadata[ID] = finding.pop(CHECK_ID).split(".")[-1]
             # Construct 'matches'
             finding[MATCHES] = []
