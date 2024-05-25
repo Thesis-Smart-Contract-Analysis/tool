@@ -82,7 +82,7 @@ rules:
     message: The first 4 bytes of the hash value of the signature of function `$F` can cause collisions.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       references:
         - https://forum.openzeppelin.com/t/beware-of-the-proxy-learn-how-to-exploit-function-clashing/1070/6

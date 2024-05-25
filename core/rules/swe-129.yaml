@@ -28,7 +28,7 @@ rules:
     message: Typographical Error
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       category: security
       references:

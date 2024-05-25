@@ -50,7 +50,7 @@ rules:
     message: The variable `$VAR2` takes precedence over a variable with the same name declared in an outer scope.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:

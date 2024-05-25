@@ -33,7 +33,7 @@ rules:
       as $VAR
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:

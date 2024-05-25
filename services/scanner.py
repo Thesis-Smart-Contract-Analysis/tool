@@ -46,7 +46,7 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
     "suicidal": "swe-106",
     "uninitialized-storage": "swe-109",
     "controlled-array-length": "swe-124",
-    "controlled-delegatecall": "swe-113",
+    "controlled-delegatecall": "swe-112",
     "reentrancy-eth": "swe-107",
     "reentrancy-no-eth": "swe-107",
     "unchecked-transfer": "swe-104",
@@ -59,7 +59,6 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
     "calls-loop": "swe-113",
     "incorrect-unary": "swe-129",
     "timestamp": "swe-116",
-    "shadowing-builtin": "swe-154",
 }
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"

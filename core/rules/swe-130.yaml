@@ -3,7 +3,7 @@ rules:
     pattern-regex: ‮
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     message: U+202E character should not appear in the source code of a smart contract.
     metadata:
       category: security
