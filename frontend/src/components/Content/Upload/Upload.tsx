@@ -5,16 +5,16 @@ import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
+import Loading from "@/components/Loading/Loading";
 import { ResultContext } from "@/context/ResultContext";
 import { scanSourceCode } from "@/apis/services/scan";
-import Loading from "@/components/Loading/Loading";
 
 import ScanUploadFile from "./ScanUploadFile";
 import ScanSourceCode from "./ScanSourceCode";
 import { SCAN_MODE } from "./constant";
 import "./Upload.scss";
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();

@@ -60,3 +60,33 @@
     @content;
   }
 }
+
+@mixin for-multiple-media($medias...) {
+  @each $media in $medias {
+    @if ($media == for-phone-only) {
+      @include for-phone-only {
+        @content;
+      }
+    }
+    @if ($media == for-tablet-portrait-up) {
+      @include for-tablet-portrait-up {
+        @content;
+      }
+    }
+    @if ($media == for-tablet-landscape-up) {
+      @include for-tablet-landscape-up {
+        @content;
+      }
+    }
+    @if ($media == for-desktop-up) {
+      @include for-desktop-up {
+        @content;
+      }
+    }
+    @if ($media == for-big-desktop-up) {
+      @include for-big-desktop-up {
+        @content;
+      }
+    }
+  }
+}

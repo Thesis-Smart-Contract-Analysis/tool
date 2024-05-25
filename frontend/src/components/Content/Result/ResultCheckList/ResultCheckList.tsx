@@ -26,7 +26,7 @@ const ResultCheckList: React.FC = () => {
           <CheckListBoard type={RESULT_TYPE.SLITHER} />
         ) : null}
 
-        {result?.slither.findings.length ? (
+        {result?.mythril.findings.length ? (
           <CheckListBoard type={RESULT_TYPE.MYTHRIL} />
         ) : null}
       </Box>

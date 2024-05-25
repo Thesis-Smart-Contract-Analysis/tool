@@ -6,10 +6,11 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import Result from "./Result/Result";
-import "./Content.scss";
-import Upload from "./Upload/Upload";
 import { ResultContext } from "@/context/ResultContext";
+
+import Result from "./Result/Result";
+import Upload from "./Upload/Upload";
+import "./Content.scss";
 
 const Content: React.FC = () => {
   const { t } = useTranslation();

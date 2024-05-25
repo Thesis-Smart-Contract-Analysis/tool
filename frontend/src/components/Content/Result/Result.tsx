@@ -9,8 +9,8 @@ import { ResultContext } from "@/context/ResultContext";
 import { RESULT_TYPE } from "@/enums";
 
 import ResultBoard from "./ResultBoard/ResultBoard";
-import "./Result.scss";
 import ResultCheckList from "./ResultCheckList/ResultCheckList";
+import "./Result.scss";
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
