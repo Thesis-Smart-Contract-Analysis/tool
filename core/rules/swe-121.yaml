@@ -62,7 +62,7 @@ rules:
     message: Same signature can be used multiple times to execute the `$F` function. This could result in unintended consequences if the signer's intention was to approve a transaction once.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:
@@ -70,3 +70,4 @@ rules:
         - https://cwe.mitre.org/data/definitions/347.html
         - https://solidity-by-example.org/hacks/signature-replay/
       cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      name: missing-protection-against-signature-replay-attacks

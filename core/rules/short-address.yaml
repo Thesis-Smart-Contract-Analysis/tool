@@ -1,0 +1,52 @@
+rules:
+  - id: short-address
+    patterns:
+      - pattern-either:
+          - pattern: |
+              function $F(address $ADDR,...) {
+                ...
+              }
+          - pattern: |
+              function $F(address $ADDR,...) $M(...) {
+              ...
+              }
+      - pattern-not: |
+          function $F($ADDR_TYPE $ADDR) {
+            ...
+          }
+      - pattern-not: |
+          function $F($ADDR_TYPE $ADDR,...) {
+            ...
+            assert(<... msg.data.length ...>);
+            ...
+          }
+      - pattern-not: |
+          function $F($ADDR_TYPE $ADDR,...) {
+            ...
+            require(<... msg.data.length ...>);
+            ...
+          }
+      - pattern-not: |
+          function $F($ADDR_TYPE $ADDR,...) {
+            ...
+            if(<... msg.data.length ...>) {
+              ...
+              revert();
+              ...
+            }
+            ...
+          }
+      - pattern-not-inside: |
+          contract $C {
+            ...
+            modifier $M(...) {
+              ...
+              assert(<... msg.data.length ...>);
+              ...
+            }
+            ...
+          }
+      - focus-metavariable: $F
+    message: The function `$F` uses the argument `$ADDR` of type `$ADDR_TYPE` followed by another argument but does not check the transaction data length. This can lead to a short address attack.
+    languages: [solidity]
+    severity: HIGH

@@ -82,10 +82,11 @@ rules:
     message: Modifying a dynamic array `$ARR` whose size increases over time can lead to a denial-of-service condition.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-128/
         - https://cwe.mitre.org/data/definitions/400.html
       cwe: "CWE-400: Uncontrolled Resource Consumption"
+      name: dos-with-block-gas-limit

@@ -34,10 +34,11 @@ rules:
     message: Be careful in arranging the order of inheritance.
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-125/
         - https://cwe.mitre.org/data/definitions/696.html
       cwe: "CWE-696: Incorrect Behavior Order"
+      name: incorrect-inheritance-order

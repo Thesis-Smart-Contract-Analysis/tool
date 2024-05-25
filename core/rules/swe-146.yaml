@@ -21,6 +21,7 @@ rules:
       version < 0.4.22
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
+      name: double-constructor

@@ -137,10 +137,11 @@ rules:
     message: External calls can fail accidentally or deliberately, which can cause a DoS condition in the contract.
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-113/
         - https://cwe.mitre.org/data/definitions/703.html
       cwe: "CWE-703: Improper Check or Handling of Exceptional Conditions"
+      name: dos-with-failed-call

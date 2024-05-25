@@ -39,10 +39,11 @@ rules:
     message: A malicious user can slightly modify the three values v, r and s to create other valid signatures.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       cwe: "CWE-347: Improper Verification of Cryptographic Signature"
       references:
         - https://swcregistry.io/docs/SWC-117/#transaction_malleablity_fixedsol
         - https://cwe.mitre.org/data/definitions/347.html
+      name: signature-malleability

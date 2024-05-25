@@ -1,27 +1,26 @@
 rules:
   - id: swe-141
     patterns:
-      - pattern-either:
-          - pattern: $LIB($ADDR).$METHOD(...)
-          - pattern: |
-              $LIB $LIB_INSTANCE = $LIB($ADDR);
-              ...
-              <... $LIB_INSTANCE.$METHOD(...) ...>
-      - pattern-inside: |
-          contract $C {
+      - pattern: |
+          contract $A {
             ...
-            $PROXY_TYPE $PROXY;
+            $B $B_INSTANCE;
             ...
-            function $F(...) {
+            function $F(...,$ADDR_TYPE $ADDR,...) {
               ...
-              address $ADDR = $PROXY.$GET_ADDR(...);
+              $B_INSTANCE = $B($ADDR);
               ...
             }
             ...
           }
-    message: Beware of malicious code when using library `$LIB` through proxy smart contract `$PROXY`.
+          contract $B {
+            ...
+          }
+      - focus-metavariable: $F
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
+      name: hiding-malicious-code-with-external-contract
+    message: The function `$F` casts an address to an instance of a smart contract. It is necessary to review the source code at the address `$ADDR` because it may contain malicious code.

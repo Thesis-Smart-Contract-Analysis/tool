@@ -23,8 +23,9 @@ rules:
     message: Be cautious when transferring ETH to address `$A` as it may not exist.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:
         - https://docs.soliditylang.org/en/latest/types.html#members-of-addresses
+      name: ether-lost-in-transfer

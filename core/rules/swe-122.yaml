@@ -76,10 +76,11 @@ rules:
     message: It is not recommended to use alternate verification schemes that do not require proper signature verification through `ecrecover()`.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-122/
         - https://cwe.mitre.org/data/definitions/345.html
       cwe: "CWE-345: Insufficient Verification of Data Authenticity"
+      name: lack-of-proper-signature-verification

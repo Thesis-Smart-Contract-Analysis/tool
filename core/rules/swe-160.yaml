@@ -1,5 +1,5 @@
 rules:
-  - id: identity-verification
+  - id: swe-160
     pattern: |
       assembly {
         $SIZE := extcodesize($ADDRESS)
@@ -10,6 +10,7 @@ rules:
       tx.origin` vulnerability
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
+      name: identity-verification

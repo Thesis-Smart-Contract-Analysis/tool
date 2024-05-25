@@ -33,10 +33,11 @@ rules:
       as $VAR
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-133/
         - https://cwe.mitre.org/data/definitions/294.html
       cwe: "CWE-294: Authentication Bypass by Capture-replay"
+      name: hash-collisions-with-multiple-variable-length-arguments

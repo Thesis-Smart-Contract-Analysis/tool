@@ -17,10 +17,11 @@ rules:
     message: Uninitialized local storage variable `$STRUCT_INSTANCE` can point to unexpected storage locations in the contract, which can lead to intentional or unintentional vulnerabilities.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       cwe: "CWE-824: Access of Uninitialized Pointer"
       references:
         - https://swcregistry.io/docs/SWC-109/
         - https://cwe.mitre.org/data/definitions/824.html
+      name: uninitialized-storage-pointer

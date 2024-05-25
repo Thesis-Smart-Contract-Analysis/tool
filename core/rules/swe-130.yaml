@@ -1,0 +1,13 @@
+rules:
+  - id: swe-130
+    pattern-regex: ‮
+    languages:
+      - solidity
+    severity: HIGH
+    message: U+202E character should not appear in the source code of a smart contract.
+    metadata:
+      category: security
+      cwe: "CWE 451: User Interface (UI) Misrepresentation of Critical Information"
+      references:
+        - https://swcregistry.io/docs/SWC-130/
+        - https://cwe.mitre.org/data/definitions/451.html

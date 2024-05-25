@@ -46,7 +46,7 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
     "suicidal": "swe-106",
     "uninitialized-storage": "swe-109",
     "controlled-array-length": "swe-124",
-    "controlled-delegatecall": "swe-113",
+    "controlled-delegatecall": "swe-112",
     "reentrancy-eth": "swe-107",
     "reentrancy-no-eth": "swe-107",
     "unchecked-transfer": "swe-104",
@@ -59,7 +59,6 @@ SLITHER_SEMGREP_VULN_MAPPINGS = {
     "calls-loop": "swe-113",
     "incorrect-unary": "swe-129",
     "timestamp": "swe-116",
-    "shadowing-builtin": "swe-154",
 }
 SEMGREP_ID = "semgrep-id"
 DUPLICATED = "duplicated"
@@ -220,7 +219,18 @@ def slither_scan(target: str, version: str) -> dict:
 def mythril_scan(target: str, version: str) -> dict:
     filepath = os.path.abspath(target)
 
-    cmd = ["myth", "analyze", filepath, "-o", "json", "--solv", version]
+    cmd = [
+        "myth",
+        "a",
+        "-o",
+        "json",
+        "--solv",
+        version,
+        "--parallel-solving",
+        "--execution-timeout",
+        "10",
+        filepath,
+    ]
     completed_process = subprocess.run(cmd, capture_output=True, text=True)
     json_str = completed_process.stdout
 
@@ -288,7 +298,7 @@ def normalize_semgrep_findings(res: dict) -> list[dict]:
             finding[METADATA] = finding[EXTRA].pop(METADATA)
             metadata = finding[METADATA]
             metadata[MESSAGE] = finding[EXTRA].pop(MESSAGE)
-            metadata[SEVERITY] = finding[EXTRA].pop(SEVERITY)
+            metadata[SEVERITY] = finding[EXTRA].pop(SEVERITY).capitalize()
             metadata[ID] = finding.pop(CHECK_ID).split(".")[-1]
             # Construct 'matches'
             finding[MATCHES] = []
@@ -410,7 +420,7 @@ def mark_duplicated(res: dict) -> dict:
     INFORMATIONAL = "Informational"
     FULL_COVERAGE = "full_coverage"
 
-    is_duplicated = False
+    is_all_duplicated = False
 
     # Find ids in semgrep res
     semgrep_res = res[SEMGREP]
@@ -434,7 +444,7 @@ def mark_duplicated(res: dict) -> dict:
             semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
             metadata[SEMGREP_ID] = semgrep_id
             metadata[DUPLICATED] = semgrep_id in semgrep_ids
-            is_duplicated = is_duplicated and metadata[DUPLICATED]
+            is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
 
     # Find slither findings that have semgrep id
     # semgrep_ids_in_slither_res = [
@@ -451,9 +461,11 @@ def mark_duplicated(res: dict) -> dict:
         mythril_id = metadata[ID]
         metadata[SEMGREP_ID] = "swe-" + mythril_id.split("-")[1]
         for semgrep_id in semgrep_ids:
+            if "swe" not in semgrep_id:
+                continue
             if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
                 metadata[DUPLICATED] = True
-                is_duplicated = is_duplicated and metadata[DUPLICATED]
+                is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
         # Mark duplicated mythril findings with slither findings
         # for semgrep_id in semgrep_ids_in_slither_res:
         #     if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
@@ -461,7 +473,7 @@ def mark_duplicated(res: dict) -> dict:
         #         is_duplicated = is_duplicated and metadata[DUPLICATED_WITH_SLITHER]
 
     # Mark duplicated semgrep findings
-    res[FULL_COVERAGE] = not is_duplicated
+    res[FULL_COVERAGE] = is_all_duplicated
 
 
 if __name__ == "__main__":

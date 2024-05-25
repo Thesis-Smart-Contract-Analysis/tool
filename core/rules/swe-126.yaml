@@ -23,9 +23,10 @@ rules:
       function calls to other smart contracts.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-126/
       cwe: "CWE-691: Insufficient Control Flow Management"
+      name: insufficient-gas-griefing

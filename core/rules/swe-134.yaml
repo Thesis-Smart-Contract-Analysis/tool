@@ -8,10 +8,11 @@ rules:
     message: Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-134/
         - https://cwe.mitre.org/data/definitions/655.html
       cwe: "CWE-665: Improper Initialization"
+      name: message-call-with-hardcoded-gas-amount
