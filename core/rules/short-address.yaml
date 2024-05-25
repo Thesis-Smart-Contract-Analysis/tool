@@ -3,11 +3,11 @@ rules:
     patterns:
       - pattern-either:
           - pattern: |
-              function $F($ADDR_TYPE $ADDR,...) {
+              function $F(address $ADDR,...) {
                 ...
               }
           - pattern: |
-              function $F($ADDR_TYPE $ADDR,...) $M(...) {
+              function $F(address $ADDR,...) $M(...) {
               ...
               }
       - pattern-not: |
@@ -46,11 +46,6 @@ rules:
             }
             ...
           }
-      - metavariable-pattern:
-          metavariable: $ADDR_TYPE
-          pattern-either:
-            - pattern-regex: (address)
-            - pattern-regex: (address payable)
       - focus-metavariable: $F
     message: The function `$F` uses the argument `$ADDR` of type `$ADDR_TYPE` followed by another argument but does not check the transaction data length. This can lead to a short address attack.
     languages: [solidity]
