@@ -23,7 +23,7 @@ rules:
     message: Be cautious when transferring ETH to address `$A` as it may not exist.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:

@@ -11,7 +11,7 @@ rules:
     message: Be careful when using `$VAR` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:

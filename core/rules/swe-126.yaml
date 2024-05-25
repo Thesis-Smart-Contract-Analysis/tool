@@ -23,7 +23,7 @@ rules:
       function calls to other smart contracts.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:

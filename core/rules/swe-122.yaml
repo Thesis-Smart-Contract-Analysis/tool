@@ -76,7 +76,7 @@ rules:
     message: It is not recommended to use alternate verification schemes that do not require proper signature verification through `ecrecover()`.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:

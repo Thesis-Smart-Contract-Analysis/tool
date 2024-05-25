@@ -19,7 +19,7 @@ rules:
     message: Several functions or operators are deprecated. Using them leads to reduced code quality. With new major versions of the Solidity compiler, deprecated functions or operators may result in side effects and compile errors.
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       cwe: "CWE-477: Use of Obsolete Function"
       name: use-of-deprecated-solidity-functions

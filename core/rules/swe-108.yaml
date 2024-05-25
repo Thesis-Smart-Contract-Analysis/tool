@@ -23,7 +23,7 @@ rules:
     message: Labeling the visibility for `$VAR` makes it easier to catch incorrect assumptions about who can access the variable.
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       references:
         - https://swcregistry.io/docs/SWC-108/

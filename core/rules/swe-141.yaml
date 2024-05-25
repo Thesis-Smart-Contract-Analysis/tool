@@ -19,7 +19,7 @@ rules:
       - focus-metavariable: $F
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       name: hiding-malicious-code-with-external-contract

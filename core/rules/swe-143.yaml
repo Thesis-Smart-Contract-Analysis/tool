@@ -18,7 +18,7 @@ rules:
     message: Smart contract at address `$ADD` may not exist function with signature `$F`
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       name: call-to-the-unknown

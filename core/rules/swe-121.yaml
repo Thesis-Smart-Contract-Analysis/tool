@@ -62,7 +62,7 @@ rules:
     message: Same signature can be used multiple times to execute the `$F` function. This could result in unintended consequences if the signer's intention was to approve a transaction once.
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:

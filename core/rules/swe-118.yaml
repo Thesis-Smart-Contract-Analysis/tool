@@ -22,7 +22,7 @@ rules:
     message: The absence of an explicitly defined constructor in smart contract `$C` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `$C` or an incorrectly formatted constructor declaration.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       references:
         - https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol

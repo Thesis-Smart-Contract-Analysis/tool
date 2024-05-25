@@ -8,7 +8,7 @@ rules:
     message: Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount
     languages:
       - solidity
-    severity: WARNING
+    severity: MEDIUM
     metadata:
       category: security
       references:
