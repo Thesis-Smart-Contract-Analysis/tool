@@ -16,8 +16,6 @@ const Result: React.FC = () => {
   const { t } = useTranslation();
   const { result } = useContext(ResultContext);
 
-  console.log(result);
-
   useEffect(() => {
     if (result) {
       document.getElementById("result")?.scrollIntoView({
@@ -25,6 +23,10 @@ const Result: React.FC = () => {
       });
     }
   }, [result]);
+
+  const isHiddenResult =
+    result?.full_coverage ||
+    (!result?.mythril.findings.length && !result?.slither.findings.length);
 
   return (
     <Box className="result-wrapper">
@@ -48,9 +50,7 @@ const Result: React.FC = () => {
             type={RESULT_TYPE.SO1SCAN}
           />
 
-          <ResultCheckList />
-
-          {result?.full_coverage ? null : <ResultCheckList />}
+          {isHiddenResult ? null : <ResultCheckList />}
         </Box>
       </Box>
     </Box>
