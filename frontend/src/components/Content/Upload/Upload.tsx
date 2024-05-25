@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import ButtonBase from "@mui/material/ButtonBase";
 
 import { ResultContext } from "@/context/ResultContext";
-import { scanFile, scanSourceCode } from "@/apis/services/scan";
+import { scanSourceCode } from "@/apis/services/scan";
 import Loading from "@/components/Loading/Loading";
 
 import ScanUploadFile from "./ScanUploadFile";
@@ -35,22 +35,24 @@ const Upload: React.FC = () => {
   const handleScanFile = async () => {
     try {
       setCurrentSourceCode("");
-      // setResult(null);
+      setResult(null);
 
       if (scanMode === SCAN_MODE.CHOOSE_FILE) {
         setIsResultLoading(true);
 
-        const { data } = await scanFile(currentFileName);
+        // const { data } = await scanFile(currentFileName);
+
+        const { data } = await scanSourceCode(previewCode);
 
         setResult(data);
 
         setCurrentSourceCode(previewCode);
       } else if (scanMode === SCAN_MODE.SOURCE_CODE) {
-        // setIsResultLoading(true);
+        setIsResultLoading(true);
 
-        // const { data } = await scanSourceCode(code);
+        const { data } = await scanSourceCode(code);
 
-        // setResult(data);
+        setResult(data);
 
         setCurrentSourceCode(code);
       }
@@ -90,6 +92,7 @@ const Upload: React.FC = () => {
             setIsUpLoading={setIsUpLoading}
             setPreviewCode={setPreviewCode}
             setCurrentFileName={setCurrentFileName}
+            currentFileName={currentFileName}
             files={files}
             isUploading={isUploading}
             previewCode={previewCode}

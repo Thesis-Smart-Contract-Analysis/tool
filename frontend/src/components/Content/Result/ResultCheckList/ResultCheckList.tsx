@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+
 import { RESULT_TYPE } from "@/enums";
 
 import CheckListBoard from "./CheckListBoard/CheckListBoard";

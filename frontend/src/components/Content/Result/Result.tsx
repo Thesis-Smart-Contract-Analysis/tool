@@ -16,6 +16,8 @@ const Result: React.FC = () => {
   const { t } = useTranslation();
   const { result } = useContext(ResultContext);
 
+  console.log(result);
+
   useEffect(() => {
     if (result) {
       document.getElementById("result")?.scrollIntoView({
@@ -45,6 +47,8 @@ const Result: React.FC = () => {
             time={result?.semantic_grep.scan_time as number}
             type={RESULT_TYPE.SO1SCAN}
           />
+
+          <ResultCheckList />
 
           {result?.full_coverage ? null : <ResultCheckList />}
         </Box>

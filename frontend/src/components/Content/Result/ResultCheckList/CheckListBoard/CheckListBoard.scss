@@ -6,11 +6,28 @@
   flex-direction: column;
 
   &__title {
-    &.MuiTypography-root {
-      font-weight: 500;
-      font-size: 1.8rem;
-      line-height: 1;
-      text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1.2rem;
+
+    .text {
+      &.MuiTypography-root {
+        font-weight: 500;
+        font-size: 1.8rem;
+        line-height: 1;
+      }
+    }
+
+    .link {
+      display: flex;
+
+      .MuiSvgIcon-root {
+        margin: auto;
+        font-size: 2.4rem;
+        line-height: 1;
+        color: $neutrals-500;
+      }
     }
 
     &--so1scan {
@@ -42,49 +59,61 @@
         .checklist-board__item {
           border-radius: 0.8rem;
           padding: 1.2rem;
-          cursor: pointer;
-          white-space: pre-wrap;
+          position: relative;
+          box-shadow: 0 0 0.2rem $primary-blue-950;
 
-          &--so1scan {
-            box-shadow: 0 0 0.4rem #00a4f4;
+          input[type="checkbox"] {
+            position: absolute;
+            right: 1.2rem;
+            top: 1.2rem;
           }
 
-          &--slither {
-            box-shadow: 0 0 0.4rem #ad1f2c;
+          &.active--so1scan {
+            box-shadow: 0 0 0.4rem $so1scan-color;
           }
 
-          &--mythril {
-            box-shadow: 0 0 0.4rem #2c56dd;
+          &.active--slither {
+            box-shadow: 0 0 0.4rem $slither-color;
           }
 
-          .title {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            margin-bottom: 0.8rem;
+          &.active--mythril {
+            box-shadow: 0 0 0.4rem $mythril-color;
+          }
 
-            &__id {
-              &.MuiTypography-root {
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 1.6rem;
-                line-height: 1;
+          label {
+            cursor: pointer;
+
+            .title {
+              display: flex;
+              gap: 0.8rem;
+              align-items: center;
+              margin-bottom: 0.8rem;
+
+              &__id {
+                &.MuiTypography-root {
+                  text-transform: uppercase;
+                  font-weight: 600;
+                  font-size: 1.6rem;
+                  line-height: 1;
+                }
+              }
+
+              &__severity {
+                &.MuiTypography-root {
+                  text-transform: uppercase;
+                  font-weight: 600;
+                  font-size: 1.6rem;
+                }
               }
             }
 
-            &__severity {
+            .desc {
               &.MuiTypography-root {
-                text-transform: uppercase;
-                font-weight: 600;
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+                color: $neutrals-600;
+                white-space: pre-wrap;
+                overflow-wrap: break-word;
               }
-            }
-          }
-
-          .desc {
-            &.MuiTypography-root {
-              font-size: 1.4rem;
-              color: $neutrals-600;
             }
           }
         }

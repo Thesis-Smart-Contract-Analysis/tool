@@ -4,8 +4,11 @@
 .result-checklist {
   &__title {
     &.MuiTypography-root {
-      font-size: 1.8rem;
+      padding: 1.2rem;
+      font-size: 3.8rem;
       font-weight: 500;
+      color: $primary-blue-950;
+      text-align: center;
     }
   }
 

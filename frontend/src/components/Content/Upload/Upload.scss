@@ -92,13 +92,17 @@
                 &__item {
                   width: 100%;
                   font-size: 1.4rem;
-                  border: 0.1rem solid $primary-blue-500;
+                  box-shadow: 0 0 0.2rem $primary-blue-500;
                   border-radius: 0.4rem;
                   display: flex;
                   justify-content: space-between;
                   align-items: center;
                   padding: 1rem;
                   cursor: pointer;
+
+                  &.active {
+                    background: $primary-blue-100;
+                  }
 
                   .title {
                     .MuiTypography-root {
@@ -158,6 +162,35 @@
         &__wrapper {
           width: 70%;
           border: 0.1rem solid $primary-blue-950;
+          position: relative;
+
+          .filename {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            position: absolute;
+            top: -4.2rem;
+            left: -0.05rem;
+            padding: 0.8rem;
+            border: 0.1rem solid $primary-blue-950;
+            border-bottom: unset;
+            border-top-left-radius: 0.4rem;
+            border-top-right-radius: 0.4rem;
+            background: #fff;
+
+            &__icon {
+              width: 1.6rem;
+            }
+
+            &__name {
+              &.MuiTypography-root {
+                font-size: 1.6rem;
+                line-height: 1.6;
+                font-weight: 500;
+                color: black;
+              }
+            }
+          }
 
           &--full {
             width: 100%;

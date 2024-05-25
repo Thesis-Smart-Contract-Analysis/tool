@@ -5,16 +5,20 @@ import { Editor, OnMount } from "@monaco-editor/react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
 
 import { MythrilFinding, MythrilMatch } from "@/interfaces";
 import { ResultContext } from "@/context/ResultContext";
 import Severity from "@/components/Severity/Severity";
+import { MYTHRIL_LINK } from "@/utils/constant";
 
 const MythrilCheckListBoard = () => {
   const { result, currentSourceCode } = useContext(ResultContext);
 
   const [currentDecoration, setCurrentDecoration] =
     useState<monaco.editor.IModelDeltaDecoration[]>();
+
+  const [currentChooseId, setCurrentChooseId] = useState("");
 
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
@@ -82,11 +86,15 @@ const MythrilCheckListBoard = () => {
 
   return (
     <Box className="checklist-board">
-      <Typography
-        className={`checklist-board__title checklist-board__title--mythril`}
-      >
-        Mythril
-      </Typography>
+      <Box className={`checklist-board__title checklist-board__title--mythril`}>
+        <Typography className="text">
+          Sử dụng công cụ Mythril để kiểm tra
+        </Typography>
+
+        <a href={MYTHRIL_LINK} className="link" target="_blank">
+          <InsertLinkIcon />
+        </a>
+      </Box>
 
       <Box className="checklist-board__content">
         <Box className="checklist-board__list">
@@ -94,17 +102,22 @@ const MythrilCheckListBoard = () => {
             return (
               <Box
                 key={item.id}
-                className={`checklist-board__item checklist-board__item--mythril`}
+                className={`checklist-board__item ${
+                  currentChooseId === item.id ? "active--mythril" : ""
+                }`}
                 onClick={() => {
                   handleMythrilChoose(item.finding);
+                  setCurrentChooseId(item.id);
                 }}
               >
-                <Box className="title">
-                  <Severity type={item.severity.toLowerCase()} />
-                  <Typography className="title__id">{item.vulId}</Typography>
-                </Box>
+                <label htmlFor="">
+                  <Box className="title">
+                    <Severity type={item.severity.toLowerCase()} />
+                    <Typography className="title__id">{item.vulId}</Typography>
+                  </Box>
 
-                <Typography className="desc">{item.desc}</Typography>
+                  <Typography className="desc">{item.desc}</Typography>
+                </label>
               </Box>
             );
           })}

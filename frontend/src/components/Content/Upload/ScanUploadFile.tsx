@@ -13,13 +13,14 @@ import Typography from "@mui/material/Typography";
 import BackupIcon from "@mui/icons-material/Backup";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-import { uploadFile } from "@/apis/services/upload";
+import solIcon from "@/assets/solidity-icon.svg";
 
 const ScanUploadFile: React.FC<{
   setFiles: React.Dispatch<React.SetStateAction<File[]>>;
   setIsUpLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setPreviewCode: React.Dispatch<React.SetStateAction<string>>;
   setCurrentFileName: React.Dispatch<React.SetStateAction<string>>;
+  currentFileName: string;
   isUploading: boolean;
   files: File[];
   previewCode: string;
@@ -28,6 +29,7 @@ const ScanUploadFile: React.FC<{
   setIsUpLoading,
   setPreviewCode,
   setCurrentFileName,
+  currentFileName,
   isUploading,
   files,
   previewCode,
@@ -38,6 +40,8 @@ const ScanUploadFile: React.FC<{
     setFiles((prev) => {
       return prev.filter((f) => f !== file);
     });
+
+    setCurrentFileName("");
 
     setPreviewCode("");
   };
@@ -63,7 +67,7 @@ const ScanUploadFile: React.FC<{
         try {
           setIsUpLoading(true);
 
-          await uploadFile(acceptedFiles[0]);
+          // await uploadFile(acceptedFiles[0]);
 
           setFiles((prev) => [...prev, ...acceptedFiles]);
 
@@ -97,7 +101,9 @@ const ScanUploadFile: React.FC<{
                 return (
                   <Box
                     key={file.size + file.name}
-                    className="upload-file__item"
+                    className={`upload-file__item ${
+                      currentFileName === file.name ? "active" : ""
+                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleChooseFile(file);
@@ -149,6 +155,14 @@ const ScanUploadFile: React.FC<{
         )}
       </Box>
       <Box className={`code-editor__wrapper`}>
+        <Box className="filename">
+          {currentFileName ? (
+            <img src={solIcon} alt="" className="filename__icon" />
+          ) : null}
+          <Typography className="filename__name">
+            {currentFileName || "Undefined"}
+          </Typography>
+        </Box>
         <Editor
           value={previewCode}
           defaultLanguage="sol"

@@ -4,17 +4,22 @@ import { Editor, OnMount } from "@monaco-editor/react";
 import * as monaco from "monaco-editor";
 
 import Box from "@mui/material/Box";
+import InsertLinkIcon from "@mui/icons-material/InsertLink";
+
 import Typography from "@mui/material/Typography";
 
 import Severity from "@/components/Severity/Severity";
 import { ResultContext } from "@/context/ResultContext";
 import { SlitherFinding, SlitherMatch } from "@/interfaces";
+import { SLITHER_LINK } from "@/utils/constant";
 
 const SlitherCheckListBoard: React.FC = () => {
   const { result, currentSourceCode } = useContext(ResultContext);
 
   const [currentDecoration, setCurrentDecoration] =
     useState<monaco.editor.IModelDeltaDecoration[]>();
+
+  const [currentChooseId, setCurrentChooseId] = useState("");
 
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
@@ -76,11 +81,15 @@ const SlitherCheckListBoard: React.FC = () => {
 
   return (
     <Box className="checklist-board">
-      <Typography
-        className={`checklist-board__title checklist-board__title--slither`}
-      >
-        Slither
-      </Typography>
+      <Box className={`checklist-board__title checklist-board__title--slither`}>
+        <Typography className="text">
+          Sử dụng công cụ Slither để kiểm tra
+        </Typography>
+
+        <a href={SLITHER_LINK} className="link" target="_blank">
+          <InsertLinkIcon />
+        </a>
+      </Box>
 
       <Box className="checklist-board__content">
         <Box className="checklist-board__list">
@@ -88,17 +97,34 @@ const SlitherCheckListBoard: React.FC = () => {
             return (
               <Box
                 key={item.id}
-                className={`checklist-board__item checklist-board__item--slither`}
+                className={`checklist-board__item  ${
+                  currentChooseId === item.id ? "active--slither" : ""
+                }`}
                 onClick={() => {
                   handleSlitherChoose(item.finding);
+                  setCurrentChooseId(item.id);
                 }}
               >
-                <Box className="title">
-                  <Severity type={item.severity.toLowerCase()} />
-                  <Typography className="title__id">{item.vulId}</Typography>
-                </Box>
+                <input
+                  type="checkbox"
+                  id={item.id}
+                  style={{
+                    display: "none",
+                  }}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      handleSlitherChoose(item.finding);
+                    }
+                  }}
+                />
+                <label htmlFor={item.id}>
+                  <Box className="title">
+                    <Severity type={item.severity.toLowerCase()} />
+                    <Typography className="title__id">{item.vulId}</Typography>
+                  </Box>
 
-                <Typography className="desc">{item.desc}</Typography>
+                  <Typography className="desc">{item.desc}</Typography>
+                </label>
               </Box>
             );
           })}

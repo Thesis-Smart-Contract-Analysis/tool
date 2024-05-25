@@ -20,15 +20,15 @@ const createSemgrepDecoration = (
   find: SemanticGrepFinding,
   match: SemanticGrepMatch
 ) => {
-  const start_line = match.match_lines[0];
-  const start_col = match.match_position[0];
-  const end_line = match.match_lines[1];
-  const end_col = match.match_position[1];
+  const start_line = match.start.line;
+  const start_col = match.start.col;
+  const end_line = match.end.line;
+  const end_col = match.end.col;
 
   const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
   const message = `⚠️ **\`${find.metadata.id.toLocaleUpperCase()}\`** - ${
-    find.metadata.description
+    find.metadata.message
   }`;
 
   const className = "highlight";

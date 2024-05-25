@@ -53,16 +53,22 @@ export interface SemanticGrepFinding {
 }
 
 export interface SemanticGrepMatch {
-  file_path: string;
-  match_position: number[];
-  match_lines: number[];
-  match_string: string;
+  path: string;
+  start: End;
+  end: End;
+  lines: string;
+}
+
+export interface End {
+  col: number;
+  line: number;
+  offset: number;
 }
 
 export interface SemanticGrepMetadata {
   cwe: string;
   references: string[];
-  description: string;
+  message: string;
   severity: string;
   id: string;
   category?: string;
