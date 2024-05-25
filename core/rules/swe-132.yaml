@@ -62,10 +62,11 @@ rules:
     message: Be careful when use `address($THIS).balance` to check balance of this
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-132/
         - https://cwe.mitre.org/data/definitions/667.html
       cwe: "CWE-667: Improper Locking"
+      name: unexpected-ether-balance

@@ -57,3 +57,4 @@ rules:
         - https://swcregistry.io/docs/SWC-119/
         - https://cwe.mitre.org/data/definitions/710.html
       cwe: "CWE-710: Improper Adherence to Coding Standards"
+      name: shadowing-state-variables

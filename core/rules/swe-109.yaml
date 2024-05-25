@@ -24,3 +24,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-109/
         - https://cwe.mitre.org/data/definitions/824.html
+      name: uninitialized-storage-pointer

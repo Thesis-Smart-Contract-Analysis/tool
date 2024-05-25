@@ -33,10 +33,11 @@ rules:
     message: Function type variable can be changed and thus excute random code instruction. Becareful when use assembly instructions to change variable to an arbitrary value
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-127/
         - https://cwe.mitre.org/data/definitions/695.html
       cwe: "CWE-695: Use of Low-Level Functionality"
+      name: arbitrary-jump-with-function-type-variable

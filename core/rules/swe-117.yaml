@@ -46,3 +46,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-117/#transaction_malleablity_fixedsol
         - https://cwe.mitre.org/data/definitions/347.html
+      name: signature-malleability

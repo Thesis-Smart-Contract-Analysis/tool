@@ -29,10 +29,11 @@ rules:
     message: Calling into untrusted contract `$ADDR` is very dangerous, as the code at the target address can change any storage values of the caller and has full control over the caller's balance.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-112/
         - https://cwe.mitre.org/data/definitions/829.html
       cwe: "CWE-829: Inclusion of Functionality from Untrusted Control Sphere"
+      name: delegatecall-to-untrusted-callee

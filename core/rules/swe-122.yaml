@@ -83,3 +83,4 @@ rules:
         - https://swcregistry.io/docs/SWC-122/
         - https://cwe.mitre.org/data/definitions/345.html
       cwe: "CWE-345: Insufficient Verification of Data Authenticity"
+      name: lack-of-proper-signature-verification

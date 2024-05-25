@@ -81,10 +81,11 @@ rules:
     message: Function `$F` lacks access control, making it accessible to anyone.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       cwe: "CWE-284: Improper Access Control"
       references:
         - https://swcregistry.io/docs/SWC-105/
         - https://cwe.mitre.org/data/definitions/284.html
+      name: unprotected-ether-withdrawal

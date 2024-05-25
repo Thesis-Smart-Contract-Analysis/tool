@@ -31,10 +31,11 @@ rules:
     message: Using `tx.origin` for authorization could make a contract vulnerable if an authorized account calls into a malicious contract.
     languages:
       - solidity
-    severity: WARNING
+    severity: LOW
     metadata:
       category: security
       references:
         - https://swcregistry.io/docs/SWC-115/
         - https://cwe.mitre.org/data/definitions/477.html
       cwe: "CWE-477: Use of Obsolete Function"
+      name: authorization-through-tx.origin

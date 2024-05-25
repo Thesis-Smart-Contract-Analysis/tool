@@ -25,3 +25,4 @@ rules:
     severity: WARNING
     metadata:
       category: security
+      name: hiding-malicious-code-with-external-contract

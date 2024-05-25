@@ -70,3 +70,4 @@ rules:
         - https://cwe.mitre.org/data/definitions/347.html
         - https://solidity-by-example.org/hacks/signature-replay/
       cwe: "CWE-347: Improper Verification of Cryptographic Signature"
+      name: missing-protection-against-signature-replay-attacks

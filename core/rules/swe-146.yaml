@@ -24,3 +24,4 @@ rules:
     severity: WARNING
     metadata:
       category: security
+      name: double-constructor

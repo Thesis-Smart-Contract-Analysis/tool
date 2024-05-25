@@ -35,3 +35,4 @@ rules:
         - https://swcregistry.io/docs/SWC-129/
         - https://cwe.mitre.org/data/definitions/480.html
       cwe: "CWE-480: Use of Incorrect Operator"
+      name: typographical-error

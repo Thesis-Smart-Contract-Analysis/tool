@@ -1,5 +1,5 @@
 rules:
-  - id: identity-verification
+  - id: swe-160
     pattern: |
       assembly {
         $SIZE := extcodesize($ADDRESS)
@@ -13,3 +13,4 @@ rules:
     severity: WARNING
     metadata:
       category: security
+      name: identity-verification

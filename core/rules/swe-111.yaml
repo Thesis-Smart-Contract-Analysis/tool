@@ -22,3 +22,4 @@ rules:
     severity: WARNING
     metadata:
       cwe: "CWE-477: Use of Obsolete Function"
+      name: use-of-deprecated-solidity-functions

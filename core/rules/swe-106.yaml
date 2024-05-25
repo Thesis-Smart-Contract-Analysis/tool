@@ -110,10 +110,11 @@ rules:
     message: The lack of access control for function `$F` and its subsequent call to function `$K` creates a security vulnerability that could be exploited by malicious actors to delete the smart contract and steal all of its ETH.
     languages:
       - solidity
-    severity: WARNING
+    severity: HIGH
     metadata:
       category: security
       cwe: "CWE-284: Improper Access Control"
       references:
         - https://swcregistry.io/docs/SWC-106/#walletlibrarysol
         - https://cwe.mitre.org/data/definitions/284.html
+      name: unprotected-selfdestruct-instruction

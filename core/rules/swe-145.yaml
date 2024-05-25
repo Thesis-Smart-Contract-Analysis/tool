@@ -28,3 +28,4 @@ rules:
       category: security
       references:
         - https://docs.soliditylang.org/en/latest/types.html#members-of-addresses
+      name: ether-lost-in-transfer

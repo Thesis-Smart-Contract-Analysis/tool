@@ -22,3 +22,4 @@ rules:
         - https://swcregistry.io/docs/SWC-103/
         - https://cwe.mitre.org/data/definitions/664.html
         - https://semgrep.dev/docs/kb/rules/match-absence
+      name: floating-compiler-version

@@ -87,3 +87,4 @@ rules:
       references:
         - https://forum.openzeppelin.com/t/beware-of-the-proxy-learn-how-to-exploit-function-clashing/1070/6
       category: security
+      name: function-selector-clashing

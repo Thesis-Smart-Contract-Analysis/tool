@@ -29,3 +29,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-126/
       cwe: "CWE-691: Insufficient Control Flow Management"
+      name: insufficient-gas-griefing

@@ -29,5 +29,6 @@ rules:
         - https://cwe.mitre.org/data/definitions/665.html
       category: security
       cwe: "CWE-665: Improper Initialization"
+      name: incorrect-constructor-name
 
 

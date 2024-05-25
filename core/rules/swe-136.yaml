@@ -18,3 +18,4 @@ rules:
         - https://swcregistry.io/docs/SWC-136/
         - https://cwe.mitre.org/data/definitions/767.html
       cwe: "CWE-767: Access to Critical Private Variable via Public Method"
+      name: unencrypted-private-data-on-chain
