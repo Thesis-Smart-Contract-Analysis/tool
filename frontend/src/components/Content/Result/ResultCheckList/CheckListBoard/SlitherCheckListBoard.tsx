@@ -49,7 +49,7 @@ const SlitherCheckListBoard: React.FC = () => {
 
     const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
-    const className = "highlight";
+    const className = "code-highlight";
 
     return {
       range,

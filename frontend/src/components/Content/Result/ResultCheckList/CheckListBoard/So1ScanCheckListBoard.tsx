@@ -5,14 +5,12 @@ import { Editor, OnMount } from "@monaco-editor/react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import InsertLinkIcon from "@mui/icons-material/InsertLink";
 
-import { MythrilFinding, MythrilMatch } from "@/interfaces";
+import { SemanticGrepFinding, SemanticGrepMatch } from "@/interfaces";
 import { ResultContext } from "@/context/ResultContext";
 import Severity from "@/components/Severity/Severity";
-import { MYTHRIL_LINK } from "@/utils/constant";
 
-const MythrilCheckListBoard = () => {
+const So1ScanCheckListBoard = () => {
   const { result, currentSourceCode } = useContext(ResultContext);
 
   const [currentDecoration, setCurrentDecoration] =
@@ -39,13 +37,20 @@ const MythrilCheckListBoard = () => {
     editorRef.current = editor;
   };
 
-  const createMythrilDecoration = (match: MythrilMatch) => {
-    const start_line = match.lineno as number;
-    const start_col = 1;
-    const end_line = match.lineno as number;
-    const end_col = 100;
+  const createSo1ScanDecoration = (
+    find: SemanticGrepFinding,
+    match: SemanticGrepMatch
+  ) => {
+    const start_line = match.start.line;
+    const start_col = match.start.col;
+    const end_line = match.end.line;
+    const end_col = match.end.col;
 
     const range = new monaco.Range(start_line, start_col, end_line, end_col);
+
+    const message = `⚠️ **\`${find.metadata.id.toLocaleUpperCase()}\`** - ${
+      find.metadata.message
+    }`;
 
     const className = "code-highlight";
 
@@ -53,49 +58,39 @@ const MythrilCheckListBoard = () => {
       range,
 
       options: {
+        hoverMessage: {
+          value: message,
+        },
+
         className,
       },
     };
   };
 
-  const handleMythrilChoose = (finding: MythrilFinding) => {
+  const handleSo1ScanChoose = (finding: SemanticGrepFinding) => {
     const decorationsCollection = [] as monaco.editor.IModelDeltaDecoration[];
 
     finding.matches.map((match) => {
-      if (match.lineno) {
-        decorationsCollection.push(createMythrilDecoration(match));
-      }
+      decorationsCollection.push(createSo1ScanDecoration(finding, match));
     });
 
     setCurrentDecoration(decorationsCollection);
   };
 
-  const checklist = result?.mythril.findings
-    .filter((finding) => finding.matches.some((match) => match.lineno))
-    .map((finding) => {
-      const found = finding.metadata;
+  const checklist = result?.semantic_grep.findings.map((finding) => {
+    const found = finding.metadata;
 
-      return {
-        id: found.id + found.description,
-        vulId: found.id,
-        severity: found.severity,
-        desc: found.description,
-        finding,
-      };
-    });
+    return {
+      id: found.id + found.message,
+      vulId: found.id,
+      severity: found.severity,
+      desc: found.message,
+      finding,
+    };
+  });
 
   return (
     <Box className="checklist-board">
-      <Box className={`checklist-board__title checklist-board__title--mythril`}>
-        <Typography className="text">
-          Sử dụng công cụ Mythril để kiểm tra
-        </Typography>
-
-        <a href={MYTHRIL_LINK} className="link" target="_blank">
-          <InsertLinkIcon />
-        </a>
-      </Box>
-
       <Box className="checklist-board__content">
         <Box className="checklist-board__list">
           {checklist?.map((item) => {
@@ -103,10 +98,10 @@ const MythrilCheckListBoard = () => {
               <Box
                 key={item.id}
                 className={`checklist-board__item ${
-                  currentChooseId === item.id ? "active--mythril" : ""
+                  currentChooseId === item.id ? "active--so1scan" : ""
                 }`}
                 onClick={() => {
-                  handleMythrilChoose(item.finding);
+                  handleSo1ScanChoose(item.finding);
                   setCurrentChooseId(item.id);
                 }}
               >
@@ -131,4 +126,4 @@ const MythrilCheckListBoard = () => {
   );
 };
 
-export default MythrilCheckListBoard;
+export default So1ScanCheckListBoard;

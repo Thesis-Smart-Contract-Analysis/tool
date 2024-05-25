@@ -1,24 +1,17 @@
-import Header from './components/Header/Header';
-import Content from './components/Content/Content';
-import Footer from './components/Footer/Footer';
-import Box from '@mui/material/Box';
-import path from '@/assets/path.svg';
-import './App.scss';
-import Hero from './components/Hero/Hero';
+import Box from "@mui/material/Box";
+
+import path from "@/assets/path.svg";
+
+import Header from "./components/Header/Header";
+import Content from "./components/Content/Content";
+import Footer from "./components/Footer/Footer";
+import Hero from "./components/Hero/Hero";
+import "./App.scss";
 
 function App() {
   return (
-    <Box className='container'>
-      <img
-        src={path}
-        alt='path'
-        style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          zIndex: -1,
-        }}
-      />
+    <Box className="container">
+      <img src={path} alt="path" className="container__path" />
       <Header />
       <Hero />
       <Content />

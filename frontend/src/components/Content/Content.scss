@@ -1,4 +1,4 @@
-@import '/src/styles/variables';
+@import "/src/styles/variables";
 
 .content {
   width: 100%;
@@ -15,6 +15,7 @@
       text-align: center;
       color: $primary-blue-950;
       padding: 1.2rem;
+      margin-bottom: 3.2rem;
     }
   }
 }

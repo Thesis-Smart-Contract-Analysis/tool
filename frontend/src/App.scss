@@ -1,7 +1,27 @@
-@import 'src/styles/variables';
+@import "src/styles/variables";
+@import "src/styles/mixins";
 
 .container {
   width: 100%;
   min-height: 100vh;
   position: relative;
+
+  @include for-phone-only {
+    overflow-x: hidden;
+  }
+
+  &__path {
+    @include for-phone-only {
+      right: -72rem;
+    }
+
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+  }
+}
+
+.code-highlight {
+  background: #ffcc00;
 }

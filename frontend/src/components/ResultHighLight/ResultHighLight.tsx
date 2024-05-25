@@ -4,8 +4,6 @@ import * as monaco from "monaco-editor";
 import Editor from "@monaco-editor/react";
 
 import { ResultContext } from "@/context/ResultContext";
-
-import "./ResultHighLight.scss";
 import { RESULT_TYPE } from "@/enums";
 import {
   SemanticGrepMatch,
@@ -15,6 +13,8 @@ import {
   SlitherFinding,
   SlitherMatch,
 } from "@/interfaces";
+
+import "./ResultHighLight.scss";
 
 const createSemgrepDecoration = (
   find: SemanticGrepFinding,
@@ -31,7 +31,7 @@ const createSemgrepDecoration = (
     find.metadata.message
   }`;
 
-  const className = "highlight";
+  const className = "code-highlight";
 
   return {
     range,
@@ -60,7 +60,7 @@ const createSlitherDecoration = (find: SlitherFinding, match: SlitherMatch) => {
     find.metadata.id.toLocaleUpperCase()
   }\`** - ${find.metadata.markdown}`;
 
-  const className = "highlight";
+  const className = "code-highlight";
 
   return {
     range,
@@ -87,7 +87,7 @@ const createMythrilDecoration = (find: MythrilFinding, match: MythrilMatch) => {
     find.metadata.id.toLocaleUpperCase()
   }\`** - ${find.metadata.description}`;
 
-  const className = "highlight";
+  const className = "code-highlight";
 
   return {
     range,

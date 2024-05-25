@@ -6,8 +6,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 import { RESULT_TYPE } from "@/enums";
-import ResultHighLight from "@/components/ResultHighLight/ResultHighLight";
 
+import So1ScanCheckListBoard from "../ResultCheckList/CheckListBoard/So1ScanCheckListBoard";
 import "./ResultBoard.scss";
 
 const ResultBoard: React.FC<{
@@ -32,7 +32,7 @@ const ResultBoard: React.FC<{
       </Box>
 
       <Box className="code-editor__wrapper">
-        <ResultHighLight type={type} />
+        <So1ScanCheckListBoard />
       </Box>
     </React.Fragment>
   );
