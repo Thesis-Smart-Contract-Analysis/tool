@@ -90,11 +90,6 @@ rules:
             ...
           }
       - focus-metavariable: $C
-    message: The source code of `$C` has payable function(s) but no function to
-      withdraw ETH, it will cause ETH to be locked in the smart contract.
-    languages:
-      - solidity
+    message: The source code of `$C` has payable function(s) but no function to withdraw ETH, it will cause ETH to be locked in the smart contract.
+    languages: [solidity]
     severity: WARNING
-    metadata:
-      category: security
-      name: frozen-ether
