@@ -14,6 +14,7 @@ import BackupIcon from "@mui/icons-material/Backup";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 import solIcon from "@/assets/solidity-icon.svg";
+import Loading from "@/components/Loading/Loading";
 
 const ScanUploadFile: React.FC<{
   setFiles: React.Dispatch<React.SetStateAction<File[]>>;
@@ -91,13 +92,15 @@ const ScanUploadFile: React.FC<{
   return (
     <React.Fragment>
       <Box className={`upload-file__wrapper`}>
-        {isUploading ? (
-          <h1>Loading ...</h1>
-        ) : (
-          <React.Fragment>
-            <Box component="div" className="upload-file__list">
-              <Typography className="title">{"Danh sách file"}</Typography>
-              {files?.map((file) => {
+        <React.Fragment>
+          <Box component="div" className="upload-file__list">
+            <Typography className="title">
+              {t("content.upload.file-list")}
+            </Typography>
+            {isUploading ? (
+              <Loading />
+            ) : (
+              files?.map((file) => {
                 return (
                   <Box
                     key={file.size + file.name}
@@ -128,31 +131,31 @@ const ScanUploadFile: React.FC<{
                     </Box>
                   </Box>
                 );
-              })}
-            </Box>
-            <Stack
-              justifyContent={"center"}
-              alignItems={"center"}
-              gap={1}
-              className="upload-file__dropZone"
-              {...getRootProps()}
-            >
-              <input id="upload-file-o" type="file" {...getInputProps()} />
+              })
+            )}
+          </Box>
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            gap={1}
+            className="upload-file__dropZone"
+            {...getRootProps()}
+          >
+            <input id="upload-file-o" type="file" {...getInputProps()} />
 
-              <BackupIcon className="icon" />
+            <BackupIcon className="icon" />
 
-              <Typography className="text">{t("common.choose")}</Typography>
+            <Typography className="text">{t("common.choose")}</Typography>
 
-              <Typography className="text">- {t("common.or")} -</Typography>
+            <Typography className="text">- {t("common.or")} -</Typography>
 
-              <Typography className="text">
-                {isDragActive
-                  ? t("content.upload.drop-file-content")
-                  : t("content.upload.drag-file-content")}
-              </Typography>
-            </Stack>
-          </React.Fragment>
-        )}
+            <Typography className="text">
+              {isDragActive
+                ? t("content.upload.drop-file-content")
+                : t("content.upload.drag-file-content")}
+            </Typography>
+          </Stack>
+        </React.Fragment>
       </Box>
       <Box className={`code-editor__wrapper`}>
         <Box className="filename">

@@ -18,21 +18,22 @@
     "upload": {
       "title": "Tải lên hợp đồng",
       "scan": "Quét",
-      "browse-file": "Chọn File",
+      "browse-file": "Chọn tập tin",
       "clear-files": "Xóa tất cả",
-      "drag-file-content": "Kéo - Thả file vào đây",
-      "drop-file-content": "Thả file ở đây ...",
-      "file-exist": "Trùng tên file",
-      "choose-file": "Quét bằng File",
-      "source-code": "Quét bằng mã nguồn"
+      "drag-file-content": "Kéo - Thả tập tin vào đây",
+      "drop-file-content": "Thả tập tin ở đây ...",
+      "file-exist": "Trùng tên tập tin",
+      "choose-file": "Quét bằng tập tin",
+      "source-code": "Quét bằng mã nguồn",
+      "file-list": "Danh sách tập tin"
     },
     "result": {
       "title": "Kết quả",
-      "scan-file": "Quét File",
-      "browse-file": "Chọn File",
+      "scan-file": "Quét tập tin",
+      "browse-file": "Chọn tập tin",
       "clear-files": "Xóa tất cả",
-      "drag-file-content": "Kéo - Thả file vào đây",
-      "drop-file-content": "Thả file ở đây ...",
+      "drag-file-content": "Kéo - Thả tập tin vào đây",
+      "drop-file-content": "Thả tập tin ở đây ...",
       "result-board": {
         "scan-time": "Thời gian quét"
       },

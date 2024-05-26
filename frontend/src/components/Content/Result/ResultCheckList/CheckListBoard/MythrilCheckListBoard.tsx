@@ -74,8 +74,12 @@ const MythrilCheckListBoard = () => {
   const checklist = useMemo(
     () =>
       result?.mythril.findings
-        .filter((finding) => !finding.metadata.duplicated)
-        .filter((finding) => finding.matches.some((match) => match.lineno))
+        .filter((finding) => {
+          return (
+            !finding.metadata.duplicated &&
+            finding.matches.some((match) => match.lineno)
+          );
+        })
         .map((finding) => {
           const found = finding.metadata;
 
