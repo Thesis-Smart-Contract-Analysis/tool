@@ -72,6 +72,7 @@ export interface SemanticGrepMetadata {
   severity: string;
   id: string;
   category?: string;
+  name: string;
 }
 
 export interface Slither {

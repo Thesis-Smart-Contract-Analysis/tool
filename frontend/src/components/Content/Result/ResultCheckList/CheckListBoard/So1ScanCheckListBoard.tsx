@@ -82,7 +82,7 @@ const So1ScanCheckListBoard = () => {
 
     return {
       id: found.id + found.message,
-      vulId: found.id,
+      vulId: found.name,
       severity: found.severity,
       desc: found.message,
       finding,
