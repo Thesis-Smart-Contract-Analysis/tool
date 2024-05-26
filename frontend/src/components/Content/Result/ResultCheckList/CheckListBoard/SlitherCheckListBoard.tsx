@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
 import { Editor, OnMount } from "@monaco-editor/react";
 import * as monaco from "monaco-editor";
 
 import Box from "@mui/material/Box";
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
-
 import Typography from "@mui/material/Typography";
 
 import Severity from "@/components/Severity/Severity";
@@ -67,19 +67,23 @@ const SlitherCheckListBoard: React.FC = () => {
     }
   };
 
-  const checklist = result?.slither.findings
-    .filter((finding) => !finding.metadata.duplicated)
-    .map((finding) => {
-      const found = finding.metadata;
+  const checklist = useMemo(
+    () =>
+      result?.slither.findings
+        .filter((finding) => !finding.metadata.duplicated)
+        .map((finding) => {
+          const found = finding.metadata;
 
-      return {
-        id: found.id + found.description,
-        vulId: found.id,
-        severity: found.severity,
-        desc: found.description,
-        finding,
-      };
-    });
+          return {
+            id: uuidv4(),
+            vulId: found.id,
+            severity: found.severity,
+            desc: found.description,
+            finding,
+          };
+        }),
+    [result]
+  );
 
   return (
     <Box className="checklist-board">

@@ -11,6 +11,8 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentSourceCode, setCurrentSourceCode] = useState("");
   const [currentFileName, setCurrentFileName] = useState("");
 
+  console.log(result);
+
   return (
     <ResultContext.Provider
       value={{

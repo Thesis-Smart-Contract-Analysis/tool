@@ -1,7 +1,8 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 
 import * as monaco from "monaco-editor";
 import { Editor, OnMount } from "@monaco-editor/react";
+import { v4 as uuidv4 } from "uuid";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -70,23 +71,27 @@ const MythrilCheckListBoard = () => {
     setCurrentDecoration(decorationsCollection);
   };
 
-  const checklist = result?.mythril.findings
-    .filter(
-      (finding) =>
-        finding.matches.some((match) => match.lineno) ||
-        !finding.metadata.duplicated
-    )
-    .map((finding) => {
-      const found = finding.metadata;
+  const checklist = useMemo(
+    () =>
+      result?.mythril.findings
+        .filter(
+          (finding) =>
+            finding.matches.some((match) => match.lineno) ||
+            !finding.metadata.duplicated
+        )
+        .map((finding) => {
+          const found = finding.metadata;
 
-      return {
-        id: found.id + found.description,
-        vulId: found.id,
-        severity: found.severity,
-        desc: found.description,
-        finding,
-      };
-    });
+          return {
+            id: uuidv4(),
+            vulId: found.id,
+            severity: found.severity,
+            desc: found.description,
+            finding,
+          };
+        }),
+    [result]
+  );
 
   return (
     <Box className="checklist-board">
@@ -110,8 +115,8 @@ const MythrilCheckListBoard = () => {
                   currentChooseId === item.id ? "active--mythril" : ""
                 }`}
                 onClick={() => {
-                  handleMythrilChoose(item.finding);
                   setCurrentChooseId(item.id);
+                  handleMythrilChoose(item.finding);
                 }}
               >
                 <label htmlFor="">

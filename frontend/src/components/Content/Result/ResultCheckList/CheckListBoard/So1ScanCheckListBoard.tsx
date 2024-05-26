@@ -1,5 +1,6 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 
+import { v4 as uuidv4 } from "uuid";
 import * as monaco from "monaco-editor";
 import { Editor, OnMount } from "@monaco-editor/react";
 
@@ -77,17 +78,21 @@ const So1ScanCheckListBoard = () => {
     setCurrentDecoration(decorationsCollection);
   };
 
-  const checklist = result?.semantic_grep.findings.map((finding) => {
-    const found = finding.metadata;
+  const checklist = useMemo(
+    () =>
+      result?.semantic_grep.findings.map((finding) => {
+        const found = finding.metadata;
 
-    return {
-      id: found.id + found.message,
-      vulId: found.name,
-      severity: found.severity,
-      desc: found.message,
-      finding,
-    };
-  });
+        return {
+          id: uuidv4(),
+          vulId: found.name,
+          severity: found.severity,
+          desc: found.message,
+          finding,
+        };
+      }),
+    [result]
+  );
 
   return (
     <Box className="checklist-board">
