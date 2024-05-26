@@ -108,6 +108,7 @@ const So1ScanCheckListBoard = () => {
                 <label htmlFor="">
                   <Box className="title">
                     <Severity type={item.severity.toLowerCase()} />
+
                     <Typography className="title__id">{item.vulId}</Typography>
                   </Box>
 

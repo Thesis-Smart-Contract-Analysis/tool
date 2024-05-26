@@ -71,7 +71,11 @@ const MythrilCheckListBoard = () => {
   };
 
   const checklist = result?.mythril.findings
-    .filter((finding) => finding.matches.some((match) => match.lineno))
+    .filter(
+      (finding) =>
+        finding.matches.some((match) => match.lineno) ||
+        !finding.metadata.duplicated
+    )
     .map((finding) => {
       const found = finding.metadata;
 

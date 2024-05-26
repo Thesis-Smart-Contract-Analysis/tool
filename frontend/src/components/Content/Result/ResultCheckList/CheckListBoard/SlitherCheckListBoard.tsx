@@ -67,17 +67,19 @@ const SlitherCheckListBoard: React.FC = () => {
     }
   };
 
-  const checklist = result?.slither.findings.map((finding) => {
-    const found = finding.metadata;
+  const checklist = result?.slither.findings
+    .filter((finding) => !finding.metadata.duplicated)
+    .map((finding) => {
+      const found = finding.metadata;
 
-    return {
-      id: found.id + found.description,
-      vulId: found.id,
-      severity: found.severity,
-      desc: found.description,
-      finding,
-    };
-  });
+      return {
+        id: found.id + found.description,
+        vulId: found.id,
+        severity: found.severity,
+        desc: found.description,
+        finding,
+      };
+    });
 
   return (
     <Box className="checklist-board">
