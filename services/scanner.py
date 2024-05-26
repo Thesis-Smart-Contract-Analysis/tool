@@ -438,6 +438,7 @@ def mark_duplicated(res: dict) -> dict:
         # Skip informational findings
         severity = metadata[SEVERITY]
         if severity == INFORMATIONAL:
+            metadata[DUPLICATED] = False
             continue
         slither_id = metadata[ID]
         if slither_id in SLITHER_SEMGREP_VULN_MAPPINGS:
@@ -445,6 +446,8 @@ def mark_duplicated(res: dict) -> dict:
             metadata[SEMGREP_ID] = semgrep_id
             metadata[DUPLICATED] = semgrep_id in semgrep_ids
             is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
+        else:
+            metadata[DUPLICATED] = False
 
     # Find slither findings that have semgrep id
     # semgrep_ids_in_slither_res = [
@@ -466,6 +469,8 @@ def mark_duplicated(res: dict) -> dict:
             if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
                 metadata[DUPLICATED] = True
                 is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
+            else:
+                metadata[DUPLICATED] = False
         # Mark duplicated mythril findings with slither findings
         # for semgrep_id in semgrep_ids_in_slither_res:
         #     if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
