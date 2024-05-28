@@ -7,8 +7,8 @@ import Typography from "@mui/material/Typography";
 
 import { RESULT_TYPE } from "@/enums";
 
-import So1ScanCheckListBoard from "../ResultCheckList/CheckListBoard/So1ScanCheckListBoard";
 import "./ResultBoard.scss";
+import CheckListBoard from "../ResultCheckList/CheckListBoard/CheckListBoard";
 
 const ResultBoard: React.FC<{
   title: string;
@@ -18,23 +18,18 @@ const ResultBoard: React.FC<{
   const { t } = useTranslation();
 
   return (
-    <React.Fragment>
-      <Box className="result-board">
-        <Typography className={`result-board__title--${type}`}>
-          {title}
-        </Typography>
+    <Box className="result-board">
+      <Box className="result-board__title">
+        <Typography className={`text--${type}`}>{title}</Typography>
 
         {time ? (
-          <Typography className="result-board__time">{`${t(
+          <Typography className="time">{`${t(
             "content.result.result-board.scan-time"
           )}: ${time}s`}</Typography>
         ) : null}
       </Box>
-
-      <Box className="code-editor__wrapper">
-        <So1ScanCheckListBoard />
-      </Box>
-    </React.Fragment>
+      <CheckListBoard type={RESULT_TYPE.SO1SCAN} />
+    </Box>
   );
 };
 

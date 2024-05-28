@@ -3,45 +3,50 @@
 
 .result-board {
   width: 100%;
-  display: flex;
-  gap: 1.2rem;
-  justify-content: space-between;
-  align-items: center;
 
   &__title {
-    &--so1scan {
-      &.MuiTypography-root {
-        @include primary-text-color;
+    width: 100%;
+    display: flex;
+    gap: 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
 
-        font-size: 2rem;
-        font-weight: 500;
+    .text {
+      &--so1scan {
+        &.MuiTypography-root {
+          @include primary-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
+      }
+
+      &--slither {
+        &.MuiTypography-root {
+          @include slither-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
+      }
+
+      &--mythril {
+        &.MuiTypography-root {
+          @include mythril-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
       }
     }
 
-    &--slither {
+    .time {
       &.MuiTypography-root {
-        @include slither-text-color;
-
-        font-size: 2rem;
+        font-size: 1.6rem;
         font-weight: 500;
+        color: $neutrals-500;
       }
-    }
-
-    &--mythril {
-      &.MuiTypography-root {
-        @include mythril-text-color;
-
-        font-size: 2rem;
-        font-weight: 500;
-      }
-    }
-  }
-
-  &__time {
-    &.MuiTypography-root {
-      font-size: 1.6rem;
-      font-weight: 500;
-      color: $neutrals-500;
     }
   }
 }

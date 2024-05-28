@@ -38,7 +38,9 @@
         "scan-time": "Thời gian quét"
       },
       "check-list": {
-        "title": "Các lỗ hổng cần được kiểm tra lại"
+        "title": "Các lỗ hổng cần được kiểm tra lại",
+        "slither": "Sử dụng công cụ Slither để kiểm tra",
+        "mythril": "Sử dụng công cụ Mythril để kiểm tra"
       }
     }
   },
