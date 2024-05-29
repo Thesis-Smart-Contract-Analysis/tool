@@ -11,6 +11,7 @@ import { ResultContext } from "@/context/ResultContext";
 import Result from "./Result/Result";
 import Upload from "./Upload/Upload";
 import "./Content.scss";
+import AuditReport from "../AuditReport/AuditReport";
 
 const Content: React.FC = () => {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ const Content: React.FC = () => {
         <Typography className="content__title">{t("content.title")}</Typography>
         <Upload />
         {result ? <Result /> : null}
+        <AuditReport />
       </Box>
     </Container>
   );

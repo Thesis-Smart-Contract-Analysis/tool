@@ -1,4 +1,9 @@
-import { IResult } from "@/interfaces";
+import {
+  MythrilFinding,
+  SemanticGrepFinding,
+  SlitherFinding,
+  IResult,
+} from "@/interfaces";
 
 export type TResultContext = {
   result: IResult | null;
@@ -9,4 +14,12 @@ export type TResultContext = {
   setCurrentSourceCode: React.Dispatch<React.SetStateAction<string>>;
   currentFileName: string;
   setCurrentFileName: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export type TCheckList = {
+  id: string;
+  vulId: string;
+  severity: string;
+  desc: string;
+  finding: SemanticGrepFinding | SlitherFinding | MythrilFinding;
 };

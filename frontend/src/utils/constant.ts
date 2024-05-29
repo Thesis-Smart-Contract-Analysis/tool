@@ -8,6 +8,14 @@ export const BASE_URL =
 export const SLITHER_LINK = "https://github.com/crytic/slither";
 export const MYTHRIL_LINK = "https://github.com/Consensys/mythril";
 
+export const SEVERITY_PRIORITY = [
+  "Informational",
+  "Low",
+  "Medium",
+  "High",
+  "Critical",
+];
+
 export const SAMPLE_RESULT = {
   semantic_grep: {
     errors: [],

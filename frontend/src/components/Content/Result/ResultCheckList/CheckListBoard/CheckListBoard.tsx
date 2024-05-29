@@ -18,14 +18,15 @@ import {
   SemanticGrepFinding,
   SlitherFinding,
 } from "@/interfaces";
+import { TCheckList } from "@/types";
 import ReadOnlySolidityEditor from "@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor";
 import Severity from "@/components/Severity/Severity";
 
 import { useSo1Scan } from "./hooks/useSo1Scan";
 import { useSlither } from "./hooks/useSlither";
 import { useMythril } from "./hooks/useMythril";
-import { TCheckList } from "./types";
 import "./CheckListBoard.scss";
+import { sortCheckListBySeverity } from "@/utils/sortter";
 
 const CheckListBoard: React.FC<{
   type: RESULT_TYPE;
@@ -64,7 +65,7 @@ const CheckListBoard: React.FC<{
 
   const checklist: TCheckList[] | undefined = useMemo(() => {
     if (type === RESULT_TYPE.SO1SCAN) {
-      return result?.semantic_grep.findings.map((finding) => {
+      const res = result?.semantic_grep.findings.map((finding) => {
         const found = finding.metadata;
 
         return {
@@ -75,8 +76,10 @@ const CheckListBoard: React.FC<{
           finding,
         };
       });
+
+      return sortCheckListBySeverity(res);
     } else if (type === RESULT_TYPE.MYTHRIL) {
-      return result?.mythril.findings
+      const res = result?.mythril.findings
         .filter((finding) => {
           return (
             !finding.metadata.duplicated &&
@@ -94,8 +97,10 @@ const CheckListBoard: React.FC<{
             finding,
           };
         });
+
+      return sortCheckListBySeverity(res);
     } else if (type === RESULT_TYPE.SLITHER) {
-      return result?.slither.findings
+      const res = result?.slither.findings
         .filter((finding) => !finding.metadata.duplicated)
         .map((finding) => {
           const found = finding.metadata;
@@ -108,6 +113,8 @@ const CheckListBoard: React.FC<{
             finding,
           };
         });
+
+      return sortCheckListBySeverity(res);
     }
   }, [result, type]);
 
