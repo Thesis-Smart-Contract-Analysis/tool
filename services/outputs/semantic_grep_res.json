@@ -1,0 +1,246 @@
+{
+  "errors": [],
+  "findings": [
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 1,
+            "line": 7,
+            "offset": 180
+          },
+          "end": {
+            "col": 23,
+            "line": 7,
+            "offset": 202
+          },
+          "lines": "pragma solidity ^0.5.0;"
+        }
+      ],
+      "metadata": {
+        "category": "security",
+        "cwe": "CWE-664: Improper Control of a Resource Through its Lifetime",
+        "name": "floating-compiler-version",
+        "references": [
+          "https://swcregistry.io/docs/SWC-103/",
+          "https://cwe.mitre.org/data/definitions/664.html",
+          "https://semgrep.dev/docs/kb/rules/match-absence"
+        ],
+        "message": "Contracts should be deployed with the same compiler version and flags that they have been tested with thoroughly. Locking the pragma helps to ensure that contracts do not accidentally get deployed using, for example, an outdated compiler version that might introduce bugs that affect the contract system negatively.",
+        "severity": "Low",
+        "id": "swe-103"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 10,
+            "line": 9,
+            "offset": 214
+          },
+          "end": {
+            "col": 17,
+            "line": 9,
+            "offset": 221
+          },
+          "lines": "contract OddEven {"
+        }
+      ],
+      "metadata": {
+        "category": "security",
+        "cwe": "CWE-665: Improper Initialization",
+        "name": "incorrect-constructor-name",
+        "references": [
+          "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
+          "https://cwe.mitre.org/data/definitions/665.html"
+        ],
+        "message": "The absence of an explicitly defined constructor in smart contract `OddEven` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `OddEven` or an incorrectly formatted constructor declaration.",
+        "severity": "High",
+        "id": "swe-118"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 5,
+            "line": 16,
+            "offset": 320
+          },
+          "end": {
+            "col": 31,
+            "line": 16,
+            "offset": 346
+          },
+          "lines": "    Player[2] private players;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-710: Improper Adherence to Coding Standards",
+        "name": "state-variable-default-visibility",
+        "references": [
+          "https://swcregistry.io/docs/SWC-108/",
+          "https://docs.soliditylang.org/en/latest/types.html"
+        ],
+        "message": "Labeling the visibility for `players` makes it easier to catch incorrect assumptions about who can access the variable.",
+        "severity": "Low",
+        "id": "swe-108"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 5,
+            "line": 16,
+            "offset": 320
+          },
+          "end": {
+            "col": 31,
+            "line": 16,
+            "offset": 346
+          },
+          "lines": "    Player[2] private players;"
+        }
+      ],
+      "metadata": {
+        "category": "security",
+        "cwe": "CWE-767: Access to Critical Private Variable via Public Method",
+        "name": "unencrypted-private-data-on-chain",
+        "references": [
+          "https://swcregistry.io/docs/SWC-136/",
+          "https://cwe.mitre.org/data/definitions/767.html"
+        ],
+        "message": "Be careful when using `players` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.",
+        "severity": "High",
+        "id": "swe-136"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 5,
+            "line": 17,
+            "offset": 351
+          },
+          "end": {
+            "col": 20,
+            "line": 17,
+            "offset": 366
+          },
+          "lines": "    uint count = 0;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-710: Improper Adherence to Coding Standards",
+        "name": "state-variable-default-visibility",
+        "references": [
+          "https://swcregistry.io/docs/SWC-108/",
+          "https://docs.soliditylang.org/en/latest/types.html"
+        ],
+        "message": "Labeling the visibility for `count` makes it easier to catch incorrect assumptions about who can access the variable.",
+        "severity": "Low",
+        "id": "swe-108"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 9,
+            "line": 22,
+            "offset": 543
+          },
+          "end": {
+            "col": 16,
+            "line": 22,
+            "offset": 550
+          },
+          "lines": "        count++;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-682: Incorrect Calculation",
+        "name": "integer-overflow-underflow",
+        "references": [
+          "https://swcregistry.io/docs/SWC-101/",
+          "https://docs.soliditylang.org/en/latest/types.html",
+          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+        ],
+        "message": "The operation on variable `count` could lead to overflow/underflow.",
+        "severity": "High",
+        "id": "swe-101"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 18,
+            "line": 27,
+            "offset": 654
+          },
+          "end": {
+            "col": 45,
+            "line": 27,
+            "offset": 681
+          },
+          "lines": "        uint n = players[0].number + players[1].number;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-682: Incorrect Calculation",
+        "name": "integer-overflow-underflow",
+        "references": [
+          "https://swcregistry.io/docs/SWC-101/",
+          "https://docs.soliditylang.org/en/latest/types.html",
+          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+        ],
+        "message": "The operation on variable `players[0].number` could lead to overflow/underflow.",
+        "severity": "High",
+        "id": "swe-101"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "start": {
+            "col": 36,
+            "line": 28,
+            "offset": 728
+          },
+          "end": {
+            "col": 39,
+            "line": 28,
+            "offset": 731
+          },
+          "lines": "        (bool success, ) = players[n%2].addr.call.value(address(this).balance)(\"\");"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-682: Incorrect Calculation",
+        "name": "integer-overflow-underflow",
+        "references": [
+          "https://swcregistry.io/docs/SWC-101/",
+          "https://docs.soliditylang.org/en/latest/types.html",
+          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+        ],
+        "message": "The operation on variable `n` could lead to overflow/underflow.",
+        "severity": "High",
+        "id": "swe-101"
+      }
+    }
+  ],
+  "scan_time": 1.829662561416626,
+  "success": true
+}
