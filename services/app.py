@@ -1,7 +1,7 @@
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from scanner import detect_version, scan as perform_scan
+from scanner import detect_version, scan as perform_scan, SEMGREP, SLITHER, MYTHRIL
 import json, os, uuid
 
 SERVICES_FOLDER = "./services"
@@ -17,6 +17,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 def scan():
     # Get query params
     request_args: dict = request.args
+    tool = request_args.get("tool", "")
     filename = request_args.get("filename", "")
     string = request_args.get("string", "")
 
@@ -24,6 +25,19 @@ def scan():
     if filename and string:
         return (
             {"message": "Please provide either a filename or string"},
+            400,
+            {"Content-Type": "application/json"},
+        )
+
+    if tool == "":
+        return (
+            {"message": "Please provide a tool"},
+            400,
+            {"Content-Type": "application/json"},
+        )
+    if tool not in [SEMGREP, SLITHER, MYTHRIL]:
+        return (
+            {"message": "Invalid tool"},
             400,
             {"Content-Type": "application/json"},
         )
@@ -58,17 +72,24 @@ def scan():
             {"Content-Type": "application/json"},
         )
 
-    # Detect version
-    version = detect_version(abs_path)
-    app.logger.info(f"Detected version: {version}")
+    try:
+        # Detect version
+        version = detect_version(abs_path)
+        app.logger.info(f"Detected version: {version}")
 
-    # Perform scanning
-    res = perform_scan(abs_path, version=version)
-    return (
-        json.dumps(res, indent=2, sort_keys=True),
-        200,
-        {"Content-Type": "application/json"},
-    )
+        # Perform scanning
+        res = perform_scan(tool=tool, target=abs_path, version=version)
+        return (
+            json.dumps(res, indent=2, sort_keys=True),
+            200,
+            {"Content-Type": "application/json"},
+        )
+    except Exception as e:
+        return (
+            {"message": f"Error occurred while scanning: {e}"},
+            500,
+            {"Content-Type": "application/json"},
+        )
 
 
 @app.route("/upload", methods=["POST"])

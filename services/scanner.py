@@ -1,10 +1,9 @@
 import argparse
-import json, logging, subprocess, os, re
+import json, logging, subprocess, os, time
 from datetime import datetime
 
 
 SEMGREP_RULES = "./core/rules/"
-
 SEMGREP_SCANNER_OPTIONS: "dict[str, any]" = {
     "sgrep_rules": None,
     "sgrep_extensions": None,
@@ -75,6 +74,13 @@ def parse_args() -> "tuple[str, str, str]":
         description="Scan smart contracts for vulnerabilities",
     )
     parser.add_argument(
+        "--tool",
+        help="Specify the scanning tool",
+        choices=[SEMGREP, SLITHER, MYTHRIL],
+        default=SEMGREP,
+        metavar="TOOL",
+    )
+    parser.add_argument(
         "-t",
         "--target",
         help="Path to a smart contract",
@@ -96,7 +102,7 @@ def parse_args() -> "tuple[str, str, str]":
         metavar="VERSION",
     )
     args = parser.parse_args()
-    return (args.target, args.rules, args.version)
+    return (args.tool, args.target, args.rules, args.version)
 
 
 def detect_version(target: str):
@@ -123,52 +129,44 @@ def detect_version(target: str):
     return version
 
 
-def scan(target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
-    SCAN_TIME = "scan_time"
-
+def scan(tool: str, target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -> dict:
     res: dict = {}
 
     # Scan with Semgrep
-    logging.info("🔍 Scanning with Semgrep")
-    start_time = datetime.now()
-    res[SEMGREP] = semgrep_scan(target, rules)
-    end_time = datetime.now()
-    semgrep_scan_time = end_time - start_time
-    logging.info("🕒 Scan time: %s", semgrep_scan_time)
-    res[SEMGREP][SCAN_TIME] = semgrep_scan_time.total_seconds()
-
+    if tool == SEMGREP:
+        res = scan_with_scan_time(tool, semgrep_scan, target, rules)
     # Scan with Slither
-    logging.info("🔍 Scanning with Slither")
-    start_time = datetime.now()
-    slither_res: dict = slither_scan(target, version)
-    end_time = datetime.now()
-    slither_scan_time = end_time - start_time
-    logging.info("🕒 Scan time: %s", slither_scan_time)
-    slither_res[SCAN_TIME] = slither_scan_time.total_seconds()
-
+    elif tool == SLITHER:
+        res = scan_with_scan_time(tool, slither_scan, target, version)
     # Scan with Mythril
-    logging.info("🔍 Scanning with Mythril")
-    start_time = datetime.now()
-    mythril_res: dict = mythril_scan(target, version)
-    end_time = datetime.now()
-    mythril_scan_time = end_time - start_time
-    logging.info("🕒 Scan time: %s", mythril_scan_time)
-    mythril_res[SCAN_TIME] = mythril_scan_time.total_seconds()
-
-    # Aggregate results
-    res[SLITHER] = slither_res
-    res[MYTHRIL] = mythril_res
+    elif tool == MYTHRIL:
+        res = scan_with_scan_time(tool, mythril_scan, target, version)
 
     # Normalize results
-    normalize(res)
+    res = normalize(tool, res)
 
     # Mark duplicated findings
-    mark_duplicated(res)
+    if tool == SLITHER or tool == MYTHRIL:
+        mark_duplicated(res, tool)
 
-    # Calculate total scan time
-    total_scan_time = semgrep_scan_time + slither_scan_time + mythril_scan_time
-    res[SCAN_TIME] = total_scan_time.total_seconds()
+    # Write to file
+    with open(f"./services/outputs/{tool}_res.json", "w", encoding="utf-8") as f:
+        json.dump(res, f, indent=2)
 
+    return res
+
+
+def scan_with_scan_time(tool: str, fn, *args, **kwargs) -> float:
+    SCAN_TIME = "scan_time"
+
+    logging.info(f"🔍 Scanning with {tool}")
+    start_time = time.time()
+    res = fn(*args, **kwargs)
+    end_time = time.time()
+    scan_time = end_time - start_time
+    logging.info("🕒 Scan time: %s", scan_time)
+
+    res[SCAN_TIME] = scan_time
     return res
 
 
@@ -237,29 +235,27 @@ def mythril_scan(target: str, version: str) -> dict:
     return json.loads(json_str)
 
 
-def normalize(res: dict):
-    tools = [SEMGREP, SLITHER, MYTHRIL]
+def normalize(tool: str, res: dict):
     normalizers = {
         SEMGREP: normalize_semgrep_findings,
         SLITHER: normalize_slither_findings,
         MYTHRIL: normalize_mythril_findings,
     }
 
-    for tool in tools:
-        if tool in res:
-            tool_res = res[tool]
-            normalizer = normalizers[tool]
-            # 'errors'
-            normalize_errors(tool_res)
-            # 'success'
-            set_success(tool_res)
-            # 'findings'
-            findings = normalizer(tool_res)
-            for i in range(len(findings)):
-                findings[i] = sort_keys(findings[i])
-            res[tool][FINDINGS] = findings
-            # Sort keys
-            res[tool] = sort_keys(tool_res)
+    # 'errors'
+    normalize_errors(res)
+    # 'success'
+    set_success(res)
+    # 'findings'
+    normalizer = normalizers[tool]
+    findings = normalizer(res)
+    print(findings)
+    for i in range(len(findings)):
+        findings[i] = sort_keys(findings[i])
+    res[FINDINGS] = findings
+    # Sort keys
+    res = sort_keys(res)
+    return res
 
 
 def normalize_errors(res: dict):
@@ -416,14 +412,23 @@ def sort_keys(json: dict) -> dict:
     return {key: json[key] for key in keys}
 
 
-def mark_duplicated(res: dict) -> dict:
+def mark_duplicated(res: dict, tool: str) -> dict:
     INFORMATIONAL = "Informational"
-    FULL_COVERAGE = "full_coverage"
+    # FULL_COVERAGE = "full_coverage"
+    SEMGREP_RES_FILE = f"./services/outputs/{SEMGREP}_res.json"
 
-    is_all_duplicated = False
+    # is_all_duplicated = False
+
+    # Check if semgrep results file exists
+    semgrep_res = {}
+    if os.path.exists(SEMGREP_RES_FILE):
+        # Load semgrep results
+        with open(SEMGREP_RES_FILE, "r", encoding="utf-8") as f:
+            semgrep_res = json.load(f)
+    else:
+        raise Exception("Semgrep results not found")
 
     # Find ids in semgrep res
-    semgrep_res = res[SEMGREP]
     semgrep_findings = semgrep_res[FINDINGS]
     semgrep_ids = []
     for finding in semgrep_findings:
@@ -431,21 +436,21 @@ def mark_duplicated(res: dict) -> dict:
         semgrep_ids.append(metadata[ID])
 
     # Mark duplicated slither findings
-    slither_res = res[SLITHER]
-    slither_findings = slither_res[FINDINGS]
-    for finding in slither_findings:
-        metadata = finding[METADATA]
-        metadata[DUPLICATED] = False
-        # Skip informational findings
-        severity = metadata[SEVERITY]
-        if severity == INFORMATIONAL:
-            continue
-        slither_id = metadata[ID]
-        if slither_id in SLITHER_SEMGREP_VULN_MAPPINGS:
-            semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
-            metadata[SEMGREP_ID] = semgrep_id
-            metadata[DUPLICATED] = semgrep_id in semgrep_ids
-            is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
+    if tool == SLITHER:
+        slither_findings = res[FINDINGS]
+        for finding in slither_findings:
+            metadata = finding[METADATA]
+            metadata[DUPLICATED] = False
+            # Skip informational findings
+            severity = metadata[SEVERITY]
+            if severity == INFORMATIONAL:
+                continue
+            slither_id = metadata[ID]
+            if slither_id in SLITHER_SEMGREP_VULN_MAPPINGS:
+                semgrep_id = SLITHER_SEMGREP_VULN_MAPPINGS[slither_id]
+                metadata[SEMGREP_ID] = semgrep_id
+                metadata[DUPLICATED] = semgrep_id in semgrep_ids
+                # is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
 
     # Find slither findings that have semgrep id
     # semgrep_ids_in_slither_res = [
@@ -455,37 +460,37 @@ def mark_duplicated(res: dict) -> dict:
     # ]
 
     # Mark duplicated mythril findings
-    mythril_res = res[MYTHRIL]
-    mythril_findings = mythril_res[FINDINGS]
-    for finding in mythril_findings:
-        metadata = finding[METADATA]
-        mythril_id = metadata[ID]
-        metadata[SEMGREP_ID] = "swe-" + mythril_id.split("-")[1]
-        metadata[DUPLICATED] = False
-        for semgrep_id in semgrep_ids:
-            if "swe" not in semgrep_id:
-                continue
-            if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
-                metadata[DUPLICATED] = True
-                is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
-        # Mark duplicated mythril findings with slither findings
-        # for semgrep_id in semgrep_ids_in_slither_res:
-        #     if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
-        #         metadata[DUPLICATED_WITH_SLITHER] = True
-        #         is_duplicated = is_duplicated and metadata[DUPLICATED_WITH_SLITHER]
+    elif tool == MYTHRIL:
+        mythril_findings = res[FINDINGS]
+        for finding in mythril_findings:
+            metadata = finding[METADATA]
+            mythril_id = metadata[ID]
+            metadata[SEMGREP_ID] = "swe-" + mythril_id.split("-")[1]
+            metadata[DUPLICATED] = False
+            for semgrep_id in semgrep_ids:
+                if "swe" not in semgrep_id:
+                    continue
+                if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
+                    metadata[DUPLICATED] = True
+                    # is_all_duplicated = is_all_duplicated and metadata[DUPLICATED]
+            # Mark duplicated mythril findings with slither findings
+            # for semgrep_id in semgrep_ids_in_slither_res:
+            #     if mythril_id.split("-")[1] == semgrep_id.split("-")[1]:
+            #         metadata[DUPLICATED_WITH_SLITHER] = True
+            #         is_duplicated = is_duplicated and metadata[DUPLICATED_WITH_SLITHER]
 
     # Mark duplicated semgrep findings
-    res[FULL_COVERAGE] = is_all_duplicated
+    # res[FULL_COVERAGE] = is_all_duplicated
 
 
 if __name__ == "__main__":
     # Parse command line arguments
-    target, rules, version = parse_args()
+    tool, target, rules, version = parse_args()
 
     # Detect version
     if version == DEFAULT_VERSION:
         version = detect_version(target)
 
     # Perform scanning
-    res = scan(target, rules, version)
+    res = scan(tool, target, rules, version)
     print(json.dumps(res, indent=4))
