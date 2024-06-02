@@ -13,9 +13,10 @@ import logo from "@/assets/logo.png";
 
 import useAuditReport from "./hooks/useAuditReport";
 import "./AuditReport.scss";
+import { SEVERITY_DESCRIPTION } from "./constant";
 
 const AuditReport: React.FC = () => {
-  const { styles, frontPageStyles } = useAuditReport();
+  const { styles, frontPageStyles, severityStyles } = useAuditReport();
 
   return (
     <PDFViewer className="pdf-viewer">
@@ -51,15 +52,54 @@ const AuditReport: React.FC = () => {
           </View>
         </Page>
         <Page style={styles.body}>
-          <Text style={styles.header} fixed>
-            ~ Created with react-pdf ~
-          </Text>
+          <View style={styles.header} fixed>
+            <View style={styles.header__logo}>
+              <Image src={logo} style={styles.logoImage} />
+              <Text style={styles.logoText}>SO1SCAN</Text>
+            </View>
+            <Text style={styles.header__text}>Được thực hiện bởi So1Scan</Text>
+          </View>
+          <View style={severityStyles.container}>
+            <View style={severityStyles.section}>
+              <Text style={severityStyles.section__number}>1</Text>
+              <Text style={severityStyles.section__text}>
+                Phân loại mức độ nghiêm trọng
+              </Text>
+            </View>
+            <View style={severityStyles.body}>
+              <Text style={severityStyles.description}>
+                Mỗi lỗ hổng tìm được sẽ có một mức độ nghiêm trọng (severity)
+                khác nhau. Báo cáo này sẽ dựa vào các loại mức độ nghiêm trọng
+                sau (được sắp xếp từ mức độ nghiêm trọng cao nhất cho đến mức độ
+                nghiêm trọng thấp nhất):
+              </Text>
+              <View style={severityStyles.severityList}>
+                {SEVERITY_DESCRIPTION.map((severity) => (
+                  <View key={severity.type} style={severityStyles.severityItem}>
+                    <View style={severityStyles.severityType}>
+                      <Text
+                        style={{
+                          backgroundColor: severity.color,
+                          ...severityStyles.severityColor,
+                        }}
+                      ></Text>
+                      <Text style={severityStyles.type}>{severity.type}</Text>
+                    </View>
+                    <Text style={severityStyles.severityDescription}>
+                      {severity.description}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          </View>
           <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
               alignItems: "center",
             }}
+            break
           >
             <Text
               style={{
@@ -237,13 +277,18 @@ const AuditReport: React.FC = () => {
             sino a los alcázares de su redención le encaminaba. Diose priesa a
             caminar, y llegó a ella a tiempo que anochecía.
           </Text>
-          <Text
-            style={styles.pageNumber}
-            render={({ pageNumber, totalPages }) =>
-              `${pageNumber} / ${totalPages}`
-            }
-            fixed
-          />
+          <View style={styles.footer} fixed>
+            <Text
+              style={styles.pageNumber}
+              render={({ pageNumber }) =>
+                `Trang ${pageNumber.toString().padStart(2, "0")}`
+              }
+              fixed
+            />
+            <Text style={styles.footerText}>
+              So1Scan &bull; Báo cáo các lỗ hổng bảo mật
+            </Text>
+          </View>
         </Page>
       </Document>
     </PDFViewer>

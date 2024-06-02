@@ -1,4 +1,5 @@
 import { Font, StyleSheet } from "@react-pdf/renderer";
+import { primary_blue_500 } from "../constant";
 
 /**
  * Custom font in @react-pdf/renderer
@@ -32,11 +33,81 @@ Font.register({
 });
 
 const useAuditReport = () => {
+  const frontPageStyles = StyleSheet.create({
+    root: {
+      backgroundColor: "#b6e6ff",
+      padding: 30,
+      fontFamily: "Roboto",
+    },
+    // root container
+    container: {
+      display: "flex",
+      justifyContent: "space-between",
+      width: "100%",
+      height: "100%",
+    },
+    // Header section
+    header: {
+      flexDirection: "row",
+      gap: 4,
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    header__logo: {
+      flexDirection: "row",
+      gap: 4,
+      alignItems: "center",
+    },
+    logoImage: {
+      width: 24,
+      height: 24,
+    },
+    logoText: {
+      fontSize: 18,
+      fontFamily: "Roboto",
+      fontWeight: "medium",
+    },
+    header__text: {
+      fontSize: 14,
+      color: "rgba(0,0,0,0.5)",
+    },
+    // Body section
+    body: {
+      gap: 32,
+    },
+    body__title: {
+      fontSize: 24,
+      fontWeight: "medium",
+    },
+    body__description: {
+      gap: 12,
+    },
+    contractName: {
+      fontSize: 32,
+      fontWeight: "black",
+    },
+    date: {
+      fontSize: 24,
+    },
+    body__smallText: {
+      fontSize: 14,
+      color: "rgba(0,0,0,0.5)",
+    },
+    // Footer section
+    footer: {
+      flexDirection: "row-reverse",
+    },
+    footer__smallText: {
+      fontSize: 12,
+      color: "rgba(0,0,0,0.5)",
+    },
+  });
+
   const styles = StyleSheet.create({
     body: {
-      paddingTop: 35,
-      paddingBottom: 65,
-      paddingHorizontal: 35,
+      paddingTop: 30,
+      paddingBottom: 60,
+      paddingHorizontal: 30,
     },
     title: {
       fontSize: 24,
@@ -66,90 +137,97 @@ const useAuditReport = () => {
     header: {
       fontSize: 12,
       marginBottom: 20,
-      textAlign: "center",
-      color: "grey",
-    },
-    pageNumber: {
-      position: "absolute",
-      fontSize: 12,
-      bottom: 30,
-      left: 0,
-      right: 0,
-      textAlign: "center",
-      color: "grey",
-    },
-  });
-
-  const frontPageStyles = StyleSheet.create({
-    root: {
-      backgroundColor: "#b6e6ff",
-      padding: "24px",
       fontFamily: "Roboto",
-    },
-    container: {
-      display: "flex",
-      justifyContent: "space-between",
       width: "100%",
-      height: "100%",
-    },
-    header: {
       flexDirection: "row",
-      gap: "4px",
-      alignItems: "center",
       justifyContent: "space-between",
+      alignItems: "center",
     },
     header__logo: {
       flexDirection: "row",
-      gap: "4px",
+      gap: 4,
       alignItems: "center",
     },
     logoImage: {
-      width: "24px",
-      height: "24px",
+      width: 24,
+      height: 24,
     },
     logoText: {
-      fontSize: "18px",
+      fontSize: 12,
       fontFamily: "Roboto",
       fontWeight: "medium",
     },
     header__text: {
-      fontSize: "16px",
+      fontSize: 12,
       color: "rgba(0,0,0,0.5)",
     },
     footer: {
-      flexDirection: "row-reverse",
+      position: "absolute",
+      bottom: 30,
+      left: 30,
+      width: "100%",
+      flexDirection: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      fontFamily: "Roboto",
+      color: "rgba(0,0,0,0.5)",
+      fontSize: 12,
     },
-    body: {
-      gap: "32px",
+    pageNumber: {},
+    footerText: {},
+  });
+
+  const severityStyles = StyleSheet.create({
+    container: {
+      fontFamily: "Roboto",
     },
-    body__title: {
-      fontSize: "24px",
+    section: {
+      flexDirection: "row",
+      gap: 12,
+      color: primary_blue_500,
+    },
+    section__number: {
+      fontWeight: "bold",
+    },
+    section__text: {
       fontWeight: "medium",
     },
-    body__description: {
-      gap: "12px",
+    body: {
+      marginTop: 12,
+      gap: 12,
     },
-    contractName: {
-      fontSize: "32px",
-      fontWeight: "black",
+    description: {
+      fontSize: 14,
     },
-    date: {
-      fontSize: "24px",
+    severityList: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "space-between",
+      gap: 12,
     },
-    body__smallText: {
-      fontSize: "16px",
-      color: "rgba(0,0,0,0.5)",
+    severityItem: {
+      gap: 4,
     },
-    footer__smallText: {
-      fontSize: "16px",
-      color: "rgba(0,0,0,0.5)",
+    severityType: {
+      flexDirection: "row",
+      gap: 12,
+      alignItems: "center",
     },
-    title: {
-      margin: "auto",
+    severityColor: {
+      width: 8,
+      height: 8,
+      borderRadius: "50%",
+    },
+    type: {
+      fontSize: 14,
+      fontWeight: "medium",
+    },
+    severityDescription: {
+      fontSize: 12,
     },
   });
 
-  return { styles, frontPageStyles };
+  return { styles, frontPageStyles, severityStyles };
 };
 
 export default useAuditReport;
