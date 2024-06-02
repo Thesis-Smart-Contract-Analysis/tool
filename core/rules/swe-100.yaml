@@ -6,6 +6,7 @@ rules:
       - pattern-not: function $F(...) private { ... }
       - pattern-not: function $F(...) internal { ... }
       - pattern-not: function $F(...) external { ... }
+      - focus-metavariable: $F
     message: Function `$F` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.
     languages:
       - solidity
