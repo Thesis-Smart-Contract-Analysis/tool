@@ -14,7 +14,6 @@ import { SLITHER_LINK } from "@/utils/constant";
 import { useTranslation } from "react-i18next";
 import { RESULT_TYPE } from "@/enums";
 import {
-  IResult,
   MythrilFinding,
   SemanticGrepFinding,
   SlitherFinding,
@@ -22,7 +21,7 @@ import {
 import { TCheckList } from "@/types";
 import ReadOnlySolidityEditor from "@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor";
 import Severity from "@/components/Severity/Severity";
-import { sortCheckListBySeverity } from "@/utils/helper";
+import { sortBySeverity } from "@/utils/helper";
 
 import "./CheckListBoard.scss";
 import { useSo1Scan } from "./hooks/useSo1Scan";
@@ -34,13 +33,8 @@ const CheckListBoard: React.FC<{
 }> = ({ type }) => {
   const { t } = useTranslation();
 
-  const {
-    setResult,
-    semgrepResult,
-    slitherResult,
-    mythrilResult,
-    currentSourceCode,
-  } = useContext(ResultContext);
+  const { semgrepResult, slitherResult, mythrilResult, currentSourceCode } =
+    useContext(ResultContext);
 
   const [currentDecoration, setCurrentDecoration] =
     useState<monaco.editor.IModelDeltaDecoration[]>();
@@ -57,7 +51,7 @@ const CheckListBoard: React.FC<{
     const decorations =
       editorRef.current?.createDecorationsCollection(currentDecoration);
 
-    if (currentDecoration) {
+    if (currentDecoration?.length) {
       editorRef.current?.revealRangeInCenter(currentDecoration[0].range);
     }
 
@@ -84,7 +78,9 @@ const CheckListBoard: React.FC<{
         };
       });
 
-      return sortCheckListBySeverity(res);
+      const sortedRes = sortBySeverity(res);
+
+      return sortedRes;
     } else if (type === RESULT_TYPE.SLITHER) {
       const res = slitherResult?.findings
         ?.filter((finding) => !finding.metadata.duplicated)
@@ -100,16 +96,9 @@ const CheckListBoard: React.FC<{
           };
         });
 
-      if (!res) {
-        setResult(
-          (prev) =>
-            ({
-              ...prev,
-              full_slither_duplicated: false,
-            } as IResult)
-        );
-      }
-      return sortCheckListBySeverity(res);
+      const sortedRes = sortBySeverity(res);
+
+      return sortedRes;
     } else if (type === RESULT_TYPE.MYTHRIL) {
       const res = mythrilResult?.findings
         ?.filter((finding) => {
@@ -130,21 +119,11 @@ const CheckListBoard: React.FC<{
           };
         });
 
-      if (!res) {
-        setResult((prev) => {
-          if (prev?.full_slither_duplicated) {
-            return {
-              ...prev,
-              full_coverage: true,
-            } as IResult;
-          }
-          return prev;
-        });
-      }
+      const sortedRes = sortBySeverity(res);
 
-      return sortCheckListBySeverity(res);
+      return sortedRes;
     }
-  }, [semgrepResult, slitherResult, mythrilResult, setResult, type]);
+  }, [semgrepResult, slitherResult, mythrilResult, type]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnClick = (type: RESULT_TYPE, item: TCheckList) => {

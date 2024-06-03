@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   MythrilFinding,
   SemanticGrepFinding,
@@ -7,6 +8,14 @@ import {
   Mythril,
   Slither,
 } from "@/interfaces";
+
+export type TCheckList = {
+  id: string;
+  vulId: string;
+  severity: string;
+  desc: string;
+  finding: SemanticGrepFinding | SlitherFinding | MythrilFinding;
+};
 
 export type TResultContext = {
   result: IResult | null;
@@ -29,12 +38,4 @@ export type TResultContext = {
   setCurrentSourceCode: React.Dispatch<React.SetStateAction<string>>;
   currentFileName: string;
   setCurrentFileName: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export type TCheckList = {
-  id: string;
-  vulId: string;
-  severity: string;
-  desc: string;
-  finding: SemanticGrepFinding | SlitherFinding | MythrilFinding;
 };

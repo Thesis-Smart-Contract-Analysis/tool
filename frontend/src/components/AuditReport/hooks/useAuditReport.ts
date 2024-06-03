@@ -227,7 +227,57 @@ const useAuditReport = () => {
     },
   });
 
-  return { styles, frontPageStyles, severityStyles };
+  const summaryResultStyles = StyleSheet.create({
+    container: {
+      fontFamily: "Roboto",
+    },
+    section: {
+      flexDirection: "row",
+      gap: 12,
+      color: primary_blue_500,
+    },
+    section__number: {
+      fontWeight: "bold",
+    },
+    section__text: {
+      fontWeight: "medium",
+    },
+    body: {
+      marginTop: 12,
+      gap: 12,
+    },
+    table: {
+      display: "flex",
+      width: "100%",
+      fontSize: 12,
+    },
+    tableHeader: {
+      display: "flex",
+      flexDirection: "row",
+      backgroundColor: "rgba(0,0,0,0.1)",
+      fontWeight: "medium",
+    },
+    tableColumn: {
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
+      textAlign: "center",
+      padding: 8,
+      gap: 4,
+      border: "1px solid gray",
+    },
+    tableRows: {
+      display: "flex",
+      width: "100%",
+    },
+    tableRow: {
+      display: "flex",
+      flexDirection: "row",
+    },
+  });
+
+  return { styles, frontPageStyles, severityStyles, summaryResultStyles };
 };
 
 export default useAuditReport;

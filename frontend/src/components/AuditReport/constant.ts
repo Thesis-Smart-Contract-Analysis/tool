@@ -58,3 +58,11 @@ export const SEVERITY_DESCRIPTION = [
     color: "#339900",
   },
 ];
+
+export const SEVERITY_COLOR_MAPPING = {
+  Critical: "#cc3300",
+  High: "#ff9966",
+  Medium: "#ffcc00",
+  Low: "#99cc33",
+  Informational: "#339900",
+};

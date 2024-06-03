@@ -27,11 +27,15 @@ export const useSlither = (
   };
 
   const handleSlitherChoose = (finding: SlitherFinding) => {
-    const match = finding.matches[finding.matches.length - 1];
+    const decorationsCollection = [] as monaco.editor.IModelDeltaDecoration[];
 
-    if (match) {
-      setCurrentDecoration([createSlitherDecoration(match)]);
-    }
+    finding.matches.map((match) => {
+      if (match) {
+        decorationsCollection.push(createSlitherDecoration(match));
+      }
+    });
+
+    setCurrentDecoration(decorationsCollection);
   };
 
   return {

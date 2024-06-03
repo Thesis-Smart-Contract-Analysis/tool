@@ -1,20 +1,16 @@
-import { TCheckList } from "@/types";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SEVERITY_PRIORITY } from "./constant";
 
-export const sortCheckListBySeverity = (
-  checklist: TCheckList[] | undefined
-) => {
+export const sortBySeverity = (checklist: any[] | undefined) => {
   if (checklist) {
-    const sortedChecklist = JSON.parse(
-      JSON.stringify(checklist)
-    ) as TCheckList[];
+    const sortedResult = JSON.parse(JSON.stringify(checklist));
 
-    sortedChecklist?.sort(
-      (a, b) =>
+    sortedResult?.sort(
+      (a: any, b: any) =>
         SEVERITY_PRIORITY.indexOf(b.severity) -
         SEVERITY_PRIORITY.indexOf(a.severity)
     );
-    return sortedChecklist;
+    return sortedResult;
   }
 
   return checklist;
