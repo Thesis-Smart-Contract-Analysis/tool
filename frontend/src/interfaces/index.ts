@@ -5,6 +5,7 @@ export interface IResult {
   mythril: Mythril;
   full_coverage: boolean;
   scan_time: number;
+  full_slither_duplicated?: boolean;
 }
 
 export interface Mythril {

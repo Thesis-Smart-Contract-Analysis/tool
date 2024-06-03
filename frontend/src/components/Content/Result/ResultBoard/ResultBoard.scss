@@ -10,7 +10,6 @@
     gap: 1.2rem;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.2rem;
 
     .text {
       &--so1scan {
@@ -42,10 +41,17 @@
     }
 
     .time {
-      &.MuiTypography-root {
-        font-size: 1.6rem;
-        font-weight: 500;
-        color: $neutrals-500;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      &__text {
+        &.MuiTypography-root {
+          font-size: 1.8rem;
+          line-height: 1;
+          font-weight: 500;
+          color: $neutrals-500;
+        }
       }
     }
   }

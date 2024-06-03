@@ -37,16 +37,18 @@
       "result-board": {
         "scan-time": "Thời gian quét"
       },
+      "no-more-result": "Không phát hiện thêm lỗ hổng nào",
       "check-list": {
-        "title": "Các lỗ hổng cần được kiểm tra lại",
-        "slither": "Sử dụng công cụ Slither để kiểm tra",
-        "mythril": "Sử dụng công cụ Mythril để kiểm tra"
+        "title": "Các lỗ hổng chưa được phát hiện",
+        "slither": "Quét lại hợp đồng với Slither",
+        "mythril": "Quét lại hợp đồng với Mythril"
       }
     }
   },
   "common": {
     "choose": "Chọn",
-    "or": "Hoặc"
+    "or": "Hoặc",
+    "scanning": "Đang quét"
   },
 
   "header": {

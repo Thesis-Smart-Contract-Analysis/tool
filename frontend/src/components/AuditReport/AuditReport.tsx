@@ -11,8 +11,8 @@ import {
 
 import logo from "@/assets/logo.png";
 
-import useAuditReport from "./hooks/useAuditReport";
 import "./AuditReport.scss";
+import useAuditReport from "./hooks/useAuditReport";
 import { SEVERITY_DESCRIPTION } from "./constant";
 
 const AuditReport: React.FC = () => {

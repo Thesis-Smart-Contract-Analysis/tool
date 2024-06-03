@@ -14,6 +14,7 @@ import { SLITHER_LINK } from "@/utils/constant";
 import { useTranslation } from "react-i18next";
 import { RESULT_TYPE } from "@/enums";
 import {
+  IResult,
   MythrilFinding,
   SemanticGrepFinding,
   SlitherFinding,
@@ -21,19 +22,25 @@ import {
 import { TCheckList } from "@/types";
 import ReadOnlySolidityEditor from "@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor";
 import Severity from "@/components/Severity/Severity";
+import { sortCheckListBySeverity } from "@/utils/helper";
 
+import "./CheckListBoard.scss";
 import { useSo1Scan } from "./hooks/useSo1Scan";
 import { useSlither } from "./hooks/useSlither";
 import { useMythril } from "./hooks/useMythril";
-import "./CheckListBoard.scss";
-import { sortCheckListBySeverity } from "@/utils/sortter";
 
 const CheckListBoard: React.FC<{
   type: RESULT_TYPE;
 }> = ({ type }) => {
   const { t } = useTranslation();
 
-  const { result, currentSourceCode } = useContext(ResultContext);
+  const {
+    setResult,
+    semgrepResult,
+    slitherResult,
+    mythrilResult,
+    currentSourceCode,
+  } = useContext(ResultContext);
 
   const [currentDecoration, setCurrentDecoration] =
     useState<monaco.editor.IModelDeltaDecoration[]>();
@@ -65,7 +72,7 @@ const CheckListBoard: React.FC<{
 
   const checklist: TCheckList[] | undefined = useMemo(() => {
     if (type === RESULT_TYPE.SO1SCAN) {
-      const res = result?.semantic_grep.findings.map((finding) => {
+      const res = semgrepResult?.findings?.map((finding) => {
         const found = finding.metadata;
 
         return {
@@ -78,15 +85,40 @@ const CheckListBoard: React.FC<{
       });
 
       return sortCheckListBySeverity(res);
+    } else if (type === RESULT_TYPE.SLITHER) {
+      const res = slitherResult?.findings
+        ?.filter((finding) => !finding.metadata.duplicated)
+        ?.map((finding) => {
+          const found = finding.metadata;
+
+          return {
+            id: uuidv4(),
+            vulId: found.id,
+            severity: found.severity,
+            desc: found.description,
+            finding,
+          };
+        });
+
+      if (!res) {
+        setResult(
+          (prev) =>
+            ({
+              ...prev,
+              full_slither_duplicated: false,
+            } as IResult)
+        );
+      }
+      return sortCheckListBySeverity(res);
     } else if (type === RESULT_TYPE.MYTHRIL) {
-      const res = result?.mythril.findings
-        .filter((finding) => {
+      const res = mythrilResult?.findings
+        ?.filter((finding) => {
           return (
             !finding.metadata.duplicated &&
             finding.matches.some((match) => match.lineno)
           );
         })
-        .map((finding) => {
+        ?.map((finding) => {
           const found = finding.metadata;
 
           return {
@@ -98,25 +130,21 @@ const CheckListBoard: React.FC<{
           };
         });
 
-      return sortCheckListBySeverity(res);
-    } else if (type === RESULT_TYPE.SLITHER) {
-      const res = result?.slither.findings
-        .filter((finding) => !finding.metadata.duplicated)
-        .map((finding) => {
-          const found = finding.metadata;
-
-          return {
-            id: uuidv4(),
-            vulId: found.id,
-            severity: found.severity,
-            desc: found.description,
-            finding,
-          };
+      if (!res) {
+        setResult((prev) => {
+          if (prev?.full_slither_duplicated) {
+            return {
+              ...prev,
+              full_coverage: true,
+            } as IResult;
+          }
+          return prev;
         });
+      }
 
       return sortCheckListBySeverity(res);
     }
-  }, [result, type]);
+  }, [semgrepResult, slitherResult, mythrilResult, setResult, type]);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleOnClick = (type: RESULT_TYPE, item: TCheckList) => {
@@ -145,62 +173,100 @@ const CheckListBoard: React.FC<{
     <Box className="checklist-board">
       {type === RESULT_TYPE.SO1SCAN ? null : (
         <Box
-          className={`checklist-board__title checklist-board__title--${type}`}
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
         >
-          <Typography className="text">
-            {t(`content.result.check-list.${type}` as ParseKeys)}
-          </Typography>
+          <Box
+            className={`checklist-board__title checklist-board__title--${type}`}
+          >
+            <Typography className="text">
+              {t(`content.result.check-list.${type}` as ParseKeys)}
+            </Typography>
 
-          <a href={SLITHER_LINK} className="link" target="_blank">
-            <InsertLinkIcon />
-          </a>
+            <a href={SLITHER_LINK} className="link" target="_blank">
+              <InsertLinkIcon />
+            </a>
+          </Box>
+
+          <Typography
+            sx={{
+              fontSize: "1.8rem",
+              fontWeight: 500,
+              color: "#6d6d6d",
+              lineHeight: 1,
+            }}
+          >
+            {type === RESULT_TYPE.SLITHER
+              ? `${t(
+                  "content.result.result-board.scan-time"
+                )}: ${slitherResult?.scan_time.toFixed(3)}s`
+              : `${t(
+                  "content.result.result-board.scan-time"
+                )}: ${mythrilResult?.scan_time.toFixed(3)}s`}
+          </Typography>
         </Box>
       )}
-      <Box className="checklist-board__content">
-        <Box className="checklist-board__list">
-          {checklist?.map((item) => {
-            return (
-              <Box
-                key={item.id}
-                className={`checklist-board__item  ${
-                  currentChooseId === item.id ? `active--${type}` : ""
-                }`}
-                onClick={() => {
-                  handleOnClick(type, item);
-                }}
-              >
-                <input
-                  type="checkbox"
-                  id={item.id}
-                  style={{
-                    display: "none",
+      {checklist ? (
+        <Box className="checklist-board__content">
+          <Box className="checklist-board__list">
+            {checklist?.map((item) => {
+              return (
+                <Box
+                  key={item.id}
+                  className={`checklist-board__item  ${
+                    currentChooseId === item.id ? `active--${type}` : ""
+                  }`}
+                  onClick={() => {
+                    handleOnClick(type, item);
                   }}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      handleOnClick(type, item);
-                    }
-                  }}
-                />
-                <label htmlFor={item.id}>
-                  <Box className="title">
-                    <Severity type={item.severity.toLowerCase()} />
-                    <Typography className="title__id">{item.vulId}</Typography>
-                  </Box>
+                >
+                  <input
+                    type="checkbox"
+                    id={item.id}
+                    style={{
+                      display: "none",
+                    }}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        handleOnClick(type, item);
+                      }
+                    }}
+                  />
+                  <label htmlFor={item.id}>
+                    <Box className="title">
+                      <Severity type={item.severity.toLowerCase()} />
+                      <Typography className="title__id">
+                        {item.vulId}
+                      </Typography>
+                    </Box>
 
-                  <Typography className="desc">{item.desc}</Typography>
-                </label>
-              </Box>
-            );
-          })}
-        </Box>
+                    <Typography className="desc">{item.desc}</Typography>
+                  </label>
+                </Box>
+              );
+            })}
+          </Box>
 
-        <Box className="checklist-board__code-editor">
-          <ReadOnlySolidityEditor
-            onMount={handleOnMount}
-            value={currentSourceCode}
-          />
+          <Box className="checklist-board__code-editor">
+            <ReadOnlySolidityEditor
+              onMount={handleOnMount}
+              value={currentSourceCode}
+            />
+          </Box>
         </Box>
-      </Box>
+      ) : (
+        <Typography
+          sx={{
+            fontSize: "1.8rem",
+            lineHeight: 1,
+          }}
+        >
+          {t("content.result.no-more-result")}
+        </Typography>
+      )}
     </Box>
   );
 };

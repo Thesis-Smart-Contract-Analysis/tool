@@ -5,28 +5,22 @@ import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-import { ResultContext } from "@/context/ResultContext";
 import { RESULT_TYPE } from "@/enums";
+import { ResultContext } from "@/context/ResultContext";
 
+import "./Result.scss";
 import ResultBoard from "./ResultBoard/ResultBoard";
 import ResultCheckList from "./ResultCheckList/ResultCheckList";
-import "./Result.scss";
 
 const Result: React.FC = () => {
   const { t } = useTranslation();
-  const { result } = useContext(ResultContext);
+  const { semgrepResult } = useContext(ResultContext);
 
   useEffect(() => {
-    if (result) {
-      document.getElementById("result")?.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  }, [result]);
-
-  const isHiddenResult =
-    result?.full_coverage ||
-    (!result?.mythril.findings.length && !result?.slither.findings.length);
+    document.getElementById("result")?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [semgrepResult]);
 
   return (
     <Box className="result-wrapper">
@@ -44,13 +38,9 @@ const Result: React.FC = () => {
         </Typography>
 
         <Box className="result__content">
-          <ResultBoard
-            title="So1Scan"
-            time={result?.semantic_grep.scan_time as number}
-            type={RESULT_TYPE.SO1SCAN}
-          />
+          <ResultBoard title="So1Scan" type={RESULT_TYPE.SO1SCAN} />
 
-          {isHiddenResult ? null : <ResultCheckList />}
+          {semgrepResult ? <ResultCheckList /> : null}
         </Box>
       </Box>
     </Box>

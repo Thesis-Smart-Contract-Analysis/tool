@@ -12,6 +12,12 @@ export enum SEVERITY {
   CRITICAL = "critical",
 }
 
+export enum SCANNING_TOOL {
+  SEMANTIC_GREP = "semantic_grep",
+  SLITHER = "slither",
+  MYTHRIL = "mythril",
+}
+
 export enum TOOL {
   So1Scan,
   Slither,
