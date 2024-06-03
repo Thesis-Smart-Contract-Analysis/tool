@@ -11,7 +11,6 @@ import { SCAN_MODE } from "../constant";
 
 const usePrepare = () => {
   const {
-    setIsResultLoading,
     setIsSemgrepResultLoading,
     setIsSlitherResultLoading,
     setIsMythrilResultLoading,
@@ -81,42 +80,50 @@ const usePrepare = () => {
       } else if (scanMode === SCAN_MODE.SOURCE_CODE) {
         setCurrentSourceCode(previewCode);
 
-        setIsResultLoading(true);
-
-        // const { data } = await scanSourceCode(code);
-
-        const scanning_result = {} as IResult;
-
+        setIsSemgrepResultLoading(true);
         const { data: semantic_grep } = await scanSourceCode(
           previewCode,
           SCANNING_TOOL.SEMANTIC_GREP
         );
+        setIsSemgrepResultLoading(false);
 
+        setSemgrepResult(semantic_grep);
+
+        setIsSlitherResultLoading(true);
         const { data: slither } = await scanSourceCode(
           previewCode,
           SCANNING_TOOL.SLITHER
         );
+        setIsSlitherResultLoading(false);
 
+        setSlitherResult(slither);
+
+        setIsMythrilResultLoading(true);
         const { data: mythril } = await scanSourceCode(
           previewCode,
           SCANNING_TOOL.MYTHRIL
         );
+        setIsMythrilResultLoading(false);
 
-        // Update result
-        scanning_result.semantic_grep = semantic_grep;
-        scanning_result.slither = slither;
-        scanning_result.mythril = mythril;
-        scanning_result.scan_time =
-          semantic_grep.scan_time + slither.scan_time + mythril.scan_time;
+        setMythrilResult(mythril);
 
-        setResult(scanning_result);
-
-        setCurrentSourceCode(code);
+        setResult((prev) => {
+          return {
+            ...prev,
+            semantic_grep,
+            slither,
+            mythril,
+            scan_time:
+              semantic_grep.scan_time + slither.scan_time + mythril.scan_time,
+          } as IResult;
+        });
       }
     } catch (error) {
       console.error(error);
     } finally {
-      setIsResultLoading(false);
+      setIsSemgrepResultLoading(false);
+      setIsSlitherResultLoading(false);
+      setIsMythrilResultLoading(false);
     }
   };
 
