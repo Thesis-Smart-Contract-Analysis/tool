@@ -5,7 +5,6 @@ export interface IResult {
   mythril: Mythril;
   scan_time: number;
   success: boolean;
-  smart_contract_name: string;
 }
 
 export interface Mythril {
