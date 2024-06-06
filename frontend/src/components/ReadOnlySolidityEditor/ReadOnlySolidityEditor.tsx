@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Editor, OnMount } from "@monaco-editor/react";
+import { Editor, OnMount } from '@monaco-editor/react';
 
 const ReadOnlySolidityEditor: React.FC<{ onMount: OnMount; value: string }> = ({
   onMount,
@@ -10,7 +10,7 @@ const ReadOnlySolidityEditor: React.FC<{ onMount: OnMount; value: string }> = ({
     <Editor
       onMount={onMount}
       value={value}
-      defaultLanguage="sol"
+      defaultLanguage='sol'
       options={{
         readOnly: true,
       }}

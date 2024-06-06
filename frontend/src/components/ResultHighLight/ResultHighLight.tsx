@@ -1,10 +1,10 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useMemo } from 'react';
 
-import * as monaco from "monaco-editor";
-import Editor from "@monaco-editor/react";
+import * as monaco from 'monaco-editor';
+import Editor from '@monaco-editor/react';
 
-import { ResultContext } from "@/context/ResultContext";
-import { RESULT_TYPE } from "@/enums";
+import { ResultContext } from '@/context/ResultContext';
+import { RESULT_TYPE } from '@/enums';
 import {
   SemanticGrepMatch,
   MythrilFinding,
@@ -12,13 +12,13 @@ import {
   SemanticGrepFinding,
   SlitherFinding,
   SlitherMatch,
-} from "@/interfaces";
+} from '@/interfaces';
 
-import "./ResultHighLight.scss";
+import './ResultHighLight.scss';
 
 const createSemgrepDecoration = (
   find: SemanticGrepFinding,
-  match: SemanticGrepMatch
+  match: SemanticGrepMatch,
 ) => {
   const start_line = match.start.line;
   const start_col = match.start.col;
@@ -31,7 +31,7 @@ const createSemgrepDecoration = (
     find.metadata.message
   }`;
 
-  const className = "code-highlight";
+  const className = 'code-highlight';
 
   return {
     range,
@@ -56,11 +56,11 @@ const createSlitherDecoration = (find: SlitherFinding, match: SlitherMatch) => {
   const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
   const message = `⚠️ **\`${
-    find.metadata["semgrep-id"]?.toLocaleUpperCase() ||
+    find.metadata['semgrep-id']?.toLocaleUpperCase() ||
     find.metadata.id.toLocaleUpperCase()
   }\`** - ${find.metadata.markdown}`;
 
-  const className = "code-highlight";
+  const className = 'code-highlight';
 
   return {
     range,
@@ -83,11 +83,11 @@ const createMythrilDecoration = (find: MythrilFinding, match: MythrilMatch) => {
   const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
   const message = `⚠️ **\`${
-    find.metadata["semgrep-id"]?.toLocaleUpperCase() ||
+    find.metadata['semgrep-id']?.toLocaleUpperCase() ||
     find.metadata.id.toLocaleUpperCase()
   }\`** - ${find.metadata.description}`;
 
-  const className = "code-highlight";
+  const className = 'code-highlight';
 
   return {
     range,
@@ -141,7 +141,7 @@ const ResultHighLight: React.FC<{ type: RESULT_TYPE }> = ({ type }) => {
   return (
     <Editor
       defaultValue={currentSourceCode}
-      defaultLanguage="sol"
+      defaultLanguage='sol'
       onMount={handleOnMount}
       options={{
         readOnly: true,

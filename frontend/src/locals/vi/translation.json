@@ -43,12 +43,29 @@
         "slither": "Quét lại hợp đồng với Slither",
         "mythril": "Quét lại hợp đồng với Mythril"
       }
+    },
+    "audit-report": {
+      "severity": {
+        "high": "Mức độ nghiêm trọng cao có thể gây ra rủi ro đáng kể cho cả hợp đồng thông minh và tổ chức. Chúng có thể dẫn đến mất tiền của người dùng và rất khó để  khai thác các lỗ hổng với mức độ nghiêm trong này.",
+        "medium": "Mức độ nghiêm trọng trung bình ảnh hưởng đáng kể đến khả năng hoạt động của hợp đồng thông minh theo một cách không gây cản trở đến chức năng chính của nó.",
+        "low": "Mức độ nghiêm trọng thấp ảnh hưởng rất ít đến khả năng hoạt động của hợp đồng thông min.",
+        "informational": "Mức độ nghiêm trọng loại 'Thông tin' này không ảnh hưởng gì đến khả năng hoạt động của hợp đồng, nhưng vẫn tốt hơn nếu khắc phục chúng.",
+        "optimization": "Mức độ nghiêm trọng loại 'Tối ưu hóa' này cũng tương tự như mức độ nghiêm trọng loại 'Thông tin' và hợp đồng thông minh sẽ được tối ưu hóa nếu ta khắc phục chúng."
+      },
+      "status": {
+        "pending-fix": "Chờ khắc phục"
+      }
     }
   },
   "common": {
     "choose": "Chọn",
     "or": "Hoặc",
     "scanning": "Đang quét"
+  },
+  "error": {
+    "scan-with-So1Scan": "Xảy ra lỗi khi quét hợp đồng thông minh với So1Scan",
+    "scan-with-Slither": "Xảy ra lỗi khi quét hợp đồng thông minh với Slither",
+    "scan-with-Mythril": "Xảy ra lỗi khi quét hợp đồng thông minh với Mythril"
   },
 
   "header": {

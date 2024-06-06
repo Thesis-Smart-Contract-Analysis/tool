@@ -14,5 +14,13 @@ module.exports = {
       'warn',
       { allowConstantExport: true },
     ],
+    quotes: [
+      'error',
+      'single',
+      {
+        avoidEscape: true,
+        allowTemplateLiterals: true,
+      },
+    ],
   },
-}
+};

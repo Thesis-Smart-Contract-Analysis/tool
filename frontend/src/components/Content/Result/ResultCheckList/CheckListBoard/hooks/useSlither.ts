@@ -1,11 +1,11 @@
-import * as monaco from "monaco-editor";
+import * as monaco from 'monaco-editor';
 
-import { SlitherFinding, SlitherMatch } from "@/interfaces";
+import { SlitherFinding, SlitherMatch } from '@/interfaces';
 
 export const useSlither = (
   setCurrentDecoration: React.Dispatch<
     React.SetStateAction<monaco.editor.IModelDeltaDecoration[] | undefined>
-  >
+  >,
 ) => {
   const createSlitherDecoration = (match: SlitherMatch) => {
     const start_line = match.source_mapping.lines[0];
@@ -16,7 +16,7 @@ export const useSlither = (
 
     const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
-    const className = "code-highlight";
+    const className = 'code-highlight';
 
     return {
       range,

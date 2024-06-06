@@ -1,7 +1,12 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useState } from 'react';
 
-import { IResult, Mythril, SemanticGrep, Slither } from "@/interfaces";
-import { TResultContext } from "@/types";
+import { IResult, Mythril, SemanticGrep, Slither } from '@/interfaces';
+import { TResultContext } from '@/types';
+import {
+  SAMPLE_MYTHRIL_RESULT,
+  SAMPLE_SEMGREP_RESULT,
+  SAMPLE_SLITHER_RESULT,
+} from '@/utils/constant';
 
 export const ResultContext = createContext({} as TResultContext);
 
@@ -10,7 +15,7 @@ export const InitResult = {
   slither: {} as Slither,
   semantic_grep: {} as SemanticGrep,
   scan_time: 0,
-  full_coverage: false,
+  success: false,
 } as IResult;
 
 const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -19,11 +24,17 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isSlitherResultLoading, setIsSlitherResultLoading] = useState(false);
   const [isMythrilResultLoading, setIsMythrilResultLoading] = useState(false);
   const [result, setResult] = useState<IResult | null>(null);
-  const [semgrepResult, setSemgrepResult] = useState<SemanticGrep | null>(null);
-  const [slitherResult, setSlitherResult] = useState<Slither | null>(null);
-  const [mythrilResult, setMythrilResult] = useState<Mythril | null>(null);
-  const [currentSourceCode, setCurrentSourceCode] = useState("");
-  const [currentFileName, setCurrentFileName] = useState("");
+  const [semgrepResult, setSemgrepResult] = useState<SemanticGrep | null>(
+    SAMPLE_SEMGREP_RESULT,
+  );
+  const [slitherResult, setSlitherResult] = useState<Slither | null>(
+    SAMPLE_SLITHER_RESULT,
+  );
+  const [mythrilResult, setMythrilResult] = useState<Mythril | null>(
+    SAMPLE_MYTHRIL_RESULT,
+  );
+  const [currentSourceCode, setCurrentSourceCode] = useState('');
+  const [currentFileName, setCurrentFileName] = useState('');
 
   return (
     <ResultContext.Provider

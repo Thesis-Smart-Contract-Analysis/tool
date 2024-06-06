@@ -1,8 +1,10 @@
 export type TDetailResult = {
-  vulId: string;
+  vulnId: string;
   matches: {
     from: number;
     to: number;
+    line?: number;
+    type?: string;
     matched: string;
   }[];
   description: string;
@@ -11,7 +13,7 @@ export type TDetailResult = {
 };
 
 export type TSummaryResult = {
-  vulId: string;
+  vulnId: string;
   instance: number;
   severity: string;
   scanningTool: string;

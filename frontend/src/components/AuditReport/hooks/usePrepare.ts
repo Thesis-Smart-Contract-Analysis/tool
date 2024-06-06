@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from 'react';
 
-import { ResultContext } from "@/context/ResultContext";
+import { ResultContext } from '@/context/ResultContext';
 
-import { TDetailResult, TSummaryResult } from "../types";
-import { sortBySeverity } from "@/utils/helper";
+import { TDetailResult, TSummaryResult } from '../types';
+import { sortBySeverity } from '@/utils/helper';
 
 const usePrepare = () => {
   const { semgrepResult, slitherResult, mythrilResult } =
@@ -17,17 +17,17 @@ const usePrepare = () => {
     const countDuplicatedVuln: Record<string, number> = {};
 
     sortedResult?.forEach((res) => {
-      const key = `${res.severity}-${res.vulId}-${res.scanningTool}`;
+      const key = `${res.severity}-${res.vulnId}-${res.scanningTool}`;
       countDuplicatedVuln[key] = (countDuplicatedVuln[key] || 0) + 1;
     });
 
     sortedResult?.forEach((res) => {
-      const key = `${res.severity}-${res.vulId}-${res.scanningTool}`;
+      const key = `${res.severity}-${res.vulnId}-${res.scanningTool}`;
       if (countDuplicatedVuln[key] >= 1) {
         summaryRes.push({
           scanningTool: res.scanningTool,
           severity: res.severity,
-          vulId: res.vulId,
+          vulnId: res.vulnId,
           instance: countDuplicatedVuln[key],
         });
 
@@ -41,7 +41,7 @@ const usePrepare = () => {
   useEffect(() => {
     const semgrep = semgrepResult?.findings.map((finding) => {
       return {
-        vulId: finding.metadata.name,
+        vulnId: finding.metadata.name || finding.metadata.id,
         matches: [...finding.matches].map((match) => {
           const from = match.start.line;
           const to = match.end.line;
@@ -49,12 +49,13 @@ const usePrepare = () => {
           return {
             from,
             to,
-            matched: `Matched on ${match.lines}`,
+            line: from === to ? from : undefined,
+            matched: `${match.lines.trim()}`,
           };
         }),
         description: finding.metadata.message,
         severity: finding.metadata.severity,
-        scanningTool: "So1Scan",
+        scanningTool: 'So1Scan',
       };
     });
 
@@ -62,20 +63,23 @@ const usePrepare = () => {
       ?.filter((finding) => !finding.metadata.duplicated)
       .map((finding) => {
         return {
-          vulId: finding.metadata.id,
+          vulnId: finding.metadata.id,
           matches: [...finding.matches].map((match) => {
             const from = match.source_mapping.lines[0];
-            const to = match.source_mapping.lines[-1];
+            const to =
+              match.source_mapping.lines[match.source_mapping.lines.length - 1];
 
             return {
               from,
               to,
-              matched: `Matched on ${match.type} ${match.name}`,
+              line: from === to ? from : undefined,
+              type: match.type !== 'node' ? match.type.trim() : undefined,
+              matched: match.name.trim(),
             };
           }),
           description: finding.metadata.description,
           severity: finding.metadata.severity,
-          scanningTool: "Slither",
+          scanningTool: 'Slither',
         };
       });
 
@@ -88,7 +92,7 @@ const usePrepare = () => {
       })
       .map((finding) => {
         return {
-          vulId: finding.metadata.id,
+          vulnId: finding.metadata.title,
           matches: [...finding.matches].map((match) => {
             const from = match.lineno;
             const to = match.lineno;
@@ -96,12 +100,13 @@ const usePrepare = () => {
             return {
               from,
               to,
-              matched: `Matched on ${match.code}`,
+              line: from === to ? from : undefined,
+              matched: `${match.code.trim()}`,
             };
           }),
           description: finding.metadata.description,
           severity: finding.metadata.severity,
-          scanningTool: "Mythril",
+          scanningTool: 'Mythril',
         };
       });
 

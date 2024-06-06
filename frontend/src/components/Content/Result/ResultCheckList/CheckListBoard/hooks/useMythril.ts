@@ -1,11 +1,11 @@
-import * as monaco from "monaco-editor";
+import * as monaco from 'monaco-editor';
 
-import { MythrilFinding, MythrilMatch } from "@/interfaces";
+import { MythrilFinding, MythrilMatch } from '@/interfaces';
 
 export const useMythril = (
   setCurrentDecoration: React.Dispatch<
     React.SetStateAction<monaco.editor.IModelDeltaDecoration[] | undefined>
-  >
+  >,
 ) => {
   const createMythrilDecoration = (match: MythrilMatch) => {
     const start_line = match.lineno as number;
@@ -15,7 +15,7 @@ export const useMythril = (
 
     const range = new monaco.Range(start_line, start_col, end_line, end_col);
 
-    const className = "code-highlight";
+    const className = 'code-highlight';
 
     return {
       range,

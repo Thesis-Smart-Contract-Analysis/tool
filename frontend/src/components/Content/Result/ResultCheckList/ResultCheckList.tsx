@@ -1,29 +1,29 @@
-import { useContext } from "react";
+import { useContext } from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import { styled } from "@mui/material";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material';
 
-import Loading from "@/components/Loading/Loading";
-import { RESULT_TYPE } from "@/enums";
-import { ResultContext } from "@/context/ResultContext";
+import Loading from '@/components/Loading/Loading';
+import { RESULT_TYPE } from '@/enums';
+import { ResultContext } from '@/context/ResultContext';
 
-import "./ResultCheckList.scss";
-import CheckListBoard from "./CheckListBoard/CheckListBoard";
+import './ResultCheckList.scss';
+import CheckListBoard from './CheckListBoard/CheckListBoard';
 
 const FlexBoxShowLoading = styled(Box)({
-  display: "flex",
-  alignItems: "center",
-  gap: "0.8rem",
-  padding: "1.2rem 0",
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.8rem',
+  padding: '1.2rem 0',
 });
 
 const TypographyShowLoading = styled(Typography)({
-  fontSize: "1.8rem",
+  fontSize: '1.8rem',
   fontWeight: 500,
-  color: "#6d6d6d",
+  color: '#6d6d6d',
   lineHeight: 1,
 });
 
@@ -37,9 +37,9 @@ const SlitherCheckListBoard = () => {
       return (
         <FlexBoxShowLoading>
           <TypographyShowLoading>
-            {`${t("content.result.check-list.slither")}`}
+            {`${t('content.result.check-list.slither')}`}
           </TypographyShowLoading>
-          <Loading size="1.6rem" color="#6d6d6d" />
+          <Loading size='1.6rem' color='#6d6d6d' />
         </FlexBoxShowLoading>
       );
     } else return <CheckListBoard type={RESULT_TYPE.SLITHER} />;
@@ -57,9 +57,9 @@ const MythrilCheckListBoard = () => {
       return (
         <FlexBoxShowLoading>
           <TypographyShowLoading>
-            {`${t("content.result.check-list.mythril")}`}
+            {`${t('content.result.check-list.mythril')}`}
           </TypographyShowLoading>
-          <Loading size="1.6rem" color="#6d6d6d" />
+          <Loading size='1.6rem' color='#6d6d6d' />
         </FlexBoxShowLoading>
       );
     } else return <CheckListBoard type={RESULT_TYPE.MYTHRIL} />;
@@ -71,12 +71,12 @@ const ResultCheckList: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Box className="result-checklist">
-      <Typography className="result-checklist__title">
-        {t("content.result.check-list.title")}
+    <Box className='result-checklist'>
+      <Typography className='result-checklist__title'>
+        {t('content.result.check-list.title')}
       </Typography>
 
-      <Box className="result-checklist__boards">
+      <Box className='result-checklist__boards'>
         <SlitherCheckListBoard />
         <MythrilCheckListBoard />
       </Box>

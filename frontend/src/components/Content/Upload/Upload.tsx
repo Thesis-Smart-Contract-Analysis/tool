@@ -1,17 +1,17 @@
-import React from "react";
+import React from 'react';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import ButtonBase from "@mui/material/ButtonBase";
-import { MenuItem, Select } from "@mui/material";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import ButtonBase from '@mui/material/ButtonBase';
+import { MenuItem, Select } from '@mui/material';
 
-import "./Upload.scss";
-import ScanUploadFile from "./ScanUploadFile";
-import ScanSourceCode from "./ScanSourceCode";
-import usePrepare from "./hooks/usePrepare";
-import { SCAN_MODE } from "./constant";
+import './Upload.scss';
+import ScanUploadFile from './ScanUploadFile';
+import ScanSourceCode from './ScanSourceCode';
+import usePrepare from './hooks/usePrepare';
+import { SCAN_MODE } from './constant';
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
@@ -33,24 +33,24 @@ const Upload: React.FC = () => {
   } = usePrepare();
 
   return (
-    <Box className="upload">
-      <Typography className="upload__title">
-        {t("content.upload.title")}
+    <Box className='upload'>
+      <Typography className='upload__title'>
+        {t('content.upload.title')}
       </Typography>
 
-      <Box className="upload__scan-mode">
+      <Box className='upload__scan-mode'>
         <Select onChange={handleChange} defaultValue={SCAN_MODE.CHOOSE_FILE}>
           <MenuItem value={SCAN_MODE.CHOOSE_FILE}>
-            {t("content.upload.choose-file")}
+            {t('content.upload.choose-file')}
           </MenuItem>
 
           <MenuItem value={SCAN_MODE.SOURCE_CODE}>
-            {t("content.upload.source-code")}
+            {t('content.upload.source-code')}
           </MenuItem>
         </Select>
       </Box>
 
-      <Box className="upload__content">
+      <Box className='upload__content'>
         {scanMode === SCAN_MODE.CHOOSE_FILE ? (
           <ScanUploadFile
             setFiles={setFiles}
@@ -70,21 +70,21 @@ const Upload: React.FC = () => {
       {scanMode === SCAN_MODE.CHOOSE_FILE ? (
         <Box
           className={`upload__control ${
-            currentFileName ? "" : "upload__control--disable"
+            currentFileName ? '' : 'upload__control--disable'
           }`}
         >
           <ButtonBase onClick={handleScanFile}>
-            {t("content.upload.scan")}
+            {t('content.upload.scan')}
           </ButtonBase>
         </Box>
       ) : (
         <Box
           className={`upload__control ${
-            code ? "" : "upload__control--disable"
+            code ? '' : 'upload__control--disable'
           }`}
         >
           <ButtonBase onClick={handleScanFile}>
-            {t("content.upload.scan")}
+            {t('content.upload.scan')}
           </ButtonBase>
         </Box>
       )}

@@ -1,20 +1,20 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 
-import { Editor } from "@monaco-editor/react";
-import { useDropzone } from "react-dropzone";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
+import { Editor } from '@monaco-editor/react';
+import { useDropzone } from 'react-dropzone';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
-import { AxiosError } from "axios";
+import { AxiosError } from 'axios';
 
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import BackupIcon from "@mui/icons-material/Backup";
-import CancelIcon from "@mui/icons-material/Cancel";
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import BackupIcon from '@mui/icons-material/Backup';
+import CancelIcon from '@mui/icons-material/Cancel';
 
-import solIcon from "@/assets/solidity-icon.svg";
-import Loading from "@/components/Loading/Loading";
+import solIcon from '@/assets/solidity-icon.svg';
+import Loading from '@/components/Loading/Loading';
 
 const ScanUploadFile: React.FC<{
   setFiles: React.Dispatch<React.SetStateAction<File[]>>;
@@ -42,9 +42,9 @@ const ScanUploadFile: React.FC<{
       return prev.filter((f) => f !== file);
     });
 
-    setCurrentFileName("");
+    setCurrentFileName('');
 
-    setPreviewCode("");
+    setPreviewCode('');
   };
 
   const handleChooseFile = useCallback(
@@ -55,7 +55,7 @@ const ScanUploadFile: React.FC<{
 
       setCurrentFileName(file.name);
     },
-    [setPreviewCode, setCurrentFileName]
+    [setPreviewCode, setCurrentFileName],
   );
 
   const onDrop = useCallback(
@@ -63,7 +63,7 @@ const ScanUploadFile: React.FC<{
       const currentFile = acceptedFiles[0];
 
       if (files.find((file) => file.name === currentFile.name)) {
-        alert(t("content.upload.file-exist"));
+        alert(t('content.upload.file-exist'));
       } else {
         try {
           setIsUpLoading(true);
@@ -82,7 +82,7 @@ const ScanUploadFile: React.FC<{
         }
       }
     },
-    [t, setFiles, setIsUpLoading, handleChooseFile, files]
+    [t, setFiles, setIsUpLoading, handleChooseFile, files],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -93,9 +93,9 @@ const ScanUploadFile: React.FC<{
     <React.Fragment>
       <Box className={`upload-file__wrapper`}>
         <React.Fragment>
-          <Box component="div" className="upload-file__list">
-            <Typography className="title">
-              {t("content.upload.file-list")}
+          <Box component='div' className='upload-file__list'>
+            <Typography className='title'>
+              {t('content.upload.file-list')}
             </Typography>
             {isUploading ? (
               <Loading />
@@ -105,24 +105,24 @@ const ScanUploadFile: React.FC<{
                   <Box
                     key={file.size + file.name}
                     className={`upload-file__item ${
-                      currentFileName === file.name ? "active" : ""
+                      currentFileName === file.name ? 'active' : ''
                     }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleChooseFile(file);
                     }}
                   >
-                    <Stack className="title" gap={1}>
-                      <Typography variant="body1">{file.name}</Typography>
-                      <Typography variant="body2">
+                    <Stack className='title' gap={1}>
+                      <Typography variant='body1'>{file.name}</Typography>
+                      <Typography variant='body2'>
                         {(file.size / 1000).toFixed(3)} KB
                       </Typography>
                     </Stack>
 
-                    <Box className="action">
+                    <Box className='action'>
                       <CancelIcon
-                        fontSize="large"
-                        color="action"
+                        fontSize='large'
+                        color='action'
                         onClick={(e) => {
                           e.stopPropagation();
                           handleDeleteFile(file);
@@ -135,40 +135,40 @@ const ScanUploadFile: React.FC<{
             )}
           </Box>
           <Stack
-            justifyContent="center"
-            alignItems="center"
+            justifyContent='center'
+            alignItems='center'
             gap={1}
-            className="upload-file__dropZone"
+            className='upload-file__dropZone'
             {...getRootProps()}
           >
-            <input id="upload-file-o" type="file" {...getInputProps()} />
+            <input id='upload-file-o' type='file' {...getInputProps()} />
 
-            <BackupIcon className="icon" />
+            <BackupIcon className='icon' />
 
-            <Typography className="text">{t("common.choose")}</Typography>
+            <Typography className='text'>{t('common.choose')}</Typography>
 
-            <Typography className="text">- {t("common.or")} -</Typography>
+            <Typography className='text'>- {t('common.or')} -</Typography>
 
-            <Typography className="text">
+            <Typography className='text'>
               {isDragActive
-                ? t("content.upload.drop-file-content")
-                : t("content.upload.drag-file-content")}
+                ? t('content.upload.drop-file-content')
+                : t('content.upload.drag-file-content')}
             </Typography>
           </Stack>
         </React.Fragment>
       </Box>
       <Box className={`code-editor__wrapper`}>
-        <Box className="filename">
+        <Box className='filename'>
           {currentFileName ? (
-            <img src={solIcon} alt="" className="filename__icon" />
+            <img src={solIcon} alt='' className='filename__icon' />
           ) : null}
-          <Typography className="filename__name">
-            {currentFileName || "Undefined"}
+          <Typography className='filename__name'>
+            {currentFileName || 'Undefined'}
           </Typography>
         </Box>
         <Editor
           value={previewCode}
-          defaultLanguage="sol"
+          defaultLanguage='sol'
           options={{
             readOnly: true,
           }}

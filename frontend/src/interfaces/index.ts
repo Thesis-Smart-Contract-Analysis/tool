@@ -3,13 +3,13 @@ export interface IResult {
   semantic_grep: SemanticGrep;
   slither: Slither;
   mythril: Mythril;
-  full_coverage: boolean;
   scan_time: number;
-  full_slither_duplicated?: boolean;
+  success: boolean;
+  smart_contract_name: string;
 }
 
 export interface Mythril {
-  errors: any[];
+  errors: any;
   findings: MythrilFinding[];
   scan_time: number;
   success: boolean;
@@ -22,11 +22,11 @@ export interface MythrilFinding {
 
 export interface MythrilMatch {
   address: number;
-  code?: string;
+  code: string;
   contract: string;
-  filename?: string;
+  filename: string;
   function: string;
-  lineno?: number;
+  lineno: number;
   max_gas_used: number;
   min_gas_used: number;
   sourceMap: string;
@@ -37,12 +37,12 @@ export interface MythrilMetadata {
   severity: string;
   id: string;
   title: string;
-  "semgrep-id": string;
-  duplicated?: boolean;
+  'semgrep-id': string;
+  duplicated: boolean;
 }
 
 export interface SemanticGrep {
-  errors: any[];
+  errors: any;
   findings: SemanticGrepFinding[];
   scan_time: number;
   success: boolean;
@@ -67,17 +67,17 @@ export interface End {
 }
 
 export interface SemanticGrepMetadata {
-  cwe: string;
+  cwe?: string;
   references: string[];
   message: string;
   severity: string;
   id: string;
   category?: string;
-  name: string;
+  name?: string;
 }
 
 export interface Slither {
-  errors: any[];
+  errors: any;
   findings: SlitherFinding[];
   scan_time: number;
   success: boolean;
@@ -97,8 +97,8 @@ export interface SlitherMatch {
 }
 
 export interface AdditionalFields {
-  underlying_type: string;
-  variable_name?: string;
+  convention?: string;
+  target?: string;
 }
 
 export interface SourceMapping {
@@ -138,6 +138,6 @@ export interface SlitherMetadata {
   markdown: string;
   first_markdown_element: string;
   confidence: string;
-  "semgrep-id"?: string;
-  duplicated?: boolean;
+  'semgrep-id'?: string;
+  duplicated: boolean;
 }

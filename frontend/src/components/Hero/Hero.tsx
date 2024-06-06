@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
-import { useTypeWritter } from '@/hooks/useTypeWritter';
+import { useTypeWriter } from '@/hooks/useTypeWriter';
 import sourceCode from '@/assets/solidity-source-code.png';
 
 import { ANIMATION_TEXT } from './constant';
@@ -14,7 +14,7 @@ import './Hero.scss';
 const Hero: React.FC = () => {
   const { t } = useTranslation();
 
-  const { typeWritter } = useTypeWritter({
+  const { typeWriter } = useTypeWriter({
     multiText: ANIMATION_TEXT,
   });
 
@@ -26,21 +26,15 @@ const Hero: React.FC = () => {
             <Box className='hero__text-wrap'>
               <Typography className='title'>
                 {t('hero.desc.title')}
-                <span
-                  id='cursor-animation'
-                  style={{ display: 'block' }}
-                >
-                  {typeWritter}
+                <span id='cursor-animation' style={{ display: 'block' }}>
+                  {typeWriter}
                 </span>
               </Typography>
 
               <Typography className='body'>{t('hero.desc.body')}</Typography>
             </Box>
             <Box className='hero__btn-wrap'>
-              <a
-                href='#scan-now'
-                className='scan-now'
-              >
+              <a href='#scan-now' className='scan-now'>
                 {t('hero.scan-now')}
               </a>
               <a className='more'>{t('hero.more')}</a>
@@ -57,10 +51,7 @@ const Hero: React.FC = () => {
                 <Box className='bottom-right'></Box>
               </Box>
             </Box>
-            <img
-              src={sourceCode}
-              alt='hero-image'
-            />
+            <img src={sourceCode} alt='hero-image' />
           </Box>
         </Box>
       </section>

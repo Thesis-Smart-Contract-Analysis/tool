@@ -7,7 +7,7 @@ import {
   SemanticGrep,
   Mythril,
   Slither,
-} from "@/interfaces";
+} from '@/interfaces';
 
 export type TCheckList = {
   id: string;

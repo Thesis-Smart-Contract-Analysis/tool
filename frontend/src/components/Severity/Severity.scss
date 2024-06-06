@@ -1,4 +1,4 @@
-@import "/src/styles/variables";
+@import '/src/styles/variables';
 
 .severity {
   border-radius: 4rem;
@@ -13,24 +13,17 @@
     }
   }
 
-  &--informational {
+  &--low,
+  &--informational,
+  &--optimization {
     background-color: #339900;
   }
 
-  &--low {
-    background-color: #99cc33;
-  }
-
-  &--medium,
-  &--warning {
+  &--medium {
     background-color: #ffcc00;
   }
 
   &--high {
-    background-color: #ff9966;
-  }
-
-  &--critical {
     background-color: #cc3300;
   }
 }

@@ -1,13 +1,13 @@
-import { axiosApiInstance } from "../axios";
+import { axiosApiInstance } from '../axios';
 
 export const uploadFile = async (file: File) => {
   const formData = new FormData();
 
-  formData.append("filename", file);
+  formData.append('filename', file);
 
-  return await axiosApiInstance.post("/upload", formData, {
+  return await axiosApiInstance.post('/upload', formData, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      'Content-Type': 'multipart/form-data',
     },
   });
 };

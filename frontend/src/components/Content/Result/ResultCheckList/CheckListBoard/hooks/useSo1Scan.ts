@@ -1,15 +1,15 @@
-import * as monaco from "monaco-editor";
+import * as monaco from 'monaco-editor';
 
-import { SemanticGrepFinding, SemanticGrepMatch } from "@/interfaces";
+import { SemanticGrepFinding, SemanticGrepMatch } from '@/interfaces';
 
 export const useSo1Scan = (
   setCurrentDecoration: React.Dispatch<
     React.SetStateAction<monaco.editor.IModelDeltaDecoration[] | undefined>
-  >
+  >,
 ) => {
   const createSo1ScanDecoration = (
     find: SemanticGrepFinding,
-    match: SemanticGrepMatch
+    match: SemanticGrepMatch,
   ) => {
     const start_line = match.start.line;
     const start_col = match.start.col;
@@ -22,7 +22,7 @@ export const useSo1Scan = (
       find.metadata.message
     }`;
 
-    const className = "code-highlight";
+    const className = 'code-highlight';
 
     return {
       range,

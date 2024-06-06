@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import Container from "@mui/material/Container";
+import Container from '@mui/material/Container';
 
 const Footer: React.FC = () => {
   return <Container>Footer</Container>;

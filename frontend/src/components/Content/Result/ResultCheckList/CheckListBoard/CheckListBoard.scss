@@ -1,5 +1,5 @@
-@import "/src/styles/variables";
-@import "/src/styles/mixins";
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
 
 .checklist-board {
   display: flex;
@@ -88,7 +88,7 @@
           position: relative;
           box-shadow: 0 0 0.2rem $primary-blue-950;
 
-          input[type="checkbox"] {
+          input[type='checkbox'] {
             position: absolute;
             right: 1.2rem;
             top: 1.2rem;
@@ -134,12 +134,10 @@
             }
 
             .desc {
-              &.MuiTypography-root {
-                font-size: 1.4rem;
-                color: $neutrals-600;
-                white-space: pre-wrap;
-                overflow-wrap: break-word;
-              }
+              font-size: 1.4rem;
+              color: $neutrals-600;
+              white-space: pre-wrap;
+              overflow-wrap: break-word;
             }
           }
         }

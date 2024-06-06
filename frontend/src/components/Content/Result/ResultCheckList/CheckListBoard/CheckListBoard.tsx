@@ -1,33 +1,35 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
-import { v4 as uuidv4 } from "uuid";
-import { OnMount } from "@monaco-editor/react";
-import * as monaco from "monaco-editor";
-import type { ParseKeys } from "i18next";
+import { useTranslation } from 'react-i18next';
+import Markdown from 'react-markdown';
+import { v4 as uuidv4 } from 'uuid';
+import { OnMount } from '@monaco-editor/react';
+import * as monaco from 'monaco-editor';
+import type { ParseKeys } from 'i18next';
 
-import Box from "@mui/material/Box";
-import InsertLinkIcon from "@mui/icons-material/InsertLink";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import Typography from '@mui/material/Typography';
 
-import { ResultContext } from "@/context/ResultContext";
-import { SLITHER_LINK } from "@/utils/constant";
-import { useTranslation } from "react-i18next";
-import { RESULT_TYPE } from "@/enums";
+import { ResultContext } from '@/context/ResultContext';
+import { SLITHER_LINK } from '@/utils/constant';
+import { RESULT_TYPE } from '@/enums';
 import {
   MythrilFinding,
   SemanticGrepFinding,
   SlitherFinding,
-} from "@/interfaces";
-import { TCheckList } from "@/types";
-import ReadOnlySolidityEditor from "@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor";
-import Severity from "@/components/Severity/Severity";
-import { sortBySeverity } from "@/utils/helper";
+} from '@/interfaces';
+import { TCheckList } from '@/types';
+import ReadOnlySolidityEditor from '@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor';
+import Severity from '@/components/Severity/Severity';
+import { sortBySeverity } from '@/utils/helper';
 
-import "./CheckListBoard.scss";
-import { useSo1Scan } from "./hooks/useSo1Scan";
-import { useSlither } from "./hooks/useSlither";
-import { useMythril } from "./hooks/useMythril";
+import './CheckListBoard.scss';
+import { useSo1Scan } from './hooks/useSo1Scan';
+import { useSlither } from './hooks/useSlither';
+import { useMythril } from './hooks/useMythril';
 
+// TODO: Handle when finding is empty or success is false (show error when false)
 const CheckListBoard: React.FC<{
   type: RESULT_TYPE;
 }> = ({ type }) => {
@@ -39,7 +41,7 @@ const CheckListBoard: React.FC<{
   const [currentDecoration, setCurrentDecoration] =
     useState<monaco.editor.IModelDeltaDecoration[]>();
 
-  const [currentChooseId, setCurrentChooseId] = useState("");
+  const [currentChooseId, setCurrentChooseId] = useState('');
 
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor>();
 
@@ -71,7 +73,7 @@ const CheckListBoard: React.FC<{
 
         return {
           id: uuidv4(),
-          vulId: found.name,
+          vulId: found.name || found.id,
           severity: found.severity,
           desc: found.message,
           finding,
@@ -112,7 +114,7 @@ const CheckListBoard: React.FC<{
 
           return {
             id: uuidv4(),
-            vulId: found.id,
+            vulId: found.title,
             severity: found.severity,
             desc: found.description,
             finding,
@@ -149,64 +151,65 @@ const CheckListBoard: React.FC<{
   };
 
   return (
-    <Box className="checklist-board">
+    <Box className='checklist-board'>
       {type === RESULT_TYPE.SO1SCAN ? null : (
         <Box
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <Box
             className={`checklist-board__title checklist-board__title--${type}`}
           >
-            <Typography className="text">
+            <Typography className='text'>
               {t(`content.result.check-list.${type}` as ParseKeys)}
             </Typography>
 
-            <a href={SLITHER_LINK} className="link" target="_blank">
+            <a href={SLITHER_LINK} className='link' target='_blank'>
               <InsertLinkIcon />
             </a>
           </Box>
 
           <Typography
             sx={{
-              fontSize: "1.8rem",
+              fontSize: '1.8rem',
               fontWeight: 500,
-              color: "#6d6d6d",
+              color: '#6d6d6d',
               lineHeight: 1,
             }}
           >
             {type === RESULT_TYPE.SLITHER
               ? `${t(
-                  "content.result.result-board.scan-time"
+                  'content.result.result-board.scan-time',
                 )}: ${slitherResult?.scan_time.toFixed(3)}s`
               : `${t(
-                  "content.result.result-board.scan-time"
+                  'content.result.result-board.scan-time',
                 )}: ${mythrilResult?.scan_time.toFixed(3)}s`}
           </Typography>
         </Box>
       )}
-      {checklist ? (
-        <Box className="checklist-board__content">
-          <Box className="checklist-board__list">
-            {checklist?.map((item) => {
+
+      {checklist && checklist.length ? (
+        <Box className='checklist-board__content'>
+          <Box className='checklist-board__list'>
+            {checklist.map((item) => {
               return (
                 <Box
                   key={item.id}
                   className={`checklist-board__item  ${
-                    currentChooseId === item.id ? `active--${type}` : ""
+                    currentChooseId === item.id ? `active--${type}` : ''
                   }`}
                   onClick={() => {
                     handleOnClick(type, item);
                   }}
                 >
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     id={item.id}
                     style={{
-                      display: "none",
+                      display: 'none',
                     }}
                     onChange={(e) => {
                       if (e.target.checked) {
@@ -215,21 +218,23 @@ const CheckListBoard: React.FC<{
                     }}
                   />
                   <label htmlFor={item.id}>
-                    <Box className="title">
+                    <Box className='title'>
                       <Severity type={item.severity.toLowerCase()} />
-                      <Typography className="title__id">
+                      <Typography className='title__id'>
                         {item.vulId}
                       </Typography>
                     </Box>
 
-                    <Typography className="desc">{item.desc}</Typography>
+                    <Box className='desc'>
+                      <Markdown>{item.desc}</Markdown>
+                    </Box>
                   </label>
                 </Box>
               );
             })}
           </Box>
 
-          <Box className="checklist-board__code-editor">
+          <Box className='checklist-board__code-editor'>
             <ReadOnlySolidityEditor
               onMount={handleOnMount}
               value={currentSourceCode}
@@ -239,11 +244,11 @@ const CheckListBoard: React.FC<{
       ) : (
         <Typography
           sx={{
-            fontSize: "1.8rem",
+            fontSize: '1.8rem',
             lineHeight: 1,
           }}
         >
-          {t("content.result.no-more-result")}
+          {t('content.result.no-more-result')}
         </Typography>
       )}
     </Box>
