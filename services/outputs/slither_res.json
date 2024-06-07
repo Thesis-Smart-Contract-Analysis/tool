@@ -9,9 +9,9 @@
           "source_mapping": {
             "start": 603,
             "length": 267,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               26,
@@ -32,9 +32,9 @@
               "source_mapping": {
                 "start": 205,
                 "length": 667,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -77,9 +77,9 @@
           "source_mapping": {
             "start": 701,
             "length": 74,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               28
@@ -94,9 +94,9 @@
               "source_mapping": {
                 "start": 603,
                 "length": 267,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   26,
@@ -117,9 +117,9 @@
                   "source_mapping": {
                     "start": 205,
                     "length": 667,
-                    "filename_relative": "services/uploads/odd_even.sol",
-                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                    "filename_short": "services/uploads/odd_even.sol",
+                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -167,9 +167,9 @@
           "source_mapping": {
             "start": 830,
             "length": 14,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               30
@@ -184,9 +184,9 @@
               "source_mapping": {
                 "start": 603,
                 "length": 267,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   26,
@@ -207,9 +207,9 @@
                   "source_mapping": {
                     "start": 205,
                     "length": 667,
-                    "filename_relative": "services/uploads/odd_even.sol",
-                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                    "filename_short": "services/uploads/odd_even.sol",
+                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -254,11 +254,11 @@
         }
       ],
       "metadata": {
-        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/odd_even.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/odd_even.sol#28)\n\tState variables written after the call(s):\n\t- delete players (services/uploads/odd_even.sol#30)\n\tOddEven.players (services/uploads/odd_even.sol#16) can be used in cross function reentrancies:\n\t- OddEven.play(uint256) (services/uploads/odd_even.sol#19-24)\n\t- OddEven.selectWinner() (services/uploads/odd_even.sol#26-32)\n",
+        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n\tState variables written after the call(s):\n\t- delete players (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#30)\n\tOddEven.players (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#16) can be used in cross function reentrancies:\n\t- OddEven.play(uint256) (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#19-24)\n\t- OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32)\n",
         "id": "reentrancy-eth",
         "severity": "High",
-        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/odd_even.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/odd_even.sol#L28)\n\tState variables written after the call(s):\n\t- [delete players](services/uploads/odd_even.sol#L30)\n\t[OddEven.players](services/uploads/odd_even.sol#L16) can be used in cross function reentrancies:\n\t- [OddEven.play(uint256)](services/uploads/odd_even.sol#L19-L24)\n\t- [OddEven.selectWinner()](services/uploads/odd_even.sol#L26-L32)\n",
-        "first_markdown_element": "services/uploads/odd_even.sol#L26-L32",
+        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n\tState variables written after the call(s):\n\t- [delete players](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L30)\n\t[OddEven.players](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L16) can be used in cross function reentrancies:\n\t- [OddEven.play(uint256)](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L19-L24)\n\t- [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32)\n",
+        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
         "confidence": "Medium",
         "duplicated": false,
         "semgrep-id": "swe-107"
@@ -272,9 +272,9 @@
           "source_mapping": {
             "start": 603,
             "length": 267,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               26,
@@ -295,9 +295,9 @@
               "source_mapping": {
                 "start": 205,
                 "length": 667,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -340,9 +340,9 @@
           "source_mapping": {
             "start": 701,
             "length": 74,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               28
@@ -357,9 +357,9 @@
               "source_mapping": {
                 "start": 603,
                 "length": 267,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   26,
@@ -380,9 +380,9 @@
                   "source_mapping": {
                     "start": 205,
                     "length": 667,
-                    "filename_relative": "services/uploads/odd_even.sol",
-                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                    "filename_short": "services/uploads/odd_even.sol",
+                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -430,9 +430,9 @@
           "source_mapping": {
             "start": 854,
             "length": 9,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               31
@@ -447,9 +447,9 @@
               "source_mapping": {
                 "start": 603,
                 "length": 267,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   26,
@@ -470,9 +470,9 @@
                   "source_mapping": {
                     "start": 205,
                     "length": 667,
-                    "filename_relative": "services/uploads/odd_even.sol",
-                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                    "filename_short": "services/uploads/odd_even.sol",
+                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -517,24 +517,12 @@
         }
       ],
       "metadata": {
-        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/odd_even.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/odd_even.sol#28)\n\tState variables written after the call(s):\n\t- count = 0 (services/uploads/odd_even.sol#31)\n",
+        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n\tState variables written after the call(s):\n\t- count = 0 (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#31)\n",
         "id": "reentrancy-benign",
         "severity": "Low",
-        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/odd_even.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/odd_even.sol#L28)\n\tState variables written after the call(s):\n\t- [count = 0](services/uploads/odd_even.sol#L31)\n",
-        "first_markdown_element": "services/uploads/odd_even.sol#L26-L32",
+        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n\tState variables written after the call(s):\n\t- [count = 0](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L31)\n",
+        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
         "confidence": "Medium",
-        "duplicated": false
-      }
-    },
-    {
-      "matches": [],
-      "metadata": {
-        "description": "solc-0.5.0 is not recommended for deployment\n",
-        "id": "solc-version",
-        "severity": "Informational",
-        "markdown": "solc-0.5.0 is not recommended for deployment\n",
-        "first_markdown_element": "",
-        "confidence": "High",
         "duplicated": false
       }
     },
@@ -546,9 +534,9 @@
           "source_mapping": {
             "start": 180,
             "length": 23,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               7
@@ -567,11 +555,23 @@
         }
       ],
       "metadata": {
-        "description": "Pragma version^0.5.0 (services/uploads/odd_even.sol#7) allows old versions\n",
+        "description": "Pragma version^0.5.0 (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#7) allows old versions\n",
         "id": "solc-version",
         "severity": "Informational",
-        "markdown": "Pragma version[^0.5.0](services/uploads/odd_even.sol#L7) allows old versions\n",
-        "first_markdown_element": "services/uploads/odd_even.sol#L7",
+        "markdown": "Pragma version[^0.5.0](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L7) allows old versions\n",
+        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L7",
+        "confidence": "High",
+        "duplicated": false
+      }
+    },
+    {
+      "matches": [],
+      "metadata": {
+        "description": "solc-0.5.0 is not recommended for deployment\n",
+        "id": "solc-version",
+        "severity": "Informational",
+        "markdown": "solc-0.5.0 is not recommended for deployment\n",
+        "first_markdown_element": "",
         "confidence": "High",
         "duplicated": false
       }
@@ -584,9 +584,9 @@
           "source_mapping": {
             "start": 603,
             "length": 267,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               26,
@@ -607,9 +607,9 @@
               "source_mapping": {
                 "start": 205,
                 "length": 667,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -652,9 +652,9 @@
           "source_mapping": {
             "start": 701,
             "length": 74,
-            "filename_relative": "services/uploads/odd_even.sol",
-            "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-            "filename_short": "services/uploads/odd_even.sol",
+            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
             "is_dependency": false,
             "lines": [
               28
@@ -669,9 +669,9 @@
               "source_mapping": {
                 "start": 603,
                 "length": 267,
-                "filename_relative": "services/uploads/odd_even.sol",
-                "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                "filename_short": "services/uploads/odd_even.sol",
+                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                 "is_dependency": false,
                 "lines": [
                   26,
@@ -692,9 +692,9 @@
                   "source_mapping": {
                     "start": 205,
                     "length": 667,
-                    "filename_relative": "services/uploads/odd_even.sol",
-                    "filename_absolute": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
-                    "filename_short": "services/uploads/odd_even.sol",
+                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -735,16 +735,16 @@
         }
       ],
       "metadata": {
-        "description": "Low level call in OddEven.selectWinner() (services/uploads/odd_even.sol#26-32):\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/odd_even.sol#28)\n",
+        "description": "Low level call in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n",
         "id": "low-level-calls",
         "severity": "Informational",
-        "markdown": "Low level call in [OddEven.selectWinner()](services/uploads/odd_even.sol#L26-L32):\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/odd_even.sol#L28)\n",
-        "first_markdown_element": "services/uploads/odd_even.sol#L26-L32",
+        "markdown": "Low level call in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n",
+        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
         "confidence": "High",
         "duplicated": false
       }
     }
   ],
-  "scan_time": 0.612323522567749,
+  "scan_time": 0.5526952743530273,
   "success": true
 }

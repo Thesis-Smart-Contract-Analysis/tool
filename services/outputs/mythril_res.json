@@ -7,7 +7,7 @@
           "address": 481,
           "code": "players[0].number + players[1].number",
           "contract": "OddEven",
-          "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "filename": "/home/jordan/KLTN/tool/services/uploads/f193f5818a6e4b11a72391e572217b51.sol",
           "function": "play(uint256)",
           "lineno": 27,
           "max_gas_used": 246227,
@@ -30,7 +30,7 @@
           "address": 619,
           "code": "players[n%2].addr.call.value(address(this).balance)(\"\")",
           "contract": "OddEven",
-          "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "filename": "/home/jordan/KLTN/tool/services/uploads/f193f5818a6e4b11a72391e572217b51.sol",
           "function": "play(uint256)",
           "lineno": 28,
           "max_gas_used": 246227,
@@ -53,7 +53,7 @@
           "address": 619,
           "code": "players[n%2].addr.call.value(address(this).balance)(\"\")",
           "contract": "OddEven",
-          "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "filename": "/home/jordan/KLTN/tool/services/uploads/f193f5818a6e4b11a72391e572217b51.sol",
           "function": "play(uint256)",
           "lineno": 28,
           "max_gas_used": 246227,
@@ -76,7 +76,7 @@
           "address": 813,
           "code": "count = 0",
           "contract": "OddEven",
-          "filename": "/home/aleister/Workspaces/thesis/tool/services/uploads/odd_even.sol",
+          "filename": "/home/jordan/KLTN/tool/services/uploads/f193f5818a6e4b11a72391e572217b51.sol",
           "function": "play(uint256)",
           "lineno": 31,
           "max_gas_used": 246227,
@@ -94,6 +94,6 @@
       }
     }
   ],
-  "scan_time": 11.141530752182007,
+  "scan_time": 13.190284967422485,
   "success": true
 }
