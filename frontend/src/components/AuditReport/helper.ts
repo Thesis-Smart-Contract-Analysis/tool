@@ -13,13 +13,17 @@ export const formatDate = (date: Date) => {
 };
 
 export const formatSmartContractName = (fileName: string) => {
-  const segments = fileName.split('.');
+  if (fileName) {
+    const segments = fileName.split('.');
 
-  const nameSegments = segments[0].split(/[^a-z | ^0-9]/gm);
+    const nameSegments = segments[0].split(/[^a-zA-Z | ^0-9]/gm);
 
-  const result = nameSegments
-    .map((segment) => `${segment[0].toLocaleUpperCase()}${segment.slice(1)}`)
-    .join(' ');
+    const result = nameSegments
+      .map((segment) => `${segment[0].toUpperCase()}${segment.slice(1)}`)
+      .join(' ');
 
-  return result;
+    return result;
+  }
+
+  return fileName;
 };

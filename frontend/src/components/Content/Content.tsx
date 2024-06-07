@@ -15,7 +15,8 @@ import AuditReport from '../AuditReport/AuditReport';
 
 const Content: React.FC = () => {
   const { t } = useTranslation();
-  const { result, currentFileName } = useContext(ResultContext);
+  const { result, currentFileName, currentSourceCode } =
+    useContext(ResultContext);
 
   return (
     <Container>
@@ -27,6 +28,9 @@ const Content: React.FC = () => {
           <AuditReport
             smartContractName={currentFileName}
             scanningTime={result.scan_time}
+            linesOfCode={
+              currentSourceCode.split('').filter((c) => c === '\n').length + 1
+            }
           />
         ) : null}
       </Box>

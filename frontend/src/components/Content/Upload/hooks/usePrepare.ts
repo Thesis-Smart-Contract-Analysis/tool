@@ -102,7 +102,14 @@ const usePrepare = () => {
       if (scanMode === SCAN_MODE.CHOOSE_FILE) {
         await scanSmartContractWithCallBack(previewCode, scanSourceCode);
       } else if (scanMode === SCAN_MODE.SOURCE_CODE) {
-        await scanSmartContractWithCallBack(code, scanSourceCode);
+        let fileName = null;
+        do {
+          fileName = prompt('Nhập tên cho hợp đồng thông minh của bạn !!!');
+        } while (fileName === null || fileName === '');
+
+        setCurrentFileName(fileName);
+
+        fileName && (await scanSmartContractWithCallBack(code, scanSourceCode));
       }
     } catch (error) {
       console.error(error);

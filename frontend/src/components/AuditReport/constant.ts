@@ -42,3 +42,40 @@ export const SEVERITY_DESCRIPTION = [
     color: SEVERITY_COLOR_MAPPING.Optimization,
   },
 ];
+
+export const FRONT_PAGE = {
+  logoText: 'SO1SCAN',
+  header: 'Bảo vệ hợp đồng thông minh của bạn',
+  body: 'Báo cáo các lỗ hổng bảo mật',
+  owner: 'Báo cáo này được thực hiện bởi So1Scan',
+  footer: 'So1Scan • Báo cáo các lỗ hổng bảo mật',
+};
+
+export const SEVERITY_SECTION = {
+  section: 'Phân loại mức độ nghiêm trọng',
+  description:
+    'Mỗi lỗ hổng tìm được sẽ có một mức độ nghiêm trọng (severity) khác nhau. Báo cáo này sẽ dựa vào các loại mức độ nghiêm trọng sau (được sắp xếp từ mức độ nghiêm trọng cao nhất cho đến mức độ nghiêm trọng thấp nhất):',
+};
+
+export const SUMMARY_SECTION = {
+  title: 'Tổng kết các phát hiện lỗ hổng bảo mật',
+  fileName: 'Quét trên hợp đồng thông minh: ',
+  scanningTime: 'Thời gian quét: ',
+  vulns: 'Số lượng lỗ hổng bảo mật được phát hiện theo mức độ nghiêm trọng:',
+  severity: 'Mức độ nghiêm trọng',
+  numberOfVulns: 'Số lượng lỗ hổng',
+  table: 'Bảng tổng kết các lỗ hổng bảo mật:',
+  vulnType: 'Loại lỗ hổng',
+  scanningTool: 'Công cụ phát hiện',
+  instance: 'Số lần xuất hiện',
+  linesOfCode: 'Số dòng lệnh trong mã nguồn',
+};
+
+export const DETAIL_SECTION = {
+  title: 'Chi tiết các lỗ hổng bảo mật',
+  scanningTime: 'Thời gian quét: ',
+  severity: 'Mức độ nghiêm trọng',
+  scanningTool: 'Công cụ phát hiện',
+  description: 'Mô tả',
+  location: 'Vị trí các lỗ hổng trong hợp đồng thông minh',
+};

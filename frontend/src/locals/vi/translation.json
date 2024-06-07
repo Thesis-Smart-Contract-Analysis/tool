@@ -54,7 +54,8 @@
       },
       "status": {
         "pending-fix": "Chờ khắc phục"
-      }
+      },
+      "download": "Tải báo cáo"
     }
   },
   "common": {
