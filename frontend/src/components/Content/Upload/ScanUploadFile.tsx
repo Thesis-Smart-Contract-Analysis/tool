@@ -7,11 +7,11 @@ import { toast } from 'react-toastify';
 
 import { AxiosError } from 'axios';
 
+import BackupIcon from '@mui/icons-material/Backup';
+import CancelIcon from '@mui/icons-material/Cancel';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import BackupIcon from '@mui/icons-material/Backup';
-import CancelIcon from '@mui/icons-material/Cancel';
 
 import solIcon from '@/assets/solidity-icon.svg';
 import Loading from '@/components/Loading/Loading';
@@ -87,6 +87,9 @@ const ScanUploadFile: React.FC<{
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
+    accept: {
+      'text/.sol': ['.sol'],
+    },
   });
 
   return (
@@ -141,7 +144,11 @@ const ScanUploadFile: React.FC<{
             className='upload-file__dropZone'
             {...getRootProps()}
           >
-            <input id='upload-file-o' type='file' {...getInputProps()} />
+            <input
+              id='upload-smart-contract-file'
+              type='file'
+              {...getInputProps()}
+            />
 
             <BackupIcon className='icon' />
 
