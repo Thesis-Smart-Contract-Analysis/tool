@@ -14,9 +14,9 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 import logo from '@/assets/logo.png';
 
+import Box from '@mui/material/Box';
+import { useTranslation } from 'react-i18next';
 import './AuditReport.scss';
-import useAuditReport from './hooks/useAuditReport';
-import usePrepare from './hooks/usePrepare';
 import {
   DETAIL_SECTION,
   FRONT_PAGE,
@@ -25,10 +25,11 @@ import {
   SEVERITY_DESCRIPTION,
   SEVERITY_SECTION,
   SUMMARY_SECTION,
+  VULN_TYPE_MAPPING,
 } from './constant';
 import { formatDate, formatSmartContractName } from './helper';
-import { useTranslation } from 'react-i18next';
-import Box from '@mui/material/Box';
+import useAuditReport from './hooks/useAuditReport';
+import usePrepare from './hooks/usePrepare';
 
 const VULN_PER_PAGE = 16;
 
@@ -482,6 +483,22 @@ const AuditReport: React.FC<{
                             </FlexView>
                           </FlexView>
 
+                          {/* Vuln type  */}
+                          <FlexView>
+                            <Text>{`${DETAIL_SECTION.vulnType}: `} </Text>
+                            <Text
+                              style={{
+                                fontWeight: 'medium',
+                              }}
+                            >
+                              {
+                                VULN_TYPE_MAPPING[
+                                  vuln.severity as keyof typeof VULN_TYPE_MAPPING
+                                ]
+                              }
+                            </Text>
+                          </FlexView>
+
                           {/* Scanning tool */}
                           <FlexView>
                             <Text>{`${DETAIL_SECTION.scanningTool}: `} </Text>
@@ -513,7 +530,7 @@ const AuditReport: React.FC<{
                             </Text>
                           </View>
 
-                          {/* Description */}
+                          {/* Matched */}
                           <View
                             style={{
                               gap: 12,

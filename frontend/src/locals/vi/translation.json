@@ -46,10 +46,10 @@
     },
     "audit-report": {
       "severity": {
-        "high": "Mức độ nghiêm trọng cao có thể gây ra rủi ro đáng kể cho cả hợp đồng thông minh và tổ chức. Chúng có thể dẫn đến mất tiền của người dùng và rất khó để  khai thác các lỗ hổng với mức độ nghiêm trong này.",
-        "medium": "Mức độ nghiêm trọng trung bình ảnh hưởng đáng kể đến khả năng hoạt động của hợp đồng thông minh theo một cách không gây cản trở đến chức năng chính của nó.",
-        "low": "Mức độ nghiêm trọng thấp ảnh hưởng rất ít đến khả năng hoạt động của hợp đồng thông min.",
-        "informational": "Mức độ nghiêm trọng loại 'Thông tin' này không ảnh hưởng gì đến khả năng hoạt động của hợp đồng, nhưng vẫn tốt hơn nếu khắc phục chúng.",
+        "high": "Mức độ nghiêm trọng cao có thể gây ra rủi ro đáng kể cho cả hợp đồng thông minh và tổ chức. Chúng có thể dẫn đến mất tiền của người dùng và rất khó để  khai thác các lỗ hổng với mức độ nghiêm trong này. Các lỗ hổng thuộc mức độ nghiêm trọng loại này được xem là các lỗ hổng bảo mật.",
+        "medium": "Mức độ nghiêm trọng trung bình ảnh hưởng đáng kể đến khả năng hoạt động của hợp đồng thông minh theo một cách không gây cản trở đến chức năng chính của nó. Các lỗ hổng thuộc mức độ nghiêm trọng loại này được xem là các lỗ hổng bảo mật.",
+        "low": "Mức độ nghiêm trọng thấp ảnh hưởng rất ít đến khả năng hoạt động của hợp đồng thông minh. Các lỗ hổng thuộc mức độ nghiêm trọng loại này được xem là các lỗ hổng bảo mật.",
+        "informational": "Mức độ nghiêm trọng loại 'Thông tin' này chỉ là những cảnh báo và không ảnh hưởng gì đến khả năng hoạt động của hợp đồng, nhưng vẫn tốt hơn nếu khắc phục chúng. Các lỗ hổng thuộc mức độ nghiêm trọng loại này thường là những lỗ hổng mang tính chất cảnh báo chứ không được xem là các lỗ hổng bảo mật.",
         "optimization": "Mức độ nghiêm trọng loại 'Tối ưu hóa' này cũng tương tự như mức độ nghiêm trọng loại 'Thông tin' và hợp đồng thông minh sẽ được tối ưu hóa nếu ta khắc phục chúng."
       },
       "status": {
