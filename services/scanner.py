@@ -22,6 +22,7 @@ DEFAULT_VERSION = "0.8.25"
 SEMGREP = "semantic_grep"
 SLITHER = "slither"
 MYTHRIL = "mythril"
+ALL = "all"
 ERRORS = "errors"
 MATCHES = "matches"
 ID = "id"
@@ -141,6 +142,11 @@ def scan(tool: str, target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -
     # Scan with Mythril
     elif tool == MYTHRIL:
         res = scan_with_scan_time(tool, mythril_scan, target, version)
+    elif tool == ALL:
+        res[SEMGREP] = scan(SEMGREP, target, rules=rules)
+        res[SLITHER] = scan(SLITHER, target, version=version)
+        res[MYTHRIL] = scan(MYTHRIL, target, version=version)
+        return res
 
     # Normalize results
     res = normalize(tool, res)
