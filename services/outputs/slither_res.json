@@ -5,22 +5,18 @@
       "matches": [
         {
           "type": "function",
-          "name": "selectWinner",
+          "name": "_sendWinnings",
           "source_mapping": {
-            "start": 603,
-            "length": 267,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "start": 406,
+            "length": 75,
+            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
             "is_dependency": false,
             "lines": [
-              26,
-              27,
-              28,
-              29,
-              30,
-              31,
-              32
+              18,
+              19,
+              20
             ],
             "starting_column": 5,
             "ending_column": 6
@@ -28,13 +24,13 @@
           "type_specific_fields": {
             "parent": {
               "type": "contract",
-              "name": "OddEven",
+              "name": "HashForEther",
               "source_mapping": {
-                "start": 205,
-                "length": 667,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "start": 157,
+                "length": 326,
+                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -49,63 +45,46 @@
                   18,
                   19,
                   20,
-                  21,
-                  22,
-                  23,
-                  24,
-                  25,
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32,
-                  33,
-                  34
+                  21
                 ],
                 "starting_column": 1,
-                "ending_column": 0
+                "ending_column": 2
               }
             },
-            "signature": "selectWinner()"
+            "signature": "_sendWinnings()"
           }
         },
         {
           "type": "node",
-          "name": "(success) = players[n % 2].addr.call.value(address(this).balance)()",
+          "name": "msg.sender.transfer(this.balance)",
           "source_mapping": {
-            "start": 701,
-            "length": 74,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "start": 441,
+            "length": 33,
+            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
             "is_dependency": false,
             "lines": [
-              28
+              19
             ],
             "starting_column": 9,
-            "ending_column": 83
+            "ending_column": 42
           },
           "type_specific_fields": {
             "parent": {
               "type": "function",
-              "name": "selectWinner",
+              "name": "_sendWinnings",
               "source_mapping": {
-                "start": 603,
-                "length": 267,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "start": 406,
+                "length": 75,
+                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
                 "is_dependency": false,
                 "lines": [
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32
+                  18,
+                  19,
+                  20
                 ],
                 "starting_column": 5,
                 "ending_column": 6
@@ -113,13 +92,13 @@
               "type_specific_fields": {
                 "parent": {
                   "type": "contract",
-                  "name": "OddEven",
+                  "name": "HashForEther",
                   "source_mapping": {
-                    "start": 205,
-                    "length": 667,
-                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                    "start": 157,
+                    "length": 326,
+                    "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                    "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -134,443 +113,35 @@
                       18,
                       19,
                       20,
-                      21,
-                      22,
-                      23,
-                      24,
-                      25,
-                      26,
-                      27,
-                      28,
-                      29,
-                      30,
-                      31,
-                      32,
-                      33,
-                      34
+                      21
                     ],
                     "starting_column": 1,
-                    "ending_column": 0
+                    "ending_column": 2
                   }
                 },
-                "signature": "selectWinner()"
+                "signature": "_sendWinnings()"
               }
             }
-          },
-          "additional_fields": {
-            "underlying_type": "external_calls"
-          }
-        },
-        {
-          "type": "node",
-          "name": "delete players",
-          "source_mapping": {
-            "start": 830,
-            "length": 14,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              30
-            ],
-            "starting_column": 9,
-            "ending_column": 23
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "function",
-              "name": "selectWinner",
-              "source_mapping": {
-                "start": 603,
-                "length": 267,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "is_dependency": false,
-                "lines": [
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32
-                ],
-                "starting_column": 5,
-                "ending_column": 6
-              },
-              "type_specific_fields": {
-                "parent": {
-                  "type": "contract",
-                  "name": "OddEven",
-                  "source_mapping": {
-                    "start": 205,
-                    "length": 667,
-                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "is_dependency": false,
-                    "lines": [
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20,
-                      21,
-                      22,
-                      23,
-                      24,
-                      25,
-                      26,
-                      27,
-                      28,
-                      29,
-                      30,
-                      31,
-                      32,
-                      33,
-                      34
-                    ],
-                    "starting_column": 1,
-                    "ending_column": 0
-                  }
-                },
-                "signature": "selectWinner()"
-              }
-            }
-          },
-          "additional_fields": {
-            "underlying_type": "variables_written",
-            "variable_name": "players"
           }
         }
       ],
       "metadata": {
-        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n\tState variables written after the call(s):\n\t- delete players (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#30)\n\tOddEven.players (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#16) can be used in cross function reentrancies:\n\t- OddEven.play(uint256) (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#19-24)\n\t- OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32)\n",
-        "id": "reentrancy-eth",
+        "description": "HashForEther._sendWinnings() (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#18-20) sends eth to arbitrary user\n\tDangerous calls:\n\t- msg.sender.transfer(this.balance) (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#19)\n",
+        "id": "arbitrary-send-eth",
         "severity": "High",
-        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n\tState variables written after the call(s):\n\t- [delete players](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L30)\n\t[OddEven.players](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L16) can be used in cross function reentrancies:\n\t- [OddEven.play(uint256)](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L19-L24)\n\t- [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32)\n",
-        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
+        "markdown": "[HashForEther._sendWinnings()](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20) sends eth to arbitrary user\n\tDangerous calls:\n\t- [msg.sender.transfer(this.balance)](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L19)\n",
+        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20",
         "confidence": "Medium",
-        "duplicated": false,
-        "semgrep-id": "swe-107"
-      }
-    },
-    {
-      "matches": [
-        {
-          "type": "function",
-          "name": "selectWinner",
-          "source_mapping": {
-            "start": 603,
-            "length": 267,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              26,
-              27,
-              28,
-              29,
-              30,
-              31,
-              32
-            ],
-            "starting_column": 5,
-            "ending_column": 6
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "contract",
-              "name": "OddEven",
-              "source_mapping": {
-                "start": 205,
-                "length": 667,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "is_dependency": false,
-                "lines": [
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19,
-                  20,
-                  21,
-                  22,
-                  23,
-                  24,
-                  25,
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32,
-                  33,
-                  34
-                ],
-                "starting_column": 1,
-                "ending_column": 0
-              }
-            },
-            "signature": "selectWinner()"
-          }
-        },
-        {
-          "type": "node",
-          "name": "(success) = players[n % 2].addr.call.value(address(this).balance)()",
-          "source_mapping": {
-            "start": 701,
-            "length": 74,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              28
-            ],
-            "starting_column": 9,
-            "ending_column": 83
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "function",
-              "name": "selectWinner",
-              "source_mapping": {
-                "start": 603,
-                "length": 267,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "is_dependency": false,
-                "lines": [
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32
-                ],
-                "starting_column": 5,
-                "ending_column": 6
-              },
-              "type_specific_fields": {
-                "parent": {
-                  "type": "contract",
-                  "name": "OddEven",
-                  "source_mapping": {
-                    "start": 205,
-                    "length": 667,
-                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "is_dependency": false,
-                    "lines": [
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20,
-                      21,
-                      22,
-                      23,
-                      24,
-                      25,
-                      26,
-                      27,
-                      28,
-                      29,
-                      30,
-                      31,
-                      32,
-                      33,
-                      34
-                    ],
-                    "starting_column": 1,
-                    "ending_column": 0
-                  }
-                },
-                "signature": "selectWinner()"
-              }
-            }
-          },
-          "additional_fields": {
-            "underlying_type": "external_calls"
-          }
-        },
-        {
-          "type": "node",
-          "name": "count = 0",
-          "source_mapping": {
-            "start": 854,
-            "length": 9,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              31
-            ],
-            "starting_column": 9,
-            "ending_column": 18
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "function",
-              "name": "selectWinner",
-              "source_mapping": {
-                "start": 603,
-                "length": 267,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "is_dependency": false,
-                "lines": [
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32
-                ],
-                "starting_column": 5,
-                "ending_column": 6
-              },
-              "type_specific_fields": {
-                "parent": {
-                  "type": "contract",
-                  "name": "OddEven",
-                  "source_mapping": {
-                    "start": 205,
-                    "length": 667,
-                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "is_dependency": false,
-                    "lines": [
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20,
-                      21,
-                      22,
-                      23,
-                      24,
-                      25,
-                      26,
-                      27,
-                      28,
-                      29,
-                      30,
-                      31,
-                      32,
-                      33,
-                      34
-                    ],
-                    "starting_column": 1,
-                    "ending_column": 0
-                  }
-                },
-                "signature": "selectWinner()"
-              }
-            }
-          },
-          "additional_fields": {
-            "underlying_type": "variables_written",
-            "variable_name": "count"
-          }
-        }
-      ],
-      "metadata": {
-        "description": "Reentrancy in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\tExternal calls:\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n\tState variables written after the call(s):\n\t- count = 0 (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#31)\n",
-        "id": "reentrancy-benign",
-        "severity": "Low",
-        "markdown": "Reentrancy in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\tExternal calls:\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n\tState variables written after the call(s):\n\t- [count = 0](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L31)\n",
-        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
-        "confidence": "Medium",
-        "duplicated": false
-      }
-    },
-    {
-      "matches": [
-        {
-          "type": "pragma",
-          "name": "^0.5.0",
-          "source_mapping": {
-            "start": 180,
-            "length": 23,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              7
-            ],
-            "starting_column": 1,
-            "ending_column": 24
-          },
-          "type_specific_fields": {
-            "directive": [
-              "solidity",
-              "^",
-              "0.5",
-              ".0"
-            ]
-          }
-        }
-      ],
-      "metadata": {
-        "description": "Pragma version^0.5.0 (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#7) allows old versions\n",
-        "id": "solc-version",
-        "severity": "Informational",
-        "markdown": "Pragma version[^0.5.0](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L7) allows old versions\n",
-        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L7",
-        "confidence": "High",
         "duplicated": false
       }
     },
     {
       "matches": [],
       "metadata": {
-        "description": "solc-0.5.0 is not recommended for deployment\n",
+        "description": "solc-0.4.24 is not recommended for deployment\n",
         "id": "solc-version",
         "severity": "Informational",
-        "markdown": "solc-0.5.0 is not recommended for deployment\n",
+        "markdown": "solc-0.4.24 is not recommended for deployment\n",
         "first_markdown_element": "",
         "confidence": "High",
         "duplicated": false
@@ -579,23 +150,57 @@
     {
       "matches": [
         {
-          "type": "function",
-          "name": "selectWinner",
+          "type": "pragma",
+          "name": "^0.4.24",
           "source_mapping": {
-            "start": 603,
-            "length": 267,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+            "start": 131,
+            "length": 24,
+            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
             "is_dependency": false,
             "lines": [
-              26,
-              27,
-              28,
-              29,
-              30,
-              31,
-              32
+              7
+            ],
+            "starting_column": 1,
+            "ending_column": 25
+          },
+          "type_specific_fields": {
+            "directive": [
+              "solidity",
+              "^",
+              "0.4",
+              ".24"
+            ]
+          }
+        }
+      ],
+      "metadata": {
+        "description": "Pragma version^0.4.24 (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#7) allows old versions\n",
+        "id": "solc-version",
+        "severity": "Informational",
+        "markdown": "Pragma version[^0.4.24](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L7) allows old versions\n",
+        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L7",
+        "confidence": "High",
+        "duplicated": false
+      }
+    },
+    {
+      "matches": [
+        {
+          "type": "function",
+          "name": "_sendWinnings",
+          "source_mapping": {
+            "start": 406,
+            "length": 75,
+            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "is_dependency": false,
+            "lines": [
+              18,
+              19,
+              20
             ],
             "starting_column": 5,
             "ending_column": 6
@@ -603,13 +208,13 @@
           "type_specific_fields": {
             "parent": {
               "type": "contract",
-              "name": "OddEven",
+              "name": "HashForEther",
               "source_mapping": {
-                "start": 205,
-                "length": 667,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
+                "start": 157,
+                "length": 326,
+                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -624,127 +229,31 @@
                   18,
                   19,
                   20,
-                  21,
-                  22,
-                  23,
-                  24,
-                  25,
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32,
-                  33,
-                  34
+                  21
                 ],
                 "starting_column": 1,
-                "ending_column": 0
+                "ending_column": 2
               }
             },
-            "signature": "selectWinner()"
-          }
-        },
-        {
-          "type": "node",
-          "name": "(success) = players[n % 2].addr.call.value(address(this).balance)()",
-          "source_mapping": {
-            "start": 701,
-            "length": 74,
-            "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-            "is_dependency": false,
-            "lines": [
-              28
-            ],
-            "starting_column": 9,
-            "ending_column": 83
+            "signature": "_sendWinnings()"
           },
-          "type_specific_fields": {
-            "parent": {
-              "type": "function",
-              "name": "selectWinner",
-              "source_mapping": {
-                "start": 603,
-                "length": 267,
-                "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                "is_dependency": false,
-                "lines": [
-                  26,
-                  27,
-                  28,
-                  29,
-                  30,
-                  31,
-                  32
-                ],
-                "starting_column": 5,
-                "ending_column": 6
-              },
-              "type_specific_fields": {
-                "parent": {
-                  "type": "contract",
-                  "name": "OddEven",
-                  "source_mapping": {
-                    "start": 205,
-                    "length": 667,
-                    "filename_relative": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "filename_short": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol",
-                    "is_dependency": false,
-                    "lines": [
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20,
-                      21,
-                      22,
-                      23,
-                      24,
-                      25,
-                      26,
-                      27,
-                      28,
-                      29,
-                      30,
-                      31,
-                      32,
-                      33,
-                      34
-                    ],
-                    "starting_column": 1,
-                    "ending_column": 0
-                  }
-                },
-                "signature": "selectWinner()"
-              }
-            }
+          "additional_fields": {
+            "target": "function",
+            "convention": "mixedCase"
           }
         }
       ],
       "metadata": {
-        "description": "Low level call in OddEven.selectWinner() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#26-32):\n\t- (success) = players[n % 2].addr.call.value(address(this).balance)() (services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#28)\n",
-        "id": "low-level-calls",
+        "description": "Function HashForEther._sendWinnings() (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#18-20) is not in mixedCase\n",
+        "id": "naming-convention",
         "severity": "Informational",
-        "markdown": "Low level call in [OddEven.selectWinner()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32):\n\t- [(success) = players[n % 2].addr.call.value(address(this).balance)()](services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L28)\n",
-        "first_markdown_element": "services/uploads/f28eccfb9f504d5c83d731ec23acdae9.sol#L26-L32",
+        "markdown": "Function [HashForEther._sendWinnings()](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20) is not in mixedCase\n",
+        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20",
         "confidence": "High",
         "duplicated": false
       }
     }
   ],
-  "scan_time": 0.5526952743530273,
+  "scan_time": 0.4875667095184326,
   "success": true
 }

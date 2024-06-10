@@ -5,6 +5,7 @@ rules:
       - pattern: $CALL.transfer(...);
       - pattern-regex: .+call.?.+.gas\([0-9]+\)?.+\(?.+\);
       - pattern-regex: .+\{?.+gas:.+[0-9]+\}\(?.+\);
+    # TODO: Modify message for this rule
     message: Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount
     languages:
       - solidity
@@ -14,5 +15,5 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-134/
         - https://cwe.mitre.org/data/definitions/655.html
-      cwe: "CWE-665: Improper Initialization"
+      cwe: 'CWE-665: Improper Initialization'
       name: message-call-with-hardcoded-gas-amount

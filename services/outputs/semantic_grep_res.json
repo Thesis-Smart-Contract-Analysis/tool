@@ -4,18 +4,18 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
           "start": {
             "col": 1,
             "line": 7,
-            "offset": 180
+            "offset": 131
           },
           "end": {
-            "col": 23,
+            "col": 24,
             "line": 7,
-            "offset": 202
+            "offset": 154
           },
-          "lines": "pragma solidity ^0.5.0;"
+          "lines": "pragma solidity ^0.4.24;"
         }
       ],
       "metadata": {
@@ -35,18 +35,18 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
           "start": {
             "col": 10,
             "line": 9,
-            "offset": 214
+            "offset": 166
           },
           "end": {
-            "col": 17,
+            "col": 22,
             "line": 9,
-            "offset": 221
+            "offset": 178
           },
-          "lines": "contract OddEven {"
+          "lines": "contract HashForEther {"
         }
       ],
       "metadata": {
@@ -57,7 +57,7 @@
           "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
           "https://cwe.mitre.org/data/definitions/665.html"
         ],
-        "message": "The absence of an explicitly defined constructor in smart contract `OddEven` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `OddEven` or an incorrectly formatted constructor declaration.",
+        "message": "The absence of an explicitly defined constructor in smart contract `HashForEther` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `HashForEther` or an incorrectly formatted constructor declaration.",
         "severity": "High",
         "id": "swe-118"
       }
@@ -65,182 +65,116 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
           "start": {
-            "col": 5,
-            "line": 16,
-            "offset": 320
+            "col": 14,
+            "line": 11,
+            "offset": 216
           },
           "end": {
-            "col": 31,
-            "line": 16,
-            "offset": 346
+            "col": 30,
+            "line": 11,
+            "offset": 232
           },
-          "lines": "    Player[2] private players;"
+          "lines": "    function withdrawWinnings() {"
         }
       ],
       "metadata": {
         "cwe": "CWE-710: Improper Adherence to Coding Standards",
-        "name": "state-variable-default-visibility",
-        "references": [
-          "https://swcregistry.io/docs/SWC-108/",
-          "https://docs.soliditylang.org/en/latest/types.html"
-        ],
-        "message": "Labeling the visibility for `players` makes it easier to catch incorrect assumptions about who can access the variable.",
-        "severity": "Low",
-        "id": "swe-108"
+        "name": "function-default-visibility",
+        "references": "https://swcregistry.io/docs/SWC-100/",
+        "message": "Function `withdrawWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
+        "severity": "High",
+        "id": "swe-100"
       }
     },
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
           "start": {
-            "col": 5,
-            "line": 16,
-            "offset": 320
+            "col": 14,
+            "line": 18,
+            "offset": 415
           },
           "end": {
-            "col": 31,
-            "line": 16,
-            "offset": 346
+            "col": 27,
+            "line": 18,
+            "offset": 428
           },
-          "lines": "    Player[2] private players;"
+          "lines": "    function _sendWinnings() {"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-710: Improper Adherence to Coding Standards",
+        "name": "function-default-visibility",
+        "references": "https://swcregistry.io/docs/SWC-100/",
+        "message": "Function `_sendWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
+        "severity": "High",
+        "id": "swe-100"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "start": {
+            "col": 9,
+            "line": 19,
+            "offset": 441
+          },
+          "end": {
+            "col": 42,
+            "line": 19,
+            "offset": 474
+          },
+          "lines": "        msg.sender.transfer(this.balance);"
         }
       ],
       "metadata": {
         "category": "security",
-        "cwe": "CWE-767: Access to Critical Private Variable via Public Method",
-        "name": "unencrypted-private-data-on-chain",
+        "cwe": "CWE-284: Improper Access Control",
+        "name": "unprotected-ether-withdrawal",
         "references": [
-          "https://swcregistry.io/docs/SWC-136/",
-          "https://cwe.mitre.org/data/definitions/767.html"
+          "https://swcregistry.io/docs/SWC-105/",
+          "https://cwe.mitre.org/data/definitions/284.html"
         ],
-        "message": "Be careful when using `players` with a private type to store private data in a smart contract. Any private data should either be stored off-chain, or carefully encrypted.",
+        "message": "Function `_sendWinnings` lacks access control, making it accessible to anyone.",
         "severity": "High",
-        "id": "swe-136"
+        "id": "swe-105"
       }
     },
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
-          "start": {
-            "col": 5,
-            "line": 17,
-            "offset": 351
-          },
-          "end": {
-            "col": 20,
-            "line": 17,
-            "offset": 366
-          },
-          "lines": "    uint count = 0;"
-        }
-      ],
-      "metadata": {
-        "cwe": "CWE-710: Improper Adherence to Coding Standards",
-        "name": "state-variable-default-visibility",
-        "references": [
-          "https://swcregistry.io/docs/SWC-108/",
-          "https://docs.soliditylang.org/en/latest/types.html"
-        ],
-        "message": "Labeling the visibility for `count` makes it easier to catch incorrect assumptions about who can access the variable.",
-        "severity": "Low",
-        "id": "swe-108"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
+          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
           "start": {
             "col": 9,
-            "line": 22,
-            "offset": 543
+            "line": 19,
+            "offset": 441
           },
           "end": {
-            "col": 16,
-            "line": 22,
-            "offset": 550
+            "col": 43,
+            "line": 19,
+            "offset": 475
           },
-          "lines": "        count++;"
+          "lines": "        msg.sender.transfer(this.balance);"
         }
       ],
       "metadata": {
-        "cwe": "CWE-682: Incorrect Calculation",
-        "name": "integer-overflow-underflow",
+        "category": "security",
+        "cwe": "CWE-665: Improper Initialization",
+        "name": "message-call-with-hardcoded-gas-amount",
         "references": [
-          "https://swcregistry.io/docs/SWC-101/",
-          "https://docs.soliditylang.org/en/latest/types.html",
-          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
+          "https://swcregistry.io/docs/SWC-134/",
+          "https://cwe.mitre.org/data/definitions/655.html"
         ],
-        "message": "The operation on variable `count` could lead to overflow/underflow.",
-        "severity": "High",
-        "id": "swe-101"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
-          "start": {
-            "col": 18,
-            "line": 27,
-            "offset": 654
-          },
-          "end": {
-            "col": 45,
-            "line": 27,
-            "offset": 681
-          },
-          "lines": "        uint n = players[0].number + players[1].number;"
-        }
-      ],
-      "metadata": {
-        "cwe": "CWE-682: Incorrect Calculation",
-        "name": "integer-overflow-underflow",
-        "references": [
-          "https://swcregistry.io/docs/SWC-101/",
-          "https://docs.soliditylang.org/en/latest/types.html",
-          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
-        ],
-        "message": "The operation on variable `players[0].number` could lead to overflow/underflow.",
-        "severity": "High",
-        "id": "swe-101"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/jordan/KLTN/tool/services/uploads/48eda69b21dd458eaad2369bb5f76933.sol",
-          "start": {
-            "col": 36,
-            "line": 28,
-            "offset": 728
-          },
-          "end": {
-            "col": 39,
-            "line": 28,
-            "offset": 731
-          },
-          "lines": "        (bool success, ) = players[n%2].addr.call.value(address(this).balance)(\"\");"
-        }
-      ],
-      "metadata": {
-        "cwe": "CWE-682: Incorrect Calculation",
-        "name": "integer-overflow-underflow",
-        "references": [
-          "https://swcregistry.io/docs/SWC-101/",
-          "https://docs.soliditylang.org/en/latest/types.html",
-          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
-        ],
-        "message": "The operation on variable `n` could lead to overflow/underflow.",
-        "severity": "High",
-        "id": "swe-101"
+        "message": "Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount",
+        "severity": "Medium",
+        "id": "swe-134"
       }
     }
   ],
-  "scan_time": 1.6757917404174805,
+  "scan_time": 1.7596921920776367,
   "success": true
 }
