@@ -1,65 +1,65 @@
 rules:
   - id: swe-132
-    pattern-either:
-      - pattern: |
-          if (<... address($THIS).balance ...>) {
-            ...
-          }
-      - pattern: |
-          require(<... address($THIS).balance ...>, "...");
-      - pattern: |
-          assert(<... address($THIS).balance ...>, "...");
-      - pattern: |
-          return <... address($THIS).balance ...>;
-      - patterns:
-          - pattern-inside: |
-              function $F(...) {
-                ...
-                $CONDITION = <... address($THIS).balance ...>;
-                ...
-                if(<... $CONDITION ...>){
-                  ...
-                }
+    patterns:
+      - metavariable-regex:
+          metavariable: $THIS
+          regex: (this|address\(this\))
+      - pattern-either:
+          # Use balance directly
+          - pattern: |
+              if (<... $THIS.balance ...>) {
                 ...
               }
           - pattern: |
-              if(<... $CONDITION ...>) {
-                ...
-              }
-      - patterns:
-          - pattern-inside: |
-              function $F(...) {
-                ...
-                $CONDITION = <... address($THIS).balance ...>;
-                ...
-                require(<... $CONDITION ...>, "...");
-                ...
-              }
+              require(<... $THIS.balance ...>, "...");
           - pattern: |
-              require(<... $CONDITION ...>, "...");
-      - patterns:
-          - pattern-inside: |
-              function $F(...) {
-                ...
-                $CONDITION = <... address($THIS).balance ...>;
-                ...
-                assert(<... $CONDITION ...>, "...");
-                ...
-              }
+              assert(<... $THIS.balance ...>, "...");
           - pattern: |
-              assert(<... $CONDITION ...>, "...");
-      - patterns:
-          - pattern-inside: |
-              function $F(...) {
-                ...
-                $CONDITION = <... address($THIS).balance ...>;
-                ...
-                return <... $CONDITION ...>;
-                ...
-              }
-          - pattern: |
-              return <... $CONDITION ...>;
-    message: Be careful when use `address($THIS).balance` to check balance of this
+              return <... $THIS.balance ...>;
+          # Use balance through derived variable
+          - patterns:
+              - pattern-inside: |
+                  function $F(...) {
+                    ...
+                    $DERIVED = <... $THIS.balance ...>;
+                    ...
+                  }
+              - pattern: |
+                  if(<... $DERIVED ...>) {
+                    ...
+                  }
+              - focus-metavariable: $DERIVED
+          - patterns:
+              - pattern-inside: |
+                  function $F(...) {
+                    ...
+                    $DERIVED = <... $THIS.balance ...>;
+                    ...
+                  }
+              - pattern: |
+                  require(<... $DERIVED ...>, "...");
+              - focus-metavariable: $DERIVED
+          - patterns:
+              - pattern-inside: |
+                  function $F(...) {
+                    ...
+                    $DERIVED = <... $THIS.balance ...>;
+                    ...
+                  }
+              - pattern: |
+                  assert(<... $DERIVED ...>, "...");
+              - focus-metavariable: $DERIVED
+          - patterns:
+              - pattern-inside: |
+                  function $F(...) {
+                    ...
+                    $DERIVED = <... $THIS.balance ...>;
+                    ...
+                  }
+              - pattern: |
+                  return <... $DERIVED ...>;
+              - focus-metavariable: $DERIVED
+    message: Be careful when using `address($THIS).balance` to check balance of the smart contract.
     languages:
       - solidity
     severity: LOW
@@ -68,5 +68,5 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-132/
         - https://cwe.mitre.org/data/definitions/667.html
-      cwe: "CWE-667: Improper Locking"
+      cwe: 'CWE-667: Improper Locking'
       name: unexpected-ether-balance

@@ -19,8 +19,7 @@ rules:
                 - pattern: call
                 - pattern: delegatecall
                 - pattern: staticcall
-    message: The gas amount in function `$F` is not checked before executing
-      function calls to other smart contracts.
+    message: The gas amount is not checked before executing function in other smart contract by using `$METHOD` method.
     languages:
       - solidity
     severity: MEDIUM

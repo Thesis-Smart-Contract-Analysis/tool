@@ -2,8 +2,7 @@ rules:
   - id: swe-120
     pattern-either:
       - patterns:
-          - pattern-either:
-              - pattern: <... $PSEUDO_RANDOM_VAR ...> = $INSECURE_RANDOM_VAL
+          - pattern: <... $PSEUDO_RANDOM_VAR ...> = $INSECURE_RANDOM_VAL
           - metavariable-pattern:
               metavariable: $INSECURE_RANDOM_VAL
               pattern-either:

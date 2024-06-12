@@ -30,7 +30,7 @@ rules:
             - pattern-regex: ^(mstore).+(mload)
             - pattern-regex: .+(:=).+(mload)
       - focus-metavariable: $INS
-    message: Function type variable can be changed and thus excute random code instruction. Becareful when use assembly instructions to change variable to an arbitrary value
+    message: Function type variable can be changed and thus excute random code instruction. Be careful when using assembly instructions to change variable to an arbitrary value
     languages:
       - solidity
     severity: HIGH

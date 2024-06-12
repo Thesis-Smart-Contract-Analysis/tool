@@ -20,16 +20,19 @@ rules:
           - pattern-inside: |
               contract $C {
                 ...
-                $T $VAR = $VAL;
+                $T $VAR1 = $VAL1;
                 ...
               }
           - pattern: |
               function $F(...) {
                 ...
-                $T $VAR = $VAL2;
+                $T $VAR2 = $VAL2;
                 ...
               }
-          - focus-metavariable: $VAR
+          - focus-metavariable: $VAR2
+          - metavariable-comparison:
+              comparison: str($VAR1) == str($VAR2)
+              metavariable: $VAR2
       # Case: shadowing with state variables in derived contract
       - patterns:
           - pattern: |
