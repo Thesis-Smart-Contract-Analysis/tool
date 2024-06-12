@@ -1,7 +1,7 @@
 from flask import Flask, request, send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-from scanner import detect_version, scan as perform_scan, SEMGREP, SLITHER, MYTHRIL
+from scanner import detect_version, scan as perform_scan, SEMGREP, SLITHER, MYTHRIL, ALL
 import json, os, uuid
 
 SERVICES_FOLDER = "./services"
@@ -35,7 +35,7 @@ def scan():
             400,
             {"Content-Type": "application/json"},
         )
-    if tool not in [SEMGREP, SLITHER, MYTHRIL]:
+    if tool not in [SEMGREP, SLITHER, MYTHRIL, ALL]:
         return (
             {"message": "Invalid tool"},
             400,
