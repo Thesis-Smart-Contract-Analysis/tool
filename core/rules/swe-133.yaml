@@ -28,9 +28,7 @@ rules:
       - metavariable-regex:
           metavariable: $TYPE
           regex: .+\[\]
-    message:
-      Be careful when use `api.encodedPacked()` with  dynamic length variable
-      as $VAR
+    message: Be careful when using `api.encodedPacked()` with dynamic length variable `$VAR`.
     languages:
       - solidity
     severity: HIGH

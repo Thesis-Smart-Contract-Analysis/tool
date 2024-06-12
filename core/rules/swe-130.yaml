@@ -11,3 +11,4 @@ rules:
       references:
         - https://swcregistry.io/docs/SWC-130/
         - https://cwe.mitre.org/data/definitions/451.html
+      name: right-to-left-override-control-unicode

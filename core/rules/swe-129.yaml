@@ -24,8 +24,7 @@ rules:
               }
           - pattern-not-inside: |
               require(..., $VAR1 == ... , ...)
-
-    message: Typographical Error
+    message: Typographical error
     languages:
       - solidity
     severity: LOW

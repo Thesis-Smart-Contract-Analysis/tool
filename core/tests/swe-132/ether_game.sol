@@ -9,10 +9,11 @@ contract EtherGame {
   function deposit() public payable {
     require(msg.value == 1 ether, "You can only send 1 Ether");
 
-    //ruleId: swe-132
     uint256 balance = address(this).balance;
+    //ruleId: swe-132
     require(balance <= targetAmount, "Game is over");
 
+    //ruleId: swe-132
     if (balance == targetAmount) {
       winner = msg.sender;
     }
