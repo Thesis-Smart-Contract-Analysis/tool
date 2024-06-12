@@ -6,13 +6,13 @@ import type { ParseKeys } from 'i18next';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
 
 import logo from '@/assets/logo.png';
 
-import './Header.scss';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import { NAVBAR_MENU } from './constant';
+import './Header.scss';
 
 const Header: React.FC = () => {
   const { t } = useTranslation();
@@ -21,11 +21,7 @@ const Header: React.FC = () => {
       <header className='header'>
         <Box className='header__content'>
           <Box className='header-logo__wrapper'>
-            <img
-              src={logo}
-              alt=''
-              className='header-logo__image'
-            />
+            <img src={logo} alt='' className='header-logo__image' />
             <Typography className='header-logo__text'>So1Scan</Typography>
           </Box>
 
@@ -34,10 +30,7 @@ const Header: React.FC = () => {
               {NAVBAR_MENU.map((item) => {
                 const tItem = `header.${item}` as ParseKeys;
                 return (
-                  <ListItem
-                    key={item}
-                    className='header-nav__item'
-                  >
+                  <ListItem key={item} className='header-nav__item'>
                     {t(tItem)}
                   </ListItem>
                 );

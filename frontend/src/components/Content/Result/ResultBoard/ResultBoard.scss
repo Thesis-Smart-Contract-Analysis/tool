@@ -1,0 +1,58 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.result-board {
+  width: 100%;
+
+  &__title {
+    width: 100%;
+    display: flex;
+    gap: 1.2rem;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+      &--so1scan {
+        &.MuiTypography-root {
+          @include primary-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
+      }
+
+      &--slither {
+        &.MuiTypography-root {
+          @include slither-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
+      }
+
+      &--mythril {
+        &.MuiTypography-root {
+          @include mythril-text-color;
+
+          font-size: 2rem;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .time {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      &__text {
+        &.MuiTypography-root {
+          font-size: 1.8rem;
+          line-height: 1;
+          font-weight: 500;
+          color: $neutrals-500;
+        }
+      }
+    }
+  }
+}

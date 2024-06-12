@@ -1,0 +1,43 @@
+@import 'src/styles/variables';
+@import 'src/styles/mixins';
+
+.footer {
+  &__container {
+    padding: 1.2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: gray;
+
+    .footer-logo__wrapper {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 1.2rem 0;
+
+      .image {
+        width: auto;
+        height: 2.8rem;
+      }
+
+      .split {
+        height: 2.6rem;
+        width: 0.16rem;
+        border-radius: 0.4rem;
+        background-color: $neutrals-300;
+      }
+
+      .text {
+        @include primary-text-color;
+
+        font-size: 1.8rem;
+        font-weight: 500;
+      }
+    }
+
+    .footer__all-right-reserved {
+      font-size: 1.6rem;
+      font-weight: 500;
+    }
+  }
+}

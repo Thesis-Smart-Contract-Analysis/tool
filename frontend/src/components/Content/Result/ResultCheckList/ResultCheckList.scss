@@ -1,0 +1,20 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.result-checklist {
+  &__title {
+    &.MuiTypography-root {
+      padding: 1.2rem;
+      font-size: 3.8rem;
+      font-weight: 500;
+      color: $primary-blue-950;
+      text-align: center;
+    }
+  }
+
+  &__boards {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+}

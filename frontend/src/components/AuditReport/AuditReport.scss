@@ -1,0 +1,30 @@
+@import '/src/styles/variables';
+@import '/src/styles/mixins';
+
+.pdf-viewer {
+  height: 100vh;
+  width: 100%;
+}
+
+.download-audit-report {
+  width: 100%;
+  display: flex;
+  margin-top: 1.2rem;
+
+  &__btn {
+    align-items: center;
+    background: $bg-primary;
+    border-radius: 0.8rem;
+    border: none;
+    box-shadow: $btn-box-shadow;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    font-size: 2.4rem;
+    font-weight: 600;
+    gap: 0.8rem;
+    margin: auto;
+    padding: 1.2rem;
+    text-decoration: none;
+  }
+}

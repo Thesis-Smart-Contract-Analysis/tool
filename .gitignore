@@ -4,3 +4,6 @@ Include
 pyvenv.cfg
 __pycache__
 uploads
+outputs
+
+.env

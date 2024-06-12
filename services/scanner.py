@@ -231,8 +231,8 @@ def mythril_scan(target: str, version: str) -> dict:
         "--solv",
         version,
         "--parallel-solving",
-        "--execution-timeout",
-        "10",
+        # "--execution-timeout",
+        # "10",
         filepath,
     ]
     completed_process = subprocess.run(cmd, capture_output=True, text=True)

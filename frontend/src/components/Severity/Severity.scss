@@ -1,0 +1,29 @@
+@import '/src/styles/variables';
+
+.severity {
+  border-radius: 4rem;
+  padding: 0.4rem 1.2rem;
+
+  &__title {
+    &.MuiTypography-root {
+      text-transform: capitalize;
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: white;
+    }
+  }
+
+  &--low,
+  &--informational,
+  &--optimization {
+    background-color: #339900;
+  }
+
+  &--medium {
+    background-color: #ffcc00;
+  }
+
+  &--high {
+    background-color: #cc3300;
+  }
+}

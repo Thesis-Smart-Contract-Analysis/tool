@@ -6,15 +6,15 @@
   flex-direction: column;
   gap: 1.2rem;
   position: relative;
-  padding: 4rem 2rem 2rem;
-  border: 2px solid $primary-blue-500;
+  padding: 4rem 2rem;
+  box-shadow: 0 0 0.4rem $primary-blue-950;
   border-radius: 1.2rem;
 
   &__title {
     position: absolute;
     top: -3rem;
     left: 4rem;
-    border: 2px solid $primary-blue-500;
+    box-shadow: 0 0 0.6rem $primary-blue-500;
     width: fit-content;
     padding: 1.2rem;
     background-color: white;
@@ -23,6 +23,7 @@
     &.MuiTypography-root {
       font-size: 1.8rem;
       font-weight: 500;
+      color: $primary-blue-500;
     }
   }
 
@@ -33,14 +34,6 @@
       width: 100%;
       height: 100%;
       gap: 1.2rem;
-
-      .code-editor {
-        &__wrapper {
-          width: 100%;
-          height: 60vh;
-          border: 0.1rem solid $primary-blue-500;
-        }
-      }
     }
 
     &__control {
@@ -57,5 +50,11 @@
         padding: 1.2rem;
       }
     }
+  }
+
+  .summary {
+    height: 100vh;
+    position: absolute;
+    top: calc(100% - 6rem);
   }
 }

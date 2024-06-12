@@ -9,7 +9,7 @@ ABS_SERVICES_FOLDER = os.path.abspath(SERVICES_FOLDER)
 UPLOAD_FOLDER = os.path.join(ABS_SERVICES_FOLDER, "uploads")
 
 app = Flask(__name__)
-CORS(app)
+cors=CORS(app)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 

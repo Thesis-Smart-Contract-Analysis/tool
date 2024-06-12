@@ -1,21 +1,25 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IResult {
   semantic_grep: SemanticGrep;
   slither: Slither;
   mythril: Mythril;
+  scan_time: number;
+  success: boolean;
 }
 
 export interface Mythril {
-  errors: object[];
+  errors: any;
   findings: MythrilFinding[];
+  scan_time: number;
   success: boolean;
 }
 
 export interface MythrilFinding {
-  matches: PurpleMatch[];
-  metadata: PurpleMetadata;
+  matches: MythrilMatch[];
+  metadata: MythrilMetadata;
 }
 
-export interface PurpleMatch {
+export interface MythrilMatch {
   address: number;
   code: string;
   contract: string;
@@ -27,73 +31,73 @@ export interface PurpleMatch {
   sourceMap: string;
 }
 
-export interface PurpleMetadata {
+export interface MythrilMetadata {
   description: string;
   severity: string;
-  'swc-id': string;
+  id: string;
   title: string;
+  'semgrep-id': string;
+  duplicated: boolean;
 }
 
 export interface SemanticGrep {
-  errors: object[];
+  errors: any;
   findings: SemanticGrepFinding[];
+  scan_time: number;
   success: boolean;
 }
 
 export interface SemanticGrepFinding {
-  matches: FluffyMatch[];
-  metadata: FluffyMetadata;
+  matches: SemanticGrepMatch[];
+  metadata: SemanticGrepMetadata;
 }
 
-export interface FluffyMatch {
-  file_path: string;
-  match_position: number[];
-  match_lines: number[];
-  match_string: string;
+export interface SemanticGrepMatch {
+  path: string;
+  start: End;
+  end: End;
+  lines: string;
 }
 
-export interface FluffyMetadata {
-  category?: string;
-  cwe: string;
-  references: string[] | string;
-  description: string;
+export interface End {
+  col: number;
+  line: number;
+  offset: number;
+}
+
+export interface SemanticGrepMetadata {
+  cwe?: string;
+  references: string[];
+  message: string;
   severity: string;
   id: string;
+  category?: string;
+  name?: string;
 }
 
 export interface Slither {
-  errors: object[];
+  errors: any;
   findings: SlitherFinding[];
+  scan_time: number;
   success: boolean;
 }
 
 export interface SlitherFinding {
-  matches: ParentElement[];
-  metadata: TentacledMetadata;
+  matches: SlitherMatch[];
+  metadata: SlitherMetadata;
 }
 
-export interface PurpleTypeSpecificFields {
-  parent: ParentElement;
-  signature: string;
-}
-
-export interface Parent {
+export interface SlitherMatch {
   type: string;
   name: string;
   source_mapping: SourceMapping;
-  type_specific_fields?: PurpleTypeSpecificFields;
+  type_specific_fields: MatchTypeSpecificFields;
+  additional_fields?: AdditionalFields;
 }
 
-export interface MatchTypeSpecificFields {
-  parent: Parent;
-  signature?: string;
-}
-
-export interface ParentElement {
-  type: string;
-  name: string;
-  source_mapping: SourceMapping;
-  type_specific_fields?: MatchTypeSpecificFields;
+export interface AdditionalFields {
+  convention?: string;
+  target?: string;
 }
 
 export interface SourceMapping {
@@ -108,11 +112,31 @@ export interface SourceMapping {
   ending_column: number;
 }
 
-export interface TentacledMetadata {
+export interface MatchTypeSpecificFields {
+  parent?: Parent;
+  signature?: string;
+  directive?: string[];
+}
+
+export interface ParentTypeSpecificFields {
+  parent: Parent;
+  signature: string;
+}
+
+export interface Parent {
+  type: string;
+  name: string;
+  source_mapping: SourceMapping;
+  type_specific_fields?: ParentTypeSpecificFields;
+}
+
+export interface SlitherMetadata {
   description: string;
   id: string;
   severity: string;
   markdown: string;
   first_markdown_element: string;
   confidence: string;
+  'semgrep-id'?: string;
+  duplicated: boolean;
 }

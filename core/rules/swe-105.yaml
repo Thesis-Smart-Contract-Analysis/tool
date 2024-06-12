@@ -23,8 +23,9 @@ rules:
                 }
               }
           - pattern-either:
-              - pattern: $A.$M(this.balance)
-              - pattern: $A.$M{value:this.balance}(...)
+              # TODO: match all value instead of this.balance
+              - pattern: $A.$M(...)
+              - pattern: $A.$M{value:...}(...)
           - metavariable-pattern:
               metavariable: $M
               pattern-either:
