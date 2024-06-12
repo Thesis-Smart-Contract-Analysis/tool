@@ -50,3 +50,5 @@ rules:
     message: The function `$F` uses the argument `$ADDR` of type `$ADDR_TYPE` followed by another argument but does not check the transaction data length. This can lead to a short address attack.
     languages: [solidity]
     severity: HIGH
+    metadata:
+      name: short-address

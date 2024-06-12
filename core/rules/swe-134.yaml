@@ -5,7 +5,7 @@ rules:
       - pattern: $CALL.transfer(...);
       - pattern-regex: .+call.?.+.gas\([0-9]+\)?.+\(?.+\);
       - pattern-regex: .+\{?.+gas:.+[0-9]+\}\(?.+\);
-    message: Be careful when use `send()`, `transfer()`, or message `call` with hardcoded gas amount
+    message: Be careful when using `send()`/`transfer()` or `call()`/`delegatecall()`/`staticcall()` with hardcoded gas amount.
     languages:
       - solidity
     severity: MEDIUM

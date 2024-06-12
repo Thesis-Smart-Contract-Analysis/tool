@@ -93,3 +93,5 @@ rules:
     message: The source code of `$C` has payable function(s) but no function to withdraw ETH, it will cause ETH to be locked in the smart contract.
     languages: [solidity]
     severity: MEDIUM
+    metadata:
+      name: frozen-ether

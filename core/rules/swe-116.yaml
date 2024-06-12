@@ -59,9 +59,7 @@ rules:
               }
           - pattern: |
               return <... $CONDITION ...>;
-    message: Be careful when using the `block` attribute in smart contracts.
-      Especially when using `block.timestamp` and `block.number` as conditions
-      to execute an action.
+    message: Be careful when using the `block` attribute in smart contracts. Especially when using `block.timestamp` and `block.number` as conditions to execute an action.
     languages:
       - solidity
     severity: LOW

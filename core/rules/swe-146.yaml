@@ -18,7 +18,7 @@ rules:
           }
     message:
       There should only be one constructor in the contract for the Solidity
-      version < 0.4.22
+      version 0.4.22.
     languages:
       - solidity
     severity: HIGH
