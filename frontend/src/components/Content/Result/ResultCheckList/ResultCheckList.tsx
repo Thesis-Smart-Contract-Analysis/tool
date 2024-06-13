@@ -2,16 +2,17 @@ import { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
-import Loading from '@/components/Loading/Loading';
-import { RESULT_TYPE } from '@/enums';
 import { ResultContext } from '@/context/ResultContext';
+import { RESULT_TYPE } from '@/enums';
 
-import './ResultCheckList.scss';
 import CheckListBoard from './CheckListBoard/CheckListBoard';
+import './ResultCheckList.scss';
 
 const FlexBoxShowLoading = styled(Box)({
   display: 'flex',
@@ -35,12 +36,19 @@ const SlitherCheckListBoard = () => {
   if (semgrepResult) {
     if (isSlitherResultLoading) {
       return (
-        <FlexBoxShowLoading>
-          <TypographyShowLoading>
-            {`${t('content.result.check-list.slither')}`}
-          </TypographyShowLoading>
-          <Loading size='1.6rem' color='#6d6d6d' />
-        </FlexBoxShowLoading>
+        <Stack>
+          <FlexBoxShowLoading>
+            <TypographyShowLoading>
+              {`${t('content.result.check-list.slither')} ...`}
+            </TypographyShowLoading>
+
+            {/* <Loading size='1.6rem' color='#6d6d6d' /> */}
+          </FlexBoxShowLoading>
+
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color='primary' />
+          </Box>
+        </Stack>
       );
     } else return <CheckListBoard type={RESULT_TYPE.SLITHER} />;
   }
@@ -55,12 +63,19 @@ const MythrilCheckListBoard = () => {
   if (slitherResult) {
     if (isMythrilResultLoading) {
       return (
-        <FlexBoxShowLoading>
-          <TypographyShowLoading>
-            {`${t('content.result.check-list.mythril')}`}
-          </TypographyShowLoading>
-          <Loading size='1.6rem' color='#6d6d6d' />
-        </FlexBoxShowLoading>
+        <Stack>
+          <FlexBoxShowLoading>
+            <TypographyShowLoading>
+              {`${t('content.result.check-list.mythril')} ... (Hãy kiên nhẫn đợi vì phần này cần thời gian để chạy !!!)`}
+            </TypographyShowLoading>
+
+            {/* <Loading size='1.6rem' color='#6d6d6d' /> */}
+          </FlexBoxShowLoading>
+
+          <Box sx={{ width: '100%' }}>
+            <LinearProgress color='primary' />
+          </Box>
+        </Stack>
       );
     } else return <CheckListBoard type={RESULT_TYPE.MYTHRIL} />;
   }

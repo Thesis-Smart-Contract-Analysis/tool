@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 
+import { OnMount } from '@monaco-editor/react';
+import type { ParseKeys } from 'i18next';
+import * as monaco from 'monaco-editor';
 import { useTranslation } from 'react-i18next';
 import Markdown from 'react-markdown';
 import { v4 as uuidv4 } from 'uuid';
-import { OnMount } from '@monaco-editor/react';
-import * as monaco from 'monaco-editor';
-import type { ParseKeys } from 'i18next';
 
-import Box from '@mui/material/Box';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
+import ReadOnlySolidityEditor from '@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor';
+import Severity from '@/components/Severity/Severity';
 import { ResultContext } from '@/context/ResultContext';
-import { SLITHER_LINK } from '@/utils/constant';
 import { RESULT_TYPE } from '@/enums';
 import {
   MythrilFinding,
@@ -20,14 +21,13 @@ import {
   SlitherFinding,
 } from '@/interfaces';
 import { TCheckList } from '@/types';
-import ReadOnlySolidityEditor from '@/components/ReadOnlySolidityEditor/ReadOnlySolidityEditor';
-import Severity from '@/components/Severity/Severity';
+import { SLITHER_LINK } from '@/utils/constant';
 import { sortBySeverity } from '@/utils/helper';
 
 import './CheckListBoard.scss';
-import { useSo1Scan } from './hooks/useSo1Scan';
-import { useSlither } from './hooks/useSlither';
 import { useMythril } from './hooks/useMythril';
+import { useSlither } from './hooks/useSlither';
+import { useSo1Scan } from './hooks/useSo1Scan';
 
 // TODO: Handle when finding is empty or success is false (show error when false)
 const CheckListBoard: React.FC<{
@@ -193,52 +193,54 @@ const CheckListBoard: React.FC<{
 
       {checklist && checklist.length ? (
         <Box className='checklist-board__content'>
-          <Box className='checklist-board__list'>
-            {checklist.map((item) => {
-              return (
-                <Box
-                  key={item.id}
-                  className={`checklist-board__item  ${
-                    currentChooseId === item.id ? `active--${type}` : ''
-                  }`}
-                  onClick={() => {
-                    handleOnClick(type, item);
-                  }}
-                >
-                  <input
-                    type='checkbox'
-                    id={item.id}
-                    style={{
-                      display: 'none',
-                    }}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        handleOnClick(type, item);
-                      }
-                    }}
-                  />
-                  <label htmlFor={item.id}>
-                    <Box className='title'>
-                      <Severity type={item.severity.toLowerCase()} />
-                      <Typography className='title__id'>
-                        {item.vulId}
-                      </Typography>
-                    </Box>
-
-                    <Box className='desc'>
-                      <Markdown>{item.desc}</Markdown>
-                    </Box>
-                  </label>
-                </Box>
-              );
-            })}
-          </Box>
-
           <Box className='checklist-board__code-editor'>
             <ReadOnlySolidityEditor
               onMount={handleOnMount}
               value={currentSourceCode}
             />
+          </Box>
+
+          <Box className='checklist-board__list'>
+            <Box className='vuln-list'>
+              {checklist.map((item) => {
+                return (
+                  <Box
+                    key={item.id}
+                    className={`checklist-board__item  ${
+                      currentChooseId === item.id ? `active--${type}` : ''
+                    }`}
+                    onClick={() => {
+                      handleOnClick(type, item);
+                    }}
+                  >
+                    <input
+                      type='checkbox'
+                      id={item.id}
+                      style={{
+                        display: 'none',
+                      }}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          handleOnClick(type, item);
+                        }
+                      }}
+                    />
+                    <label htmlFor={item.id}>
+                      <Box className='title'>
+                        <Severity type={item.severity.toLowerCase()} />
+                        <Typography className='title__id'>
+                          {item.vulId}
+                        </Typography>
+                      </Box>
+
+                      <Box className='desc'>
+                        <Markdown>{item.desc}</Markdown>
+                      </Box>
+                    </label>
+                  </Box>
+                );
+              })}
+            </Box>
           </Box>
         </Box>
       ) : (
