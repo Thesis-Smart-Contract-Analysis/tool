@@ -1,8 +1,10 @@
-from flask import Flask, request, send_from_directory
+import json, os, uuid
+from flask import Flask, request, send_from_directory, Response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from scanner import detect_version, scan as perform_scan, SEMGREP, SLITHER, MYTHRIL, ALL
-import json, os, uuid
+from answerer import generate
+
 
 SERVICES_FOLDER = "./services"
 ABS_SERVICES_FOLDER = os.path.abspath(SERVICES_FOLDER)
@@ -130,6 +132,35 @@ def get_uploaded_file(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 
+@app.route("/answer", methods=["GET", "POST"])
+def answer():
+    request_args: dict = request.args
+    filename = request_args.get("filename", "")
+    string = request_args.get("string", "")
+    file_content = ""
+
+    if filename:
+        # app.logger.info(f"Answering for file: {filename}")
+        filename = secure_filename(filename)
+        abs_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+        if not os.path.exists(abs_path):
+            res = {"message": "File not found"}
+            return res, 404, {"Content-Type": "application/json"}
+        else:
+            with open(abs_path, "r", encoding='utf-8') as f:
+                file_content = f.read()
+    elif string:
+        # app.logger.info(f"Answering for string:\n {string}")
+        file_content = string
+    else:
+        return (
+            {"message": "Please provide a filename or a string"},
+            400,
+            {"Content-Type": "application/json"},
+        )
+    
+    return Response(generate(file_content), mimetype='text/plain')
+    
 @app.route("/")
 def home():
     return "<p>Welcome to the Smart Contract Scanner!</p>"
