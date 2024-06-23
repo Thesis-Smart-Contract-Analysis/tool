@@ -1,16 +1,15 @@
 import React, { useContext } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
+import { LinearProgress } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useTranslation } from 'react-i18next';
 
-import { RESULT_TYPE } from '@/enums';
-import Loading from '@/components/Loading/Loading';
 import { ResultContext } from '@/context/ResultContext';
+import { RESULT_TYPE } from '@/enums';
 
-import './ResultBoard.scss';
 import CheckListBoard from '../ResultCheckList/CheckListBoard/CheckListBoard';
+import './ResultBoard.scss';
 
 const ResultBoard: React.FC<{
   title: string;
@@ -27,17 +26,23 @@ const ResultBoard: React.FC<{
         <Box className='time'>
           <Typography className='time__text'>
             {isSemgrepResultLoading
-              ? `${t('common.scanning')}`
+              ? `${t('common.scanning')} ...`
               : `${t(
                   'content.result.result-board.scan-time',
                 )}: ${semgrepResult?.scan_time.toFixed(3)}s`}
           </Typography>
 
-          {isSemgrepResultLoading ? (
+          {/* {isSemgrepResultLoading ? (
             <Loading color='#6d6d6d' size={'1.6rem'} />
-          ) : null}
+          ) : null} */}
         </Box>
       </Box>
+
+      {isSemgrepResultLoading ? (
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress color='primary' />
+        </Box>
+      ) : null}
 
       {semgrepResult ? <CheckListBoard type={RESULT_TYPE.SO1SCAN} /> : null}
     </Box>

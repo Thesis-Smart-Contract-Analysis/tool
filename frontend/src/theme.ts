@@ -1,6 +1,16 @@
 import { experimental_extendTheme as extendTheme } from '@mui/material';
 
 const theme = extendTheme({
+  colorSchemes: {
+    dark: {},
+    light: {
+      palette: {
+        primary: {
+          main: '#00a4f4',
+        },
+      },
+    },
+  },
   components: {
     MuiMenuItem: {
       styleOverrides: {

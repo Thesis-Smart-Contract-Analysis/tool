@@ -60,25 +60,33 @@
         }
 
         box-shadow: 0 0 0.4rem rgba(0, 0, 0, 0.5);
-        border-radius: 0.2rem;
-        width: 40%;
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-        max-height: 56rem;
-        overflow-y: auto;
-        padding: 1.2rem;
+        border-radius: 0.8rem;
+        width: 35%;
+        padding: 0.8rem;
 
-        &::-webkit-scrollbar {
-          width: 0.6rem;
-        }
+        .vuln-list {
+          display: flex;
+          flex-direction: column;
+          gap: 1.2rem;
+          overflow-y: auto;
+          padding: 0.8rem 0.8rem;
+          max-height: 56rem;
 
-        &::-webkit-scrollbar-thumb {
-          background-color: $neutrals-200;
-          border-radius: 0.8rem;
+          &::-webkit-scrollbar-track {
+            margin: 0.8rem 0;
+          }
 
-          &:hover {
-            background-color: $neutrals-300;
+          &::-webkit-scrollbar {
+            width: 0.6rem;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background-color: $neutrals-200;
+            border-radius: 0.8rem;
+
+            &:hover {
+              background-color: $neutrals-300;
+            }
           }
         }
 
@@ -95,15 +103,15 @@
           }
 
           &.active--so1scan {
-            box-shadow: 0 0 0.4rem $so1scan-color;
+            box-shadow: 0 0 0.8rem $so1scan-color;
           }
 
           &.active--slither {
-            box-shadow: 0 0 0.4rem $slither-color;
+            box-shadow: 0 0 0.8rem $slither-color;
           }
 
           &.active--mythril {
-            box-shadow: 0 0 0.4rem $mythril-color;
+            box-shadow: 0 0 0.8rem $mythril-color;
           }
 
           label {
@@ -149,7 +157,7 @@
           height: 60vh;
         }
 
-        width: 60%;
+        width: 65%;
         border: 0.1rem solid $primary-blue-950;
       }
     }
