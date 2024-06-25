@@ -180,6 +180,7 @@ const useAuditReport = () => {
   const severityStyles = StyleSheet.create({
     container: {
       fontFamily: 'Roboto',
+      marginBottom: 12,
     },
     section: {
       flexDirection: 'row',
@@ -193,17 +194,14 @@ const useAuditReport = () => {
       fontWeight: 'medium',
     },
     body: {
-      marginTop: 12,
+      marginTop: 8,
       gap: 12,
     },
     description: {
       fontSize: 14,
     },
     severityList: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: 'space-between',
-      gap: 12,
+      gap: 8,
     },
     severityItem: {
       gap: 4,

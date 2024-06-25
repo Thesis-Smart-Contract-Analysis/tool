@@ -57,6 +57,27 @@ export const SEVERITY_SECTION = {
     'Mỗi lỗ hổng tìm được sẽ có một mức độ nghiêm trọng (severity) khác nhau. Báo cáo này sẽ dựa vào các loại mức độ nghiêm trọng sau (được sắp xếp từ mức độ nghiêm trọng cao nhất cho đến mức độ nghiêm trọng thấp nhất):',
 };
 
+export const VULN_TYPE = {
+  section: 'Phân loại lỗ hổng',
+  description:
+    'Các lỗ hổng trong hợp đồng thông minh của Ethereum thường được phân loại dựa trên ba nguyên nhân chính:',
+};
+
+export const VULN_TYPE_DESCRIPTION = [
+  {
+    type: 'Language',
+    description: i18n.t('content.audit-report.vuln-type.language'),
+  },
+  {
+    type: 'EVM',
+    description: i18n.t('content.audit-report.vuln-type.evm'),
+  },
+  {
+    type: 'Blockchain',
+    description: i18n.t('content.audit-report.vuln-type.blockchain'),
+  },
+];
+
 export const VULN_TYPE_MAPPING = {
   High: 'Bảo mật',
   Medium: 'Bảo mật',
@@ -69,7 +90,8 @@ export const SUMMARY_SECTION = {
   title: 'Tổng kết các phát hiện lỗ hổng',
   fileName: 'Quét trên hợp đồng thông minh: ',
   scanningTime: 'Thời gian quét: ',
-  vulns: 'Số lượng lỗ hổng được phát hiện theo mức độ nghiêm trọng:',
+  vulns_severity: 'Số lượng lỗ hổng được phát hiện theo mức độ nghiêm trọng:',
+  vulns_tool: 'Số lượng lỗ hổng được phát hiện theo công cụ phát hiện:',
   severity: 'Mức độ nghiêm trọng',
   numberOfVulns: 'Số lượng lỗ hổng',
   table: 'Bảng tổng kết các lỗ hổng:',
@@ -77,6 +99,7 @@ export const SUMMARY_SECTION = {
   scanningTool: 'Công cụ phát hiện',
   instance: 'Số lần xuất hiện',
   linesOfCode: 'Số dòng lệnh trong mã nguồn',
+  totalOfVuln: 'Tổng số phát hiện lỗ hổng',
 };
 
 export const DETAIL_SECTION = {

@@ -4,7 +4,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 1,
             "line": 7,
@@ -35,7 +35,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 10,
             "line": 9,
@@ -65,7 +65,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 14,
             "line": 11,
@@ -91,7 +91,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 14,
             "line": 18,
@@ -117,7 +117,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 9,
             "line": 19,
@@ -147,7 +147,7 @@
     {
       "matches": [
         {
-          "path": "/home/jordan/KLTN/tool/services/uploads/266e95e5b37b4595b888be46b09aeb62.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
           "start": {
             "col": 9,
             "line": 19,
@@ -169,12 +169,12 @@
           "https://swcregistry.io/docs/SWC-134/",
           "https://cwe.mitre.org/data/definitions/655.html"
         ],
-        "message": "Be careful when use `send()`, `transfer()` or message `call` with hardcoded gas amount",
+        "message": "Be careful when using `send()`/`transfer()` or `call()`/`delegatecall()`/`staticcall()` with hardcoded gas amount.",
         "severity": "Medium",
         "id": "swe-134"
       }
     }
   ],
-  "scan_time": 1.7596921920776367,
+  "scan_time": 2.6339845657348633,
   "success": true
 }

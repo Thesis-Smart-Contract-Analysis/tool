@@ -1,6 +1,6 @@
 //source: https://ericrafaloff.com/analyzing-the-erc20-short-address-attack/
 pragma solidity ^0.4.11;
- 
+
 contract MyToken {
   
   mapping (address => uint) balances;

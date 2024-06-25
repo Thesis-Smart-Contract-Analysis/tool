@@ -66,7 +66,7 @@ const MythrilCheckListBoard = () => {
         <Stack>
           <FlexBoxShowLoading>
             <TypographyShowLoading>
-              {`${t('content.result.check-list.mythril')} ... (Hãy kiên nhẫn đợi vì phần này cần thời gian để chạy !!!)`}
+              {`${t('content.result.check-list.mythril')} ... (Có thể sẽ mất vài phút !!!)`}
             </TypographyShowLoading>
 
             {/* <Loading size='1.6rem' color='#6d6d6d' /> */}
