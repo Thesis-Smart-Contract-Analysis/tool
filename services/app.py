@@ -3,7 +3,7 @@ from flask import Flask, request, send_from_directory, Response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from scanner import detect_version, scan as perform_scan, SEMGREP, SLITHER, MYTHRIL, ALL
-from answerer import generate
+from answerer import SEVERITIES, generate
 
 
 SERVICES_FOLDER = "./services"
@@ -135,9 +135,23 @@ def get_uploaded_file(filename):
 @app.route("/answer", methods=["GET", "POST"])
 def answer():
     request_args: dict = request.args
+    severity = request_args.get("severity", "")
     filename = request_args.get("filename", "")
     string = request_args.get("string", "")
     file_content = ""
+
+    if severity == "":
+        return (
+            {"message": "Please provide a severity"},
+            400,
+            {"Content-Type": "application/json"},
+        )
+    if severity not in SEVERITIES:
+        return (
+            {"message": "Invalid severity"},
+            400,
+            {"Content-Type": "application/json"},
+        )
 
     if filename:
         # app.logger.info(f"Answering for file: {filename}")
@@ -159,7 +173,7 @@ def answer():
             {"Content-Type": "application/json"},
         )
     
-    return Response(generate(file_content), mimetype='text/plain')
+    return Response(generate(file_content, severity), mimetype='text/plain')
     
 @app.route("/")
 def home():

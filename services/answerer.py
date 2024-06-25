@@ -6,15 +6,15 @@ MODEL = "gpt-3.5-turbo"
 KB_PATH = "./services/prompts/combination-kb.md"
 QUERY_TEMPLATE_PATH = "./services/prompts/query.md"
 MIN_WORDS = 1000
-
+SEVERITIES = ['High', 'Medium', 'Low', 'Informational']
 
 def read_file(path):
     with open (path, "r", encoding="utf-8") as f:
         return f.read()
 
-def build_query(contract_code) -> str:
+def build_query(contract_code, severity) -> str:
     query_template = read_file(QUERY_TEMPLATE_PATH)
-    query = query_template.replace("{{source_code}}", contract_code).replace("{{min_words}}", str(MIN_WORDS))
+    query = query_template.replace("{{source_code}}", contract_code).replace("{{min_words}}", str(MIN_WORDS)).replace("{{severity_type}}", severity)
     print(query)
     return query
 
@@ -38,8 +38,8 @@ def build_thread(query):
 
     return (assistant, thread)
 
-def generate(contract_code):
-    query = build_query(contract_code)
+def generate(contract_code, severity):
+    query = build_query(contract_code, severity)
     assistant, thread = build_thread(query)
 
     with client.beta.threads.runs.stream(

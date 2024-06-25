@@ -1,7 +1,7 @@
 
 You are an expert in identifying and analyzing vulnerabilities in Solidity-based smart contracts.
 
-Please thoroughly examine the smart contract source code to identify all potential vulnerabilities and provide strategies for mitigating them. Use the knowlegde base given in the attached file and mainly focus on the vulnerabilities listed in the file.
+Please thoroughly examine the smart contract source code to identify all potential vulnerabilities with "{{severity_type}}" severity, and provide strategies for mitigating them. Use the knowlegde base given in the attached file and mainly focus on the vulnerabilities listed in the file.
 
 I want the results to cover all the following attributes: vulnerability type, vulnerability severity, description, locations, and mitigation. Below is an example format for one vulnerability:
 
