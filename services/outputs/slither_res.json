@@ -9,9 +9,9 @@
           "source_mapping": {
             "start": 406,
             "length": 75,
-            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
             "is_dependency": false,
             "lines": [
               18,
@@ -28,9 +28,9 @@
               "source_mapping": {
                 "start": 157,
                 "length": 326,
-                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -60,9 +60,9 @@
           "source_mapping": {
             "start": 441,
             "length": 33,
-            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
             "is_dependency": false,
             "lines": [
               19
@@ -77,9 +77,9 @@
               "source_mapping": {
                 "start": 406,
                 "length": 75,
-                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
                 "is_dependency": false,
                 "lines": [
                   18,
@@ -96,9 +96,9 @@
                   "source_mapping": {
                     "start": 157,
                     "length": 326,
-                    "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                    "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                    "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                    "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                    "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                    "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
                     "is_dependency": false,
                     "lines": [
                       9,
@@ -126,11 +126,11 @@
         }
       ],
       "metadata": {
-        "description": "HashForEther._sendWinnings() (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#18-20) sends eth to arbitrary user\n\tDangerous calls:\n\t- msg.sender.transfer(this.balance) (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#19)\n",
+        "description": "HashForEther._sendWinnings() (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#18-20) sends eth to arbitrary user\n\tDangerous calls:\n\t- msg.sender.transfer(this.balance) (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#19)\n",
         "id": "arbitrary-send-eth",
         "severity": "High",
-        "markdown": "[HashForEther._sendWinnings()](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20) sends eth to arbitrary user\n\tDangerous calls:\n\t- [msg.sender.transfer(this.balance)](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L19)\n",
-        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20",
+        "markdown": "[HashForEther._sendWinnings()](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20) sends eth to arbitrary user\n\tDangerous calls:\n\t- [msg.sender.transfer(this.balance)](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L19)\n",
+        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20",
         "confidence": "Medium",
         "duplicated": false
       }
@@ -155,9 +155,9 @@
           "source_mapping": {
             "start": 131,
             "length": 24,
-            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
             "is_dependency": false,
             "lines": [
               7
@@ -176,11 +176,11 @@
         }
       ],
       "metadata": {
-        "description": "Pragma version^0.4.24 (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#7) allows old versions\n",
+        "description": "Pragma version^0.4.24 (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#7) allows old versions\n",
         "id": "solc-version",
         "severity": "Informational",
-        "markdown": "Pragma version[^0.4.24](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L7) allows old versions\n",
-        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L7",
+        "markdown": "Pragma version[^0.4.24](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L7) allows old versions\n",
+        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L7",
         "confidence": "High",
         "duplicated": false
       }
@@ -193,9 +193,9 @@
           "source_mapping": {
             "start": 406,
             "length": 75,
-            "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-            "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
             "is_dependency": false,
             "lines": [
               18,
@@ -212,9 +212,9 @@
               "source_mapping": {
                 "start": 157,
                 "length": 326,
-                "filename_relative": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_absolute": "/home/jordan/KLTN/tool/services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
-                "filename_short": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol",
+                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
                 "is_dependency": false,
                 "lines": [
                   9,
@@ -244,16 +244,16 @@
         }
       ],
       "metadata": {
-        "description": "Function HashForEther._sendWinnings() (services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#18-20) is not in mixedCase\n",
+        "description": "Function HashForEther._sendWinnings() (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#18-20) is not in mixedCase\n",
         "id": "naming-convention",
         "severity": "Informational",
-        "markdown": "Function [HashForEther._sendWinnings()](services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20) is not in mixedCase\n",
-        "first_markdown_element": "services/uploads/f4b86135f9c54da9b4fe11bb3bed7e38.sol#L18-L20",
+        "markdown": "Function [HashForEther._sendWinnings()](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20) is not in mixedCase\n",
+        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20",
         "confidence": "High",
         "duplicated": false
       }
     }
   ],
-  "scan_time": 0.4875667095184326,
+  "scan_time": 0.8958446979522705,
   "success": true
 }

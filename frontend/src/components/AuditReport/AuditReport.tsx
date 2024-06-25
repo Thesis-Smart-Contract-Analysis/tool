@@ -4,6 +4,7 @@ import {
   Document,
   Image,
   PDFDownloadLink,
+  PDFViewer,
   Page,
   Text,
   View,
@@ -25,6 +26,8 @@ import {
   SEVERITY_DESCRIPTION,
   SEVERITY_SECTION,
   SUMMARY_SECTION,
+  VULN_TYPE,
+  VULN_TYPE_DESCRIPTION,
   VULN_TYPE_MAPPING,
 } from './constant';
 import { formatDate, formatSmartContractName } from './helper';
@@ -46,7 +49,7 @@ const SummaryVulnerabilityRow: React.FC<{
     <View style={summaryResultStyles.tableRow} break={index === VULN_PER_PAGE}>
       <View
         style={{
-          width: '25%',
+          width: '20%',
           ...summaryResultStyles.tableColumn,
         }}
       >
@@ -63,7 +66,7 @@ const SummaryVulnerabilityRow: React.FC<{
       </View>
       <View
         style={{
-          width: '40%',
+          width: '35%',
           ...summaryResultStyles.tableColumn,
         }}
       >
@@ -71,11 +74,19 @@ const SummaryVulnerabilityRow: React.FC<{
       </View>
       <View
         style={{
-          width: '20%',
+          width: '15%',
           ...summaryResultStyles.tableColumn,
         }}
       >
         <Text>{detectionTool}</Text>
+      </View>
+      <View
+        style={{
+          width: '15%',
+          ...summaryResultStyles.tableColumn,
+        }}
+      >
+        <Text>{instance}</Text>
       </View>
       <View
         style={{
@@ -124,6 +135,615 @@ const AuditReport: React.FC<{
 
   return (
     <Box className='download-audit-report'>
+      <PDFViewer style={{ width: '100%', height: '100vh' }}>
+        <Document pageMode='useOutlines' pdfVersion='1.7ext3'>
+          {/* Front Page */}
+          <Page style={frontPageStyles.root}>
+            <View style={frontPageStyles.container}>
+              <View style={frontPageStyles.header}>
+                <View style={frontPageStyles.header__logo}>
+                  <Image src={logo} style={frontPageStyles.logoImage} />
+                  <Text style={frontPageStyles.logoText}>
+                    {FRONT_PAGE.logoText}
+                  </Text>
+                </View>
+                <Text style={frontPageStyles.header__text}>
+                  {FRONT_PAGE.header}
+                </Text>
+              </View>
+              <View style={frontPageStyles.body}>
+                <Text style={frontPageStyles.body__title}>
+                  {FRONT_PAGE.body}
+                </Text>
+                <View style={frontPageStyles.body__description}>
+                  <Text style={frontPageStyles.contractName}>
+                    {formatSmartContractName(smartContractName)}
+                  </Text>
+                  <Text style={frontPageStyles.date}>
+                    {formatDate(new Date())}
+                  </Text>
+                </View>
+                <Text style={frontPageStyles.body__smallText}>
+                  {FRONT_PAGE.owner}
+                </Text>
+              </View>
+              <View style={frontPageStyles.footer}>
+                <Text style={frontPageStyles.footer__smallText}>
+                  {FRONT_PAGE.footer}
+                </Text>
+              </View>
+            </View>
+          </Page>
+
+          {/* Page layout */}
+          <Page style={styles.body} wrap>
+            {/* Header */}
+            <View style={styles.header} fixed>
+              <View style={styles.header__logo}>
+                <Image src={logo} style={styles.logoImage} />
+                <Text style={styles.logoText}>{FRONT_PAGE.logoText}</Text>
+              </View>
+              <Text style={styles.header__text}>{FRONT_PAGE.owner}</Text>
+            </View>
+
+            {/* Severity Section */}
+            <View style={severityStyles.container}>
+              <View style={severityStyles.section}>
+                <Text style={severityStyles.section__number}>1</Text>
+                <Text style={severityStyles.section__text}>
+                  {SEVERITY_SECTION.section}
+                </Text>
+              </View>
+              <View style={severityStyles.body}>
+                <Text style={severityStyles.description}>
+                  {SEVERITY_SECTION.description}
+                </Text>
+                <View style={severityStyles.severityList}>
+                  {SEVERITY_DESCRIPTION.map((severity) => (
+                    <View
+                      key={severity.type}
+                      style={severityStyles.severityItem}
+                    >
+                      <View style={severityStyles.severityType}>
+                        <Text
+                          style={{
+                            backgroundColor: severity.color,
+                            ...severityStyles.severityColor,
+                          }}
+                        ></Text>
+                        <Text style={severityStyles.type}>{severity.type}</Text>
+                      </View>
+                      <Text style={severityStyles.severityDescription}>
+                        {severity.description}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            </View>
+
+            <View style={severityStyles.container}>
+              <View style={severityStyles.section}>
+                <Text style={severityStyles.section__number}>2</Text>
+                <Text style={severityStyles.section__text}>
+                  {VULN_TYPE.section}
+                </Text>
+              </View>
+              <View style={severityStyles.body}>
+                <Text style={severityStyles.description}>
+                  {VULN_TYPE.description}
+                </Text>
+                <View style={severityStyles.severityList}>
+                  {VULN_TYPE_DESCRIPTION.map((vuln) => (
+                    <View key={vuln.type} style={severityStyles.severityItem}>
+                      <View style={severityStyles.severityType}>
+                        <Text style={severityStyles.type}>{vuln.type}</Text>
+                      </View>
+                      <Text style={severityStyles.severityDescription}>
+                        {vuln.description}
+                      </Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            </View>
+
+            {/* Summary Result */}
+            <View style={summaryResultStyles.container} break>
+              <View style={summaryResultStyles.section}>
+                <Text style={summaryResultStyles.section__number}>2</Text>
+                <Text style={summaryResultStyles.section__text}>
+                  {SUMMARY_SECTION.title}
+                </Text>
+              </View>
+              <View style={summaryResultStyles.body}>
+                <View style={{ fontWeight: 'normal', fontSize: 14, gap: 12 }}>
+                  {/* Smart contract name */}
+                  <FlexView>
+                    <FlexView>
+                      <Text>{`${SUMMARY_SECTION.fileName}`} </Text>
+                      <Text
+                        style={{
+                          fontWeight: 'medium',
+                        }}
+                      >
+                        {formatSmartContractName(smartContractName)}
+                      </Text>
+                    </FlexView>
+                  </FlexView>
+
+                  {/* Lines of code */}
+                  <FlexView>
+                    <Text>{`${SUMMARY_SECTION.linesOfCode}: `} </Text>
+                    <Text
+                      style={{
+                        fontWeight: 'medium',
+                      }}
+                    >
+                      {linesOfCode}
+                    </Text>
+                  </FlexView>
+
+                  {/* Total of vulns */}
+                  <FlexView>
+                    <Text>{`${SUMMARY_SECTION.totalOfVuln}: `} </Text>
+                    <Text
+                      style={{
+                        fontWeight: 'medium',
+                      }}
+                    >
+                      {summaryResult.length}
+                    </Text>
+                  </FlexView>
+
+                  {/* Scanning time */}
+                  <FlexView>
+                    <Text>{`${SUMMARY_SECTION.scanningTime}`} </Text>
+                    <Text
+                      style={{
+                        fontWeight: 'medium',
+                      }}
+                    >
+                      {`${scanningTime.toFixed(3)}s`}
+                    </Text>
+                  </FlexView>
+
+                  {/* Number of vuln */}
+                  <View
+                    style={{
+                      gap: 12,
+                    }}
+                  >
+                    <Text style={{ width: '100%' }}>
+                      {`${SUMMARY_SECTION.vulns_severity}`}
+                    </Text>
+                    <View>
+                      <View
+                        style={{
+                          margin: 'auto',
+                          width: '60%',
+                          fontSize: 12,
+                        }}
+                      >
+                        <View
+                          style={{
+                            ...summaryResultStyles.tableHeader,
+                          }}
+                        >
+                          <View
+                            style={{
+                              width: '50%',
+                              ...summaryResultStyles.tableColumn,
+                            }}
+                          >
+                            <View style={{ margin: 'auto' }}>
+                              <Text>{SUMMARY_SECTION.severity}</Text>
+                            </View>
+                          </View>
+                          <View
+                            style={{
+                              width: '50%',
+                              ...summaryResultStyles.tableColumn,
+                            }}
+                          >
+                            <View style={{ margin: 'auto' }}>
+                              <Text>{SUMMARY_SECTION.numberOfVulns}</Text>
+                            </View>
+                          </View>
+                        </View>
+                        <View style={summaryResultStyles.tableRows}>
+                          {Object.keys(SEVERITY_COLOR_MAPPING).map(
+                            (severity) => {
+                              return (
+                                <View
+                                  key={severity}
+                                  style={{
+                                    flexDirection: 'row',
+                                  }}
+                                >
+                                  <View
+                                    style={{
+                                      width: '50%',
+                                      ...summaryResultStyles.tableColumn,
+                                    }}
+                                  >
+                                    <Text
+                                      style={{
+                                        backgroundColor:
+                                          SEVERITY_COLOR_MAPPING[
+                                            severity as keyof typeof SEVERITY_COLOR_MAPPING
+                                          ],
+                                        ...severityStyles.severityColor,
+                                      }}
+                                    ></Text>
+                                    <Text>{severity}</Text>
+                                  </View>
+                                  <View
+                                    style={{
+                                      width: '50%',
+                                      ...summaryResultStyles.tableColumn,
+                                    }}
+                                  >
+                                    <Text>
+                                      {
+                                        summaryResult.filter(
+                                          (res) => res.severity === severity,
+                                        ).length
+                                      }
+                                    </Text>
+                                  </View>
+                                </View>
+                              );
+                            },
+                          )}
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+
+                  {/* Number of vuln by scanning tool */}
+                  <View
+                    style={{
+                      gap: 12,
+                    }}
+                  >
+                    <Text style={{ width: '100%' }}>
+                      {`${SUMMARY_SECTION.vulns_tool}`}
+                    </Text>
+                    <View>
+                      <View
+                        style={{
+                          margin: 'auto',
+                          width: '50%',
+                          fontSize: 12,
+                        }}
+                      >
+                        <View
+                          style={{
+                            ...summaryResultStyles.tableHeader,
+                          }}
+                        >
+                          <View
+                            style={{
+                              width: '50%',
+                              ...summaryResultStyles.tableColumn,
+                            }}
+                          >
+                            <View style={{ margin: 'auto' }}>
+                              <Text>{SUMMARY_SECTION.scanningTool}</Text>
+                            </View>
+                          </View>
+                          <View
+                            style={{
+                              width: '50%',
+                              ...summaryResultStyles.tableColumn,
+                            }}
+                          >
+                            <View style={{ margin: 'auto' }}>
+                              <Text>{SUMMARY_SECTION.numberOfVulns}</Text>
+                            </View>
+                          </View>
+                        </View>
+                        <View style={summaryResultStyles.tableRows}>
+                          {Object.keys(SCANNING_TOOL_COLOR_MAPPING).map(
+                            (tool) => {
+                              return (
+                                <View
+                                  key={tool}
+                                  style={{
+                                    flexDirection: 'row',
+                                  }}
+                                >
+                                  <View
+                                    style={{
+                                      width: '50%',
+                                      fontWeight: 'medium',
+                                      color: `${SCANNING_TOOL_COLOR_MAPPING[tool as keyof typeof SCANNING_TOOL_COLOR_MAPPING]}`,
+                                      ...summaryResultStyles.tableColumn,
+                                    }}
+                                  >
+                                    <Text>{tool}</Text>
+                                  </View>
+                                  <View
+                                    style={{
+                                      width: '50%',
+                                      ...summaryResultStyles.tableColumn,
+                                    }}
+                                  >
+                                    <Text>
+                                      {
+                                        summaryResult.filter(
+                                          (res) => res.scanningTool === tool,
+                                        ).length
+                                      }
+                                    </Text>
+                                  </View>
+                                </View>
+                              );
+                            },
+                          )}
+                        </View>
+                      </View>
+                    </View>
+                  </View>
+
+                  {/* Summary table of vuln */}
+                  <View
+                    style={{
+                      gap: 12,
+                    }}
+                    break
+                  >
+                    <Text style={{ width: '100%' }}>
+                      {SUMMARY_SECTION.table}
+                    </Text>
+
+                    <View style={summaryResultStyles.table}>
+                      <View style={summaryResultStyles.tableHeader}>
+                        <View
+                          style={{
+                            width: '20%',
+                            ...summaryResultStyles.tableColumn,
+                          }}
+                        >
+                          <View style={{ margin: 'auto' }}>
+                            <Text>{SUMMARY_SECTION.severity}</Text>
+                          </View>
+                        </View>
+                        <View
+                          style={{
+                            width: '35%',
+                            ...summaryResultStyles.tableColumn,
+                          }}
+                        >
+                          <View style={{ margin: 'auto' }}>
+                            <Text>{SUMMARY_SECTION.vulnType}</Text>
+                          </View>
+                        </View>
+                        <View
+                          style={{
+                            width: '15%',
+                            ...summaryResultStyles.tableColumn,
+                          }}
+                        >
+                          <View style={{ margin: 'auto' }}>
+                            <Text>{SUMMARY_SECTION.scanningTool}</Text>
+                          </View>
+                        </View>
+                        <View
+                          style={{
+                            width: '15%',
+                            ...summaryResultStyles.tableColumn,
+                          }}
+                        >
+                          <View style={{ margin: 'auto' }}>
+                            <Text>{'Phan loai'}</Text>
+                          </View>
+                        </View>
+                        <View
+                          style={{
+                            width: '15%',
+                            ...summaryResultStyles.tableColumn,
+                          }}
+                        >
+                          <View style={{ margin: 'auto' }}>
+                            <Text>{SUMMARY_SECTION.instance}</Text>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={summaryResultStyles.tableRows}>
+                        {summaryResult?.map((vuln, index) => {
+                          return (
+                            <SummaryVulnerabilityRow
+                              key={index}
+                              severity={vuln.severity}
+                              vulnType={vuln.vulnId}
+                              detectionTool={vuln.scanningTool}
+                              instance={vuln.instance}
+                              index={index % (VULN_PER_PAGE + 1)}
+                            />
+                          );
+                        })}
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </View>
+
+            {/* Detail Result */}
+            <View style={detailResultStyles.container} break>
+              <View style={detailResultStyles.section}>
+                <Text style={detailResultStyles.section__number}>3</Text>
+                <Text style={detailResultStyles.section__text}>
+                  {DETAIL_SECTION.title}
+                </Text>
+              </View>
+
+              <View style={detailResultStyles.body}>
+                {detailResult.map((vuln, index) => {
+                  return (
+                    <View style={{ gap: 8 }} key={index}>
+                      <FlexView
+                        style={{
+                          gap: 12,
+                          fontSize: 14,
+                        }}
+                      >
+                        <Text
+                          style={{ fontWeight: 'medium' }}
+                        >{`3.${index + 1}`}</Text>
+                        <Text
+                          style={{
+                            textTransform: 'uppercase',
+                            fontWeight: 'medium',
+                          }}
+                        >
+                          {vuln.vulnId}
+                        </Text>
+                      </FlexView>
+                      <View
+                        style={{ fontWeight: 'normal', fontSize: 14, gap: 8 }}
+                      >
+                        {/* Severity */}
+                        <FlexView>
+                          <FlexView>
+                            <Text>{`${DETAIL_SECTION.severity}: `} </Text>
+                            <Text
+                              style={{
+                                fontWeight: 'medium',
+                                color:
+                                  SEVERITY_COLOR_MAPPING[
+                                    vuln.severity as keyof typeof SEVERITY_COLOR_MAPPING
+                                  ],
+                              }}
+                            >
+                              {vuln.severity}
+                            </Text>
+                          </FlexView>
+                        </FlexView>
+
+                        {/* Vuln type  */}
+                        <FlexView>
+                          <Text>{`${DETAIL_SECTION.vulnType}: `} </Text>
+                          <Text
+                            style={{
+                              fontWeight: 'medium',
+                            }}
+                          >
+                            {
+                              VULN_TYPE_MAPPING[
+                                vuln.severity as keyof typeof VULN_TYPE_MAPPING
+                              ]
+                            }
+                          </Text>
+                        </FlexView>
+
+                        {/* Scanning tool */}
+                        <FlexView>
+                          <Text>{`${DETAIL_SECTION.scanningTool}: `} </Text>
+                          <Text
+                            style={{
+                              fontWeight: 'medium',
+                              color:
+                                SCANNING_TOOL_COLOR_MAPPING[
+                                  vuln.scanningTool as keyof typeof SCANNING_TOOL_COLOR_MAPPING
+                                ],
+                            }}
+                          >
+                            {vuln.scanningTool}
+                          </Text>
+                        </FlexView>
+
+                        {/* Description */}
+                        <View
+                          style={{
+                            gap: 8,
+                          }}
+                        >
+                          <Text style={{ width: '100%' }}>
+                            {`${DETAIL_SECTION.description}: `}
+                          </Text>
+
+                          <Text style={detailResultStyles.description}>
+                            {vuln.description}
+                          </Text>
+                        </View>
+
+                        {/* Matched */}
+                        <View
+                          style={{
+                            gap: 12,
+                          }}
+                        >
+                          <Text style={{ width: '100%' }}>
+                            {`${DETAIL_SECTION.location}:`}
+                          </Text>
+                          <View style={{ gap: 8 }}>
+                            {vuln.matches.map((match, index) => {
+                              return (
+                                <View
+                                  style={{ fontSize: 14, gap: 4 }}
+                                  key={index}
+                                >
+                                  <FlexView
+                                    style={{
+                                      alignItems: 'center',
+                                      gap: 4,
+                                    }}
+                                  >
+                                    <Text>&bull;</Text>
+                                    <Text>
+                                      {`Lỗi được tìm thấy ${match.line ? `ở dòng ${match.line}` : `từ dòng ${match.from} đến dòng ${match.to}`}`}
+                                    </Text>
+                                  </FlexView>
+                                  <View
+                                    style={{
+                                      marginLeft: 24,
+                                      gap: 4,
+                                    }}
+                                  >
+                                    {match.type ? (
+                                      <Text
+                                        style={{
+                                          fontSize: 14,
+                                        }}
+                                      >
+                                        {`Trong ${match.type}`}
+                                      </Text>
+                                    ) : null}
+                                    <Text
+                                      style={detailResultStyles.vulnMatched}
+                                    >
+                                      {match.matched.trim()}
+                                    </Text>
+                                  </View>
+                                </View>
+                              );
+                            })}
+                          </View>
+                        </View>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+            </View>
+
+            {/* Footer */}
+            <View style={styles.footer} fixed>
+              <Text
+                style={styles.pageNumber}
+                render={({ pageNumber }) =>
+                  `Trang ${pageNumber.toString().padStart(2, '0')}`
+                }
+                fixed
+              />
+              <Text style={styles.footerText}>{FRONT_PAGE.footer}</Text>
+            </View>
+          </Page>
+        </Document>
+      </PDFViewer>
       <PDFDownloadLink
         className='download-audit-report__btn'
         fileName={formatSmartContractName(smartContractName)}
@@ -271,7 +891,7 @@ const AuditReport: React.FC<{
                       }}
                     >
                       <Text style={{ width: '100%' }}>
-                        {`${SUMMARY_SECTION.vulns}`}
+                        {`${SUMMARY_SECTION.vulns_severity}`}
                       </Text>
                       <View>
                         <View
