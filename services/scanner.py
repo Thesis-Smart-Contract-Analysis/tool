@@ -155,9 +155,9 @@ def scan(tool: str, target: str, rules=SEMGREP_RULES, version=DEFAULT_VERSION) -
     if tool == SLITHER or tool == MYTHRIL:
         mark_duplicated(res, tool)
 
-    # Write to file
-    with open(f"./services/outputs/{tool}_res.json", "w", encoding="utf-8") as f:
-        json.dump(res, f, indent=2)
+    # # Write to file
+    # with open(f"./services/outputs/{tool}_res.json", "w", encoding="utf-8") as f:
+    #     json.dump(res, f, indent=2)
 
     return res
 

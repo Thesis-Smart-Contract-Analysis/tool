@@ -5,6 +5,7 @@ WORKDIR /opt/backend
 
 COPY core .
 COPY services .
+RUN mkdir -p /opt/backend/services/uploads
 
 RUN chmod -R 555 /opt/backend
 
