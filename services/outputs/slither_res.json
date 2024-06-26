@@ -4,163 +4,17 @@
     {
       "matches": [
         {
-          "type": "function",
-          "name": "_sendWinnings",
-          "source_mapping": {
-            "start": 406,
-            "length": 75,
-            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "is_dependency": false,
-            "lines": [
-              18,
-              19,
-              20
-            ],
-            "starting_column": 5,
-            "ending_column": 6
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "contract",
-              "name": "HashForEther",
-              "source_mapping": {
-                "start": 157,
-                "length": 326,
-                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "is_dependency": false,
-                "lines": [
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19,
-                  20,
-                  21
-                ],
-                "starting_column": 1,
-                "ending_column": 2
-              }
-            },
-            "signature": "_sendWinnings()"
-          }
-        },
-        {
-          "type": "node",
-          "name": "msg.sender.transfer(this.balance)",
-          "source_mapping": {
-            "start": 441,
-            "length": 33,
-            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "is_dependency": false,
-            "lines": [
-              19
-            ],
-            "starting_column": 9,
-            "ending_column": 42
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "function",
-              "name": "_sendWinnings",
-              "source_mapping": {
-                "start": 406,
-                "length": 75,
-                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "is_dependency": false,
-                "lines": [
-                  18,
-                  19,
-                  20
-                ],
-                "starting_column": 5,
-                "ending_column": 6
-              },
-              "type_specific_fields": {
-                "parent": {
-                  "type": "contract",
-                  "name": "HashForEther",
-                  "source_mapping": {
-                    "start": 157,
-                    "length": 326,
-                    "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                    "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                    "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                    "is_dependency": false,
-                    "lines": [
-                      9,
-                      10,
-                      11,
-                      12,
-                      13,
-                      14,
-                      15,
-                      16,
-                      17,
-                      18,
-                      19,
-                      20,
-                      21
-                    ],
-                    "starting_column": 1,
-                    "ending_column": 2
-                  }
-                },
-                "signature": "_sendWinnings()"
-              }
-            }
-          }
-        }
-      ],
-      "metadata": {
-        "description": "HashForEther._sendWinnings() (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#18-20) sends eth to arbitrary user\n\tDangerous calls:\n\t- msg.sender.transfer(this.balance) (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#19)\n",
-        "id": "arbitrary-send-eth",
-        "severity": "High",
-        "markdown": "[HashForEther._sendWinnings()](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20) sends eth to arbitrary user\n\tDangerous calls:\n\t- [msg.sender.transfer(this.balance)](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L19)\n",
-        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20",
-        "confidence": "Medium",
-        "duplicated": false
-      }
-    },
-    {
-      "matches": [],
-      "metadata": {
-        "description": "solc-0.4.24 is not recommended for deployment\n",
-        "id": "solc-version",
-        "severity": "Informational",
-        "markdown": "solc-0.4.24 is not recommended for deployment\n",
-        "first_markdown_element": "",
-        "confidence": "High",
-        "duplicated": false
-      }
-    },
-    {
-      "matches": [
-        {
           "type": "pragma",
-          "name": "^0.4.24",
+          "name": "^0.4.11",
           "source_mapping": {
-            "start": 131,
+            "start": 31,
             "length": 24,
-            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
+            "filename_relative": "services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol",
+            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol",
+            "filename_short": "services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol",
             "is_dependency": false,
             "lines": [
-              7
+              3
             ],
             "starting_column": 1,
             "ending_column": 25
@@ -170,90 +24,34 @@
               "solidity",
               "^",
               "0.4",
-              ".24"
+              ".11"
             ]
           }
         }
       ],
       "metadata": {
-        "description": "Pragma version^0.4.24 (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#7) allows old versions\n",
+        "description": "Pragma version^0.4.11 (services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol#3) allows old versions\n",
         "id": "solc-version",
         "severity": "Informational",
-        "markdown": "Pragma version[^0.4.24](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L7) allows old versions\n",
-        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L7",
+        "markdown": "Pragma version[^0.4.11](services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol#L3) allows old versions\n",
+        "first_markdown_element": "services/uploads/7773d149352a44f288dc34b5d0abdaa4.sol#L3",
         "confidence": "High",
         "duplicated": false
       }
     },
     {
-      "matches": [
-        {
-          "type": "function",
-          "name": "_sendWinnings",
-          "source_mapping": {
-            "start": 406,
-            "length": 75,
-            "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-            "is_dependency": false,
-            "lines": [
-              18,
-              19,
-              20
-            ],
-            "starting_column": 5,
-            "ending_column": 6
-          },
-          "type_specific_fields": {
-            "parent": {
-              "type": "contract",
-              "name": "HashForEther",
-              "source_mapping": {
-                "start": 157,
-                "length": 326,
-                "filename_relative": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_absolute": "/home/lptoan/KLTN/tool/services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "filename_short": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol",
-                "is_dependency": false,
-                "lines": [
-                  9,
-                  10,
-                  11,
-                  12,
-                  13,
-                  14,
-                  15,
-                  16,
-                  17,
-                  18,
-                  19,
-                  20,
-                  21
-                ],
-                "starting_column": 1,
-                "ending_column": 2
-              }
-            },
-            "signature": "_sendWinnings()"
-          },
-          "additional_fields": {
-            "target": "function",
-            "convention": "mixedCase"
-          }
-        }
-      ],
+      "matches": [],
       "metadata": {
-        "description": "Function HashForEther._sendWinnings() (services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#18-20) is not in mixedCase\n",
-        "id": "naming-convention",
+        "description": "solc-0.4.11 is not recommended for deployment\n",
+        "id": "solc-version",
         "severity": "Informational",
-        "markdown": "Function [HashForEther._sendWinnings()](services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20) is not in mixedCase\n",
-        "first_markdown_element": "services/uploads/d8a0dcff06f64ebea8aebbaafe5a08e1.sol#L18-L20",
+        "markdown": "solc-0.4.11 is not recommended for deployment\n",
+        "first_markdown_element": "",
         "confidence": "High",
         "duplicated": false
       }
     }
   ],
-  "scan_time": 0.8958446979522705,
+  "scan_time": 0.7475965023040771,
   "success": true
 }

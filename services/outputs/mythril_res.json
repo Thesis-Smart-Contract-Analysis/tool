@@ -1,6 +1,76 @@
 {
   "errors": [],
-  "findings": [],
-  "scan_time": 5.226506233215332,
+  "findings": [
+    {
+      "matches": [
+        {
+          "address": 11,
+          "code": "contract IntegerOverflowMappingSym1 {\n    mapping(uint256 => uint256) map;\n\n    function init(uint256 k, uint256 v) public {\n        //ruleid: swe-101\n        map[k] -= v;\n    }\n}",
+          "contract": "IntegerOverflowMappingSym1",
+          "filename": "/home/lptoan/KLTN/tool/services/uploads/c8d3c6b84dac495db563c487cea25029.sol",
+          "function": "constructor",
+          "lineno": 5,
+          "max_gas_used": 131,
+          "min_gas_used": 36,
+          "sourceMap": "57:179:0:-"
+        }
+      ],
+      "metadata": {
+        "description": "An assertion violation was triggered.\nIt is possible to trigger an assertion violation. Note that Solidity assert() statements should only be used to check invariants. Review the transaction trace generated for this issue and either make sure your program logic is correct, or use require() instead of assert() if your goal is to constrain user inputs or enforce preconditions. Remember to validate inputs from both callers (for instance, via passed arguments) and callees (for instance, via return values).",
+        "severity": "Medium",
+        "id": "swc-110",
+        "title": "Exception State",
+        "semgrep-id": "swe-110",
+        "duplicated": false
+      }
+    },
+    {
+      "matches": [
+        {
+          "address": 57,
+          "code": "contract IntegerOverflowMappingSym1 {\n    mapping(uint256 => uint256) map;\n\n    function init(uint256 k, uint256 v) public {\n        //ruleid: swe-101\n        map[k] -= v;\n    }\n}",
+          "contract": "IntegerOverflowMappingSym1",
+          "filename": "/home/lptoan/KLTN/tool/services/uploads/c8d3c6b84dac495db563c487cea25029.sol",
+          "function": "fallback",
+          "lineno": 5,
+          "max_gas_used": 159,
+          "min_gas_used": 64,
+          "sourceMap": "57:179:0:-"
+        }
+      ],
+      "metadata": {
+        "description": "An assertion violation was triggered.\nIt is possible to trigger an assertion violation. Note that Solidity assert() statements should only be used to check invariants. Review the transaction trace generated for this issue and either make sure your program logic is correct, or use require() instead of assert() if your goal is to constrain user inputs or enforce preconditions. Remember to validate inputs from both callers (for instance, via passed arguments) and callees (for instance, via return values).",
+        "severity": "Medium",
+        "id": "swc-110",
+        "title": "Exception State",
+        "semgrep-id": "swe-110",
+        "duplicated": false
+      }
+    },
+    {
+      "matches": [
+        {
+          "address": 122,
+          "code": "map[k] -= v",
+          "contract": "IntegerOverflowMappingSym1",
+          "filename": "/home/lptoan/KLTN/tool/services/uploads/c8d3c6b84dac495db563c487cea25029.sol",
+          "function": "init(uint256,uint256)",
+          "lineno": 10,
+          "max_gas_used": 26366,
+          "min_gas_used": 6081,
+          "sourceMap": ":11"
+        }
+      ],
+      "metadata": {
+        "description": "The arithmetic operator can underflow.\nIt is possible to cause an integer overflow or underflow in the arithmetic operation. ",
+        "severity": "High",
+        "id": "swc-101",
+        "title": "Integer Arithmetic Bugs",
+        "semgrep-id": "swe-101",
+        "duplicated": true
+      }
+    }
+  ],
+  "scan_time": 6.2153894901275635,
   "success": true
 }

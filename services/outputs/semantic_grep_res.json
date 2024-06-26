@@ -4,18 +4,18 @@
     {
       "matches": [
         {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/02dc8f10f1524baf81bba3f56840d414.sol",
           "start": {
             "col": 1,
-            "line": 7,
-            "offset": 131
+            "line": 3,
+            "offset": 31
           },
           "end": {
             "col": 24,
-            "line": 7,
-            "offset": 154
+            "line": 3,
+            "offset": 54
           },
-          "lines": "pragma solidity ^0.4.24;"
+          "lines": "pragma solidity ^0.4.11;"
         }
       ],
       "metadata": {
@@ -35,18 +35,18 @@
     {
       "matches": [
         {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/02dc8f10f1524baf81bba3f56840d414.sol",
           "start": {
             "col": 10,
-            "line": 9,
-            "offset": 166
+            "line": 5,
+            "offset": 66
           },
           "end": {
-            "col": 22,
-            "line": 9,
-            "offset": 178
+            "col": 36,
+            "line": 5,
+            "offset": 92
           },
-          "lines": "contract HashForEther {"
+          "lines": "contract IntegerOverflowMappingSym1 {"
         }
       ],
       "metadata": {
@@ -57,7 +57,7 @@
           "https://swcregistry.io/docs/SWC-118/#incorrect_constructor_name1sol",
           "https://cwe.mitre.org/data/definitions/665.html"
         ],
-        "message": "The absence of an explicitly defined constructor in smart contract `HashForEther` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `HashForEther` or an incorrectly formatted constructor declaration.",
+        "message": "The absence of an explicitly defined constructor in smart contract `IntegerOverflowMappingSym1` will result in the automatic generation of a default constructor with the code `constructor() {}`. This can occur due to either a constructor name that doesn't match the contract name `IntegerOverflowMappingSym1` or an incorrectly formatted constructor declaration.",
         "severity": "High",
         "id": "swe-118"
       }
@@ -65,116 +65,63 @@
     {
       "matches": [
         {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
+          "path": "/home/lptoan/KLTN/tool/services/uploads/02dc8f10f1524baf81bba3f56840d414.sol",
           "start": {
-            "col": 14,
-            "line": 11,
+            "col": 5,
+            "line": 6,
+            "offset": 99
+          },
+          "end": {
+            "col": 37,
+            "line": 6,
+            "offset": 131
+          },
+          "lines": "    mapping(uint256 => uint256) map;"
+        }
+      ],
+      "metadata": {
+        "cwe": "CWE-710: Improper Adherence to Coding Standards",
+        "name": "state-variable-default-visibility",
+        "references": [
+          "https://swcregistry.io/docs/SWC-108/",
+          "https://docs.soliditylang.org/en/latest/types.html"
+        ],
+        "message": "Labeling the visibility for `map` makes it easier to catch incorrect assumptions about who can access the variable.",
+        "severity": "Low",
+        "id": "swe-108"
+      }
+    },
+    {
+      "matches": [
+        {
+          "path": "/home/lptoan/KLTN/tool/services/uploads/02dc8f10f1524baf81bba3f56840d414.sol",
+          "start": {
+            "col": 9,
+            "line": 10,
             "offset": 216
           },
           "end": {
-            "col": 30,
-            "line": 11,
-            "offset": 232
+            "col": 20,
+            "line": 10,
+            "offset": 227
           },
-          "lines": "    function withdrawWinnings() {"
+          "lines": "        map[k] -= v;"
         }
       ],
       "metadata": {
-        "cwe": "CWE-710: Improper Adherence to Coding Standards",
-        "name": "function-default-visibility",
-        "references": "https://swcregistry.io/docs/SWC-100/",
-        "message": "Function `withdrawWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
-        "severity": "High",
-        "id": "swe-100"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
-          "start": {
-            "col": 14,
-            "line": 18,
-            "offset": 415
-          },
-          "end": {
-            "col": 27,
-            "line": 18,
-            "offset": 428
-          },
-          "lines": "    function _sendWinnings() {"
-        }
-      ],
-      "metadata": {
-        "cwe": "CWE-710: Improper Adherence to Coding Standards",
-        "name": "function-default-visibility",
-        "references": "https://swcregistry.io/docs/SWC-100/",
-        "message": "Function `_sendWinnings` does not explicitly declare visibility, so it will have a default visibility of `public` and can be called by anyone.",
-        "severity": "High",
-        "id": "swe-100"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
-          "start": {
-            "col": 9,
-            "line": 19,
-            "offset": 441
-          },
-          "end": {
-            "col": 42,
-            "line": 19,
-            "offset": 474
-          },
-          "lines": "        msg.sender.transfer(this.balance);"
-        }
-      ],
-      "metadata": {
-        "category": "security",
-        "cwe": "CWE-284: Improper Access Control",
-        "name": "unprotected-ether-withdrawal",
+        "cwe": "CWE-682: Incorrect Calculation",
+        "name": "integer-overflow-underflow",
         "references": [
-          "https://swcregistry.io/docs/SWC-105/",
-          "https://cwe.mitre.org/data/definitions/284.html"
+          "https://swcregistry.io/docs/SWC-101/",
+          "https://docs.soliditylang.org/en/latest/types.html",
+          "https://ethereum.stackexchange.com/questions/96482/can-division-underflow-or-overflow-in-solidity"
         ],
-        "message": "Function `_sendWinnings` lacks access control, making it accessible to anyone.",
+        "message": "The operation on variable `map[k]` could lead to overflow/underflow.",
         "severity": "High",
-        "id": "swe-105"
-      }
-    },
-    {
-      "matches": [
-        {
-          "path": "/home/lptoan/KLTN/tool/services/uploads/f6c8a320d77946d0948faeda0f538ac4.sol",
-          "start": {
-            "col": 9,
-            "line": 19,
-            "offset": 441
-          },
-          "end": {
-            "col": 43,
-            "line": 19,
-            "offset": 475
-          },
-          "lines": "        msg.sender.transfer(this.balance);"
-        }
-      ],
-      "metadata": {
-        "category": "security",
-        "cwe": "CWE-665: Improper Initialization",
-        "name": "message-call-with-hardcoded-gas-amount",
-        "references": [
-          "https://swcregistry.io/docs/SWC-134/",
-          "https://cwe.mitre.org/data/definitions/655.html"
-        ],
-        "message": "Be careful when using `send()`/`transfer()` or `call()`/`delegatecall()`/`staticcall()` with hardcoded gas amount.",
-        "severity": "Medium",
-        "id": "swe-134"
+        "id": "swe-101"
       }
     }
   ],
-  "scan_time": 2.6339845657348633,
+  "scan_time": 1.6952109336853027,
   "success": true
 }
