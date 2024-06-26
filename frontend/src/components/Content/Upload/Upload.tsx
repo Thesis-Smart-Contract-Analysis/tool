@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
-import { scanWithGPT } from '@/apis/services/scan';
+import { ResultContext } from '@/context/ResultContext';
 import ScanSourceCode from './ScanSourceCode';
 import ScanUploadFile from './ScanUploadFile';
 import './Upload.scss';
@@ -33,7 +33,7 @@ const Upload: React.FC = () => {
     scanMode,
   } = usePrepare();
 
-  const [testData, setTestData] = useState('');
+  const { setIsScanWithChatGPT } = useContext(ResultContext);
 
   return (
     <Box className='upload'>
@@ -70,37 +70,26 @@ const Upload: React.FC = () => {
         )}
       </Box>
 
-      {scanMode === SCAN_MODE.CHOOSE_FILE ? (
-        <Box
-          className={`upload__control ${
-            currentFileName ? '' : 'upload__control--disable'
-          }`}
+      <Box className={`upload__control`}>
+        <ButtonBase
+          className='upload__control--chatgpt'
+          onClick={() => {
+            setIsScanWithChatGPT((prev) => !prev);
+          }}
         >
-          <ButtonBase onClick={handleScanFile}>
+          {t('content.chatgpt.scan')}
+        </ButtonBase>
+
+        {scanMode === SCAN_MODE.CHOOSE_FILE ? (
+          <ButtonBase disabled={previewCode === ''} onClick={handleScanFile}>
             {t('content.upload.scan')}
           </ButtonBase>
-        </Box>
-      ) : (
-        <Box
-          className={`upload__control ${
-            code ? '' : 'upload__control--disable'
-          }`}
-        >
-          <ButtonBase onClick={handleScanFile}>
+        ) : (
+          <ButtonBase disabled={code === ''} onClick={handleScanFile}>
             {t('content.upload.scan')}
           </ButtonBase>
-          <ButtonBase
-            onClick={async () => {
-              const response = await scanWithGPT(code);
-              setTestData(response.data);
-              console.log(response);
-            }}
-          >
-            {t('content.upload.scan')}
-          </ButtonBase>
-        </Box>
-      )}
-      {testData}
+        )}
+      </Box>
     </Box>
   );
 };

@@ -2,20 +2,21 @@ import React, { useContext } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 import { ResultContext } from '@/context/ResultContext';
 
+import AuditReport from '../AuditReport/AuditReport';
 import './Content.scss';
 import Result from './Result/Result';
+import ScanWithChatGPT from './ScanWithChatGPT/ScanWithChatGPT';
 import Upload from './Upload/Upload';
-import AuditReport from '../AuditReport/AuditReport';
 
 const Content: React.FC = () => {
   const { t } = useTranslation();
-  const { result, currentFileName, currentSourceCode } =
+  const { result, currentFileName, currentSourceCode, isScanWithChatGPT } =
     useContext(ResultContext);
 
   return (
@@ -23,6 +24,7 @@ const Content: React.FC = () => {
       <Box className='content' id='scan-now'>
         <Typography className='content__title'>{t('content.title')}</Typography>
         <Upload />
+        {isScanWithChatGPT ? <ScanWithChatGPT /> : null}
         {result ? <Result /> : null}
         {result?.success ? (
           <AuditReport

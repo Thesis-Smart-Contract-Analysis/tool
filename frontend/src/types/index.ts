@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  MythrilFinding,
-  SemanticGrepFinding,
-  SlitherFinding,
   IResult,
-  SemanticGrep,
   Mythril,
+  MythrilFinding,
+  SemanticGrep,
+  SemanticGrepFinding,
   Slither,
+  SlitherFinding,
 } from '@/interfaces';
 
 export type TCheckList = {
@@ -38,4 +38,6 @@ export type TResultContext = {
   setCurrentSourceCode: React.Dispatch<React.SetStateAction<string>>;
   currentFileName: string;
   setCurrentFileName: React.Dispatch<React.SetStateAction<string>>;
+  setIsScanWithChatGPT: React.Dispatch<React.SetStateAction<boolean>>;
+  isScanWithChatGPT: boolean;
 };

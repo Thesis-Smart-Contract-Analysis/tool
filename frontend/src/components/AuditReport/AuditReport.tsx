@@ -6,7 +6,7 @@ import {
   PDFDownloadLink,
   Page,
   Text,
-  View
+  View,
 } from '@react-pdf/renderer';
 import { Style } from '@react-pdf/types';
 
@@ -25,8 +25,6 @@ import {
   SEVERITY_DESCRIPTION,
   SEVERITY_SECTION,
   SUMMARY_SECTION,
-  VULN_TYPE,
-  VULN_TYPE_DESCRIPTION,
   VULN_TYPE_MAPPING,
 } from './constant';
 import { formatDate, formatSmartContractName } from './helper';
@@ -226,7 +224,7 @@ const AuditReport: React.FC<{
                 </View>
               </View>
 
-              <View style={severityStyles.container}>
+              {/* <View style={severityStyles.container}>
                 <View style={severityStyles.section}>
                   <Text style={severityStyles.section__number}>2</Text>
                   <Text style={severityStyles.section__text}>
@@ -250,7 +248,7 @@ const AuditReport: React.FC<{
                     ))}
                   </View>
                 </View>
-              </View>
+              </View> */}
 
               {/* Summary Result */}
               <View style={summaryResultStyles.container} break>

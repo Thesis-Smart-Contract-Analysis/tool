@@ -27,6 +27,10 @@
       "source-code": "Quét bằng mã nguồn",
       "file-list": "Danh sách tập tin"
     },
+    "chatgpt": {
+      "scan": "Quét với ChatGPT",
+      "select-severity": "Chọn mức độ nghiêm trọng cho lỗ hổng"
+    },
     "result": {
       "title": "Kết quả",
       "scan-file": "Quét tập tin",

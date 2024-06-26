@@ -8,6 +8,9 @@ const theme = extendTheme({
         primary: {
           main: '#00a4f4',
         },
+        success: {
+          main: '#74aa9c',
+        },
       },
     },
   },

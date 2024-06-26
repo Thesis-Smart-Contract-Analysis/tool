@@ -24,6 +24,7 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isSlitherResultLoading, setIsSlitherResultLoading] = useState(false);
   const [isMythrilResultLoading, setIsMythrilResultLoading] = useState(false);
   const [result, setResult] = useState<IResult | null>(null);
+  const [isScanWithChatGPT, setIsScanWithChatGPT] = useState(false);
   const [semgrepResult, setSemgrepResult] = useState<SemanticGrep | null>(
     SAMPLE_SEMGREP_RESULT,
   );
@@ -49,6 +50,8 @@ const ResultProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         setSemgrepResult,
         setSlitherResult,
         setMythrilResult,
+        setIsScanWithChatGPT,
+        isScanWithChatGPT,
         isSemgrepResultLoading,
         isSlitherResultLoading,
         isMythrilResultLoading,
