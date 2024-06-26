@@ -13,3 +13,9 @@ export const scanSourceCode = async (
     `/scan?tool=${tool}&string=${encodeURIComponent(sourceCode)}`,
   );
 };
+
+export const scanWithGPT = async (sourceCode: string) => {
+  return await axiosApiInstance.get(
+    `/answer?string=${encodeURIComponent(sourceCode)}`,
+  );
+};

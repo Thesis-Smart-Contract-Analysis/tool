@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import ButtonBase from '@mui/material/ButtonBase';
 import { MenuItem, Select } from '@mui/material';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
 
-import './Upload.scss';
-import ScanUploadFile from './ScanUploadFile';
+import { scanWithGPT } from '@/apis/services/scan';
 import ScanSourceCode from './ScanSourceCode';
-import usePrepare from './hooks/usePrepare';
+import ScanUploadFile from './ScanUploadFile';
+import './Upload.scss';
 import { SCAN_MODE } from './constant';
+import usePrepare from './hooks/usePrepare';
 
 const Upload: React.FC = () => {
   const { t } = useTranslation();
@@ -31,6 +32,8 @@ const Upload: React.FC = () => {
     previewCode,
     scanMode,
   } = usePrepare();
+
+  const [testData, setTestData] = useState('');
 
   return (
     <Box className='upload'>
@@ -86,8 +89,18 @@ const Upload: React.FC = () => {
           <ButtonBase onClick={handleScanFile}>
             {t('content.upload.scan')}
           </ButtonBase>
+          <ButtonBase
+            onClick={async () => {
+              const response = await scanWithGPT(code);
+              setTestData(response.data);
+              console.log(response);
+            }}
+          >
+            {t('content.upload.scan')}
+          </ButtonBase>
         </Box>
       )}
+      {testData}
     </Box>
   );
 };
