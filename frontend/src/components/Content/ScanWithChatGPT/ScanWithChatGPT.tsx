@@ -37,7 +37,7 @@ const ScanWithChatGPT: React.FC = () => {
       setIsLoading(true);
 
       const response = await fetch(
-        `${BASE_URL}/answer?string=${decodeURIComponent(src)}&severity=${severity}`,
+        `${BASE_URL}/answer?string=${encodeURIComponent(src)}&severity=${severity}`,
       );
       const reader = response.body?.getReader();
 
