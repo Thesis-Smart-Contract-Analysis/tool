@@ -41,14 +41,40 @@
           }
 
           display: flex;
+          gap: 2.4rem;
+          align-items: center;
 
           .header-nav__item {
             width: auto;
             font-size: 1.6rem;
             font-weight: 500;
             line-height: 2.4rem;
+            left: 0;
             color: $primary-blue-950;
             cursor: pointer;
+            text-decoration: none;
+
+            &::after {
+              content: '';
+              position: absolute;
+              width: 0;
+            }
+
+            &--active {
+              position: relative;
+              color: $primary-blue-500;
+
+              &::after {
+                width: 100%;
+                height: 0.4rem;
+                border-radius: 0.8rem;
+                background-color: $primary-blue-400;
+                bottom: -0.4rem;
+                left: 0;
+                z-index: 1;
+                transition: width 0.1s linear;
+              }
+            }
           }
 
           .header-nav__document {
@@ -59,6 +85,26 @@
             border-radius: 0.8rem;
             background: $bg-primary;
             box-shadow: $btn-box-shadow;
+          }
+
+          .header-nav__github {
+            text-decoration: none;
+            height: 3.6rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 2.4rem 1.2rem;
+            box-shadow: $btn-box-shadow;
+            border-radius: 0.8rem;
+
+            .MuiTypography-root {
+              font-size: 1.6rem;
+            }
+
+            .MuiSvgIcon-root {
+              font-size: 3.2rem;
+            }
           }
         }
       }

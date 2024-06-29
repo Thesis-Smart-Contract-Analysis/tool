@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
 
-import { ResultContext } from '@/context/ResultContext';
 import ScanSourceCode from './ScanSourceCode';
 import ScanUploadFile from './ScanUploadFile';
 import './Upload.scss';
@@ -33,10 +32,13 @@ const Upload: React.FC = () => {
     scanMode,
   } = usePrepare();
 
-  const { setIsScanWithChatGPT } = useContext(ResultContext);
-
   return (
     <Box className='upload'>
+      <Typography
+        className='upload__title upload__title--padding'
+        id='scan-now'
+      ></Typography>
+
       <Typography className='upload__title'>
         {t('content.upload.title')}
       </Typography>
@@ -71,15 +73,6 @@ const Upload: React.FC = () => {
       </Box>
 
       <Box className={`upload__control`}>
-        <ButtonBase
-          className='upload__control--chatgpt'
-          onClick={() => {
-            setIsScanWithChatGPT((prev) => !prev);
-          }}
-        >
-          {t('content.chatgpt.scan')}
-        </ButtonBase>
-
         {scanMode === SCAN_MODE.CHOOSE_FILE ? (
           <ButtonBase disabled={previewCode === ''} onClick={handleScanFile}>
             {t('content.upload.scan')}

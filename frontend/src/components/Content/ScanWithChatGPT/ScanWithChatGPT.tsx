@@ -58,13 +58,6 @@ const ScanWithChatGPT: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    document.getElementById('chatgpt')?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
-  }, []);
-
   return (
     <Box id='chatgpt' className='chatgpt'>
       <Box className='chatgpt-container'>

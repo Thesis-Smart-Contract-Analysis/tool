@@ -16,15 +16,14 @@ import Upload from './Upload/Upload';
 
 const Content: React.FC = () => {
   const { t } = useTranslation();
-  const { result, currentFileName, currentSourceCode, isScanWithChatGPT } =
+  const { result, currentFileName, currentSourceCode } =
     useContext(ResultContext);
 
   return (
     <Container>
-      <Box className='content' id='scan-now'>
+      <Box className='content'>
         <Typography className='content__title'>{t('content.title')}</Typography>
         <Upload />
-        {isScanWithChatGPT ? <ScanWithChatGPT /> : null}
         {result ? <Result /> : null}
         {result?.success ? (
           <AuditReport
@@ -35,6 +34,7 @@ const Content: React.FC = () => {
             }
           />
         ) : null}
+        <ScanWithChatGPT />
       </Box>
     </Container>
   );

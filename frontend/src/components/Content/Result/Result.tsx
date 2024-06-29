@@ -5,8 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import { RESULT_TYPE } from '@/enums';
 import { ResultContext } from '@/context/ResultContext';
+import { RESULT_TYPE } from '@/enums';
 
 import './Result.scss';
 import ResultBoard from './ResultBoard/ResultBoard';

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
-import { useTypeWriter } from '@/hooks/useTypeWriter';
 import sourceCode from '@/assets/solidity-source-code.png';
+import { useTypeWriter } from '@/hooks/useTypeWriter';
 
 import { ANIMATION_TEXT } from './constant';
 import './Hero.scss';
@@ -20,7 +20,7 @@ const Hero: React.FC = () => {
 
   return (
     <Container>
-      <section className='hero'>
+      <section className='hero' id='home'>
         <Box className='hero__content'>
           <Box className='hero__description'>
             <Box className='hero__text-wrap'>
@@ -37,7 +37,9 @@ const Hero: React.FC = () => {
               <a href='#scan-now' className='scan-now'>
                 {t('hero.scan-now')}
               </a>
-              <a className='more'>{t('hero.more')}</a>
+              <a href='#chatgpt' className='more'>
+                ChatGPT
+              </a>
             </Box>
           </Box>
           <Box className='hero__image'>

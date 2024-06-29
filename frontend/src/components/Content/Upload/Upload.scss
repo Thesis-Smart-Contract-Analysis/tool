@@ -23,6 +23,12 @@
     background-color: white;
     border-radius: 1.2rem;
 
+    &--padding {
+      top: -4rem;
+      left: 4rem;
+      box-shadow: none;
+    }
+
     &.MuiTypography-root {
       font-size: 1.8rem;
       font-weight: 500;

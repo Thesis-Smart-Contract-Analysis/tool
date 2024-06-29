@@ -1,21 +1,16 @@
 import React from 'react';
 
-import { useTranslation } from 'react-i18next';
-import type { ParseKeys } from 'i18next';
-
+import GitHubIcon from '@mui/icons-material/GitHub';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
+import Typography from '@mui/material/Typography';
 
 import logo from '@/assets/logo.png';
 
-import { NAVBAR_MENU } from './constant';
 import './Header.scss';
 
 const Header: React.FC = () => {
-  const { t } = useTranslation();
   return (
     <Container>
       <header className='header'>
@@ -27,17 +22,13 @@ const Header: React.FC = () => {
 
           <Box className='header-nav__wrapper'>
             <List className='header-nav__menu'>
-              {NAVBAR_MENU.map((item) => {
-                const tItem = `header.${item}` as ParseKeys;
-                return (
-                  <ListItem key={item} className='header-nav__item'>
-                    {t(tItem)}
-                  </ListItem>
-                );
-              })}
-              <ListItem className='header-nav__document'>
+              <a className='header-nav__github'>
+                <Typography>GITHUB</Typography>
+                <GitHubIcon />
+              </a>
+              {/* <ListItem className='header-nav__document'>
                 {t('header.docs')}
-              </ListItem>
+              </ListItem> */}
             </List>
           </Box>
         </Box>

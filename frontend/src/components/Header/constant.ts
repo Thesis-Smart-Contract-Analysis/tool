@@ -1,1 +1,1 @@
-export const NAVBAR_MENU = ['home', 'about-us'];
+export const NAVBAR_MENU = ['home', 'scan-now', 'chatgpt'];
