@@ -1,7 +1,7 @@
 from openai import OpenAI, AssistantEventHandler
 import time, json
 
-client = OpenAI(api_key="sk-proj-qlgDp6WBcaaGXYrc1IJeT3BlbkFJUosuNsTcSO0Z13w2PQzN")
+client = OpenAI(api_key="sk-proj-5gljFjQvIagdSLLNBH77T3BlbkFJJ53lHm4w8wezAi2EOrCc")
 MODEL = "gpt-3.5-turbo"
 KB_PATH = "./services/prompts/combination-kb.md"
 QUERY_TEMPLATE_PATH = "./services/prompts/query.md"
