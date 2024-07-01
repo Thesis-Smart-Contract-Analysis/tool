@@ -1,0 +1,36 @@
+Công cụ phân tích hợp đồng thông minh So1Scan
+
+Công cụ này được phát triển bằng các công nghệ với các phiên bản như sau:
+- Hệ điều hành Linux và Python >=3.10 hoặc Docker
+- Node.js >=18.0 cùng thư viện React.js 18
+
+Để hỗ trợ trong việc thiết lập các phụ thuộc của backend, mã nguồn có cung cấp tập tin docker-compose.yml. Để chạy backend, sử dụng câu lệnh sau trong thư mục gốc của mã nguồn:
+
+docker compose up -d
+
+Trong trường hợp không sử dụng Docker, chạy các câu lệnh sau:
+- Truy cập vào thư mục services: 
+	pip install --upgrade pip
+	pip install -r requirements.txt
+- solc-select install all
+- Khai báo biến môi trường cho Flask: 
+	export FLASK_APP=services/app.py
+	FLASK_ENV=development
+- Chạy Flask:
+	flask run --host=0.0.0.0 --port=5000
+
+Backend sẽ chạy ở port 5000 tại localhost.
+
+Đối với frontend, truy cập vào thư mục frontend. Sau đó, sử dụng các câu lệnh sau:
+- Cài đặt các phụ thuộc:
+	npm install
+- Khai báo biến môi trường cho React.js:
+	Tạo tập tin .env trong thư mục frontend và thêm vào hai biến môi trường như sau:
+		VITE_LOCAL_API_URL=http://localhost
+		VITE_LOCAL_API_PORT=5000
+- Chạy React.js:
+	npm run dev
+
+
+Frontend sẽ chạy ở port 5173
+
